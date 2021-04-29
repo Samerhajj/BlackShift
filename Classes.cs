@@ -3,127 +3,133 @@ using System.Collections.Generic;
 namespace Box
 {
     // Item Class
-    // name , number , pricce 
-
-    class Item
+    // name , number , price 
+    public class Item
     {
         protected string name;
         protected int number;
         protected double price;
+
         public Item(string name, int number, double price)
         {
             this.name = name;
             this.number = number;
             this.price = price;
         }//contractor Item
-        public string toString()
+        public override string ToString()
         {
             return "name of the item " + name + " number of the item " + number + " price of the item " + price + "$\n";
-        }//toString Item
+        }//ToString Item
     }//End of Class Item
 
-    class Employee
+    // Employee Class
+    // id , name , salary
+    public class Employee
     {
-        //prop
         public int id { get; set; }
         public string name { get; set; }
         public double salary { get; set; }
+
         public Employee(string name, int id,double salary)
         {
             this.name = name;
             this.id = id;
             this.salary = salary;
         }//contractor Employee
-        public string toString()
+        public override string ToString()
         {
             return "name : " + name + " id : " + id + " salary : " + salary;
-        }//tostring Employee
+        }//ToString Employee
     }//End of Class Employee
 
     // Part Class
-    // part_name,list(employees),list(items),numberOfemployees
-    class Part
+    // departmentName , list(employee) , list(item) , departmentNumber
+    public class Department
     {
-        protected string part_name;
+        protected string departmentName;
         protected List<Employee> employees;
         protected List<Item> items;
-        protected int partNumber;
-        protected int numberOfemployees=0;
+        protected int departmentNumber;
 
-        public Part(int partNumber,string part_name)
+        public Department(int departmentNumber, string departmentName)
         {
-            this.partNumber = partNumber;
-            this.part_name = part_name;
+            this.departmentNumber = partNumber;
+            this.departmentName = part_name;
             items = new List<Item>();
             employees = new List<Employee>();
-        }//contractor Part
-        public void add_item(Item item)//add item to the part
+        }//contractor department
+        public void AddItem(Item item)//add item to the department
         {
             items.Add(item);
         }
-        public void add_employee(Employee employee)//add employee to the part
+        public void AddEmployee(Employee employee)//add employee to the department
         {
             employees.Add(employee);
         }
-        public void delete_employee(int id)
+        public void RemoveItem(Item item)
+        {
+            items.Remove(item);
+        }
+        public void RemoveEmployee(int id)
         {
             for (int i = 0; i < employees.Count; i++)
             {
                 if ((employees[i]).id == id) this.employees.Remove(employees[i]);
             }
         }//delete employee
-        public void set_employee() { }
-        public string toString()
+        public void SetEmployee() { }
+        public override string ToString()
         {
-            return "name of the part " + part_name + "\n";
-        }//toString for the Part
+            return "name of the department : " + departmentName + "\n";
+        }//ToString for the department
         public void print_all_items()//print all the items
         {
             foreach (var item in items)
             {
-                Console.Write(item.toString());
+                Console.Write(item.ToString());
             }
         }
-        public  void print_all_employees()
+        public void print_all_employees()
         {
             foreach (var employee in employees)
             {
-                Console.WriteLine("part number :" + partNumber + " " +employee.toString());
+                Console.WriteLine("department number :" + departmentNumber + " " + employee.ToString());
             }
-        }//print all the employees in the part
-
-    }//End of Class Part
-
+        }//print all the employees in the department
+    }//End of Class Department
 
 
-    class Store
+    // Store Class
+    // name , parts
+    public class Storage
     {
-        protected string name;
-        protected List<Part> parts;
-        public List<Employee> employees;
-        public Store(string name)
+        public string Name { get; set; }
+        private List<Department> departments;
+
+        public Storage(string name)
         {
-            this.name = name;
-            parts = new List<Part>();
-            employees = new List<Employee>();
+            this.Name = name;
+            departments = new List<Department>();
         }//contractor Store
-        public void add_part(Part part)//add part to the store
+        public void AddDepartment(Department department)//add a department to the store
         {
-            parts.Add(part);
+            departments.Add(department);
         }
-        public void add_employee(Employee employee)//add employee to the store
+        public void RemoveDepartment(Department department)
         {
-            employees.Add(employee);
+            departments.Remove(department);
         }
         public void print_all_parts()
         {
-            foreach (var item in parts)
+            foreach (var department in departments)
             {
-                Console.Write(item.toString());
+                Console.Write(department.toString());
             }
-        }//print all parts details
+        }//print all departments details
     }
-    class main
+
+
+    public class main
     {
         public static void print_all_employees_d(int numOfEmployees)
         {
@@ -147,14 +153,14 @@ namespace Box
         static void Main(string[] args)
         {
 
-            //Stroe
-            Store store = new Store("BlackShift");
+            //Store
+            Storage store = new Storage("BlackShift");
 
             //Parts
-            Part part_1 = new Part(1,"Part_1");
-            Part part_2 = new Part(2,"Part_2");
-            Part part_3 = new Part(3,"Part_3");
-            Part part_4 = new Part(4,"Part_4");
+            Department part_1 = new Department(1,"Part_1");
+            Department part_2 = new Department(2,"Part_2");
+            Department part_3 = new Department(3,"Part_3");
+            Department part_4 = new Department(4,"Part_4");
 
             //define Employees
             Employee emp1 = new Employee("mohamed", 477928892,7000);
@@ -168,26 +174,23 @@ namespace Box
             Item phone_3 = new Item("Iphone", 102, 1500);
             Item phone_4 = new Item("Iphone", 103, 1200);
 
-            //add part to stroe
-            store.add_part(part_1);
-            store.add_part(part_2);
-            store.add_part(part_3);
-            store.add_part(part_4);
-
-            //add employees to store
-            store.add_employee(emp1);
+            //add part to store
+            store.AddDepartment(part_1);
+            store.AddDepartment(part_2);
+            store.AddDepartment(part_3);
+            store.AddDepartment(part_4);
 
             //add employees to a part
-            part_1.add_employee(emp1);
-            part_1.add_employee(emp2);
-            part_2.add_employee(emp3);
-            part_3.add_employee(emp4);
+            part_1.AddEmployee(emp1);
+            part_1.AddEmployee(emp2);
+            part_2.AddEmployee(emp3);
+            part_3.AddEmployee(emp4);
 
             //add items to a part
-            part_1.add_item(phone_1);
-            part_1.add_item(phone_2);
-            part_2.add_item(phone_3);
-            part_3.add_item(phone_4);
+            part_1.AddItem(phone_1);
+            part_1.AddItem(phone_2);
+            part_2.AddItem(phone_3);
+            part_3.AddItem(phone_4);
 
             //print
             part_1.print_all_items();
@@ -200,10 +203,6 @@ namespace Box
             part_2.print_all_employees();
             part_3.print_all_employees();
             part_4.print_all_employees();
-
-
-
-
         }
     }
 }
