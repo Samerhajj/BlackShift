@@ -23,13 +23,15 @@ namespace StockControl
         public Products()
         {
             InitializeComponent();
-            List<Product> products = new List<Product>();
-            products.Add(new Product() { ID = 1, Name = "Ashley", Quantity = 3, Price = 3.4 });
-            products.Add(new Product() { ID = 2, Name = "Ashlsey", Quantity = 32, Price = 32.4 });
-            products.Add(new Product() { ID = 3, Name = "Ashley", Quantity = 3, Price = 31.4 });
-            products.Add(new Product() { ID = 4, Name = "Ashley", Quantity = 3, Price = 34.4 });
-            products.Add(new Product() { ID = 5, Name = "Ashley", Quantity = 3, Price = 32.4 });
-            products.Add(new Product() { ID = 6, Name = "Ashley", Quantity = 3, Price = 32.4 });
+            List<Product> products = new List<Product>()
+            {
+                new Product(1, "Ashley", 3.4, 3),
+                new Product(2, "Ashlsey", 32.4, 32),
+                new Product(3, "Ashley", 31.4 ,3),
+                new Product(4, "Ashley", 34.4, 3),
+                new Product(5, "Ashley", 32.4 ,3),
+                new Product(6, "Ashley", 32.4, 3),
+            };
             ProductGrid.ItemsSource = products;
         }
         

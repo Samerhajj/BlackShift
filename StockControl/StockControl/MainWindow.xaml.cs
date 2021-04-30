@@ -24,12 +24,22 @@ namespace StockControl
         {
             InitializeComponent();
         }
-        private void btnLogin_Click(object sender, RoutedEventArgs e)
+        //why are we using async/await:
+        //when turning a method into async it allows us to write the code as a sequence of statements
+        //the compiler waits for a task (where the await keyword is written) before jumping to the next line of code.
+        //async/await is good in this case because it runs the task and wait for it to finish (on a different Thread).
+        private async void btnLogin_Click(object sender, RoutedEventArgs e)
         {
             if (txtPassword.Password.ToLower() == "admin" && txtUsername.Text.ToLower() == "admin")
             {
-                MessageBox.Show("Proccessing Login detaiils");
-                Thread.Sleep(2000);
+                login_popup.IsOpen = true;
+                //tasks normaly includes a different Thread than the main thread,
+                //there for we had to add asyc/await to force the main thread to wait for the task to finish.
+                //The Lambda operator => separates the input parameters on the left side from the lambda body on the right side.
+                await Task.Run( () => 
+                {
+                    Thread.Sleep(2000);
+                });
                 MessageBox.Show("Admin Confirmed, enjoy your stay");
                 MainPage mainpage = new MainPage();
                 Window main = new Window();
@@ -51,6 +61,5 @@ namespace StockControl
             txtUsername.Text = "";
             txtPassword.Clear();
         }
-        
     }
 }
