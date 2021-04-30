@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using System.Threading;
 namespace StockControl
 {
     /// <summary>
@@ -28,6 +28,9 @@ namespace StockControl
         {
             if (txtPassword.Password.ToLower() == "admin" && txtUsername.Text.ToLower() == "admin")
             {
+                MessageBox.Show("Proccessing Login detaiils");
+                Thread.Sleep(2000);
+                MessageBox.Show("Admin Confirmed, enjoy your stay");
                 MainPage mainpage = new MainPage();
                 Window main = new Window();
                 main.Content = mainpage;
@@ -48,5 +51,6 @@ namespace StockControl
             txtUsername.Text = "";
             txtPassword.Clear();
         }
+        
     }
 }
