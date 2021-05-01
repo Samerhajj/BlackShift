@@ -7,10 +7,10 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
           Title="Login" Height="319" Width="300" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" FontSize="14" Background="#04c582" Visibility="Visible">
-    
+
     <Grid>
         <Border Background="#2e3137" CornerRadius="20" Margin="20,20,18,17">
-            <StackPanel  Margin="20,20,20,66">
+            <StackPanel  Margin="20,10,20,66">
                 <Label Content="Login" FontSize="25" HorizontalAlignment="Center" Foreground="White" />
                 <Separator></Separator>
                 <Label Content="Username" Foreground="White"/>
@@ -22,8 +22,9 @@
         <DockPanel Width="300" Height="300" HorizontalAlignment="Left" Margin="0,0,35,0">
             <Button Content="LOGIN" x:Name="btnLogin"  Background="#545d6a" FontSize="18" Margin="60,226,60,46" Click="btnLogin_Click" HorizontalAlignment="Left"/>
             <Label Content="Clear" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="29" Width="77" Margin="0,0,20,45" Background="#545d6a" MouseLeftButtonDown ="Label_MouseLeftButtonDown" />
+            <Popup x:Name="login_popup" AllowsTransparency="True" PopupAnimation="Slide" IsOpen="False" StaysOpen="False" HorizontalOffset="60" VerticalOffset="-100">
+                <TextBlock Foreground="#04c582" Text="Processing Login Details..."/>
+            </Popup>
         </DockPanel>
-
-
     </Grid>
 </Window>
