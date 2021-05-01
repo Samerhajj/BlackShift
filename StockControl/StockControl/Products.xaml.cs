@@ -23,22 +23,46 @@ namespace StockControl
         public Products()
         {
             InitializeComponent();
-            List<Product> products = new List<Product>()
-            {
-                new Product(1, "Ashley", 3.4, 3),
-                new Product(2, "Ashlsey", 32.4, 32),
-                new Product(3, "Ashley", 31.4 ,3),
-                new Product(4, "Ashley", 34.4, 3),
-                new Product(5, "Ashley", 32.4 ,3),
-                new Product(6, "Ashley", 32.4, 3),
-            };
+          
             ProductGrid.ItemsSource = products;
         }
-        
+        Product productss = new Product();
 
-        private void Grid_Selected(object sender, RoutedEventArgs e)
+     
+        private List<Product> products = new List<Product>();
+      
+        private void addBtn_Click(object sender, RoutedEventArgs e)
         {
+      
+            products.Add(new Product()
+            {
+                ID = Convert.ToInt32(txtID.Text),
+                Name = txtName.Text,
+                Quantity = Convert.ToInt32(txtQuantity.Text),
+                Price = Convert.ToDouble(txtPriceNoTax.Text),
+                PriceTax =productss.PriceWithTax(Convert.ToDouble(txtPriceNoTax.Text))+Convert.ToDouble(txtPriceNoTax.Text)
 
+            }) ;
+
+            ProductGrid.ItemsSource = null;
+            ProductGrid.ItemsSource = products;
+            ClearUi();
+        }
+
+        private void deleteBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedItem = ProductGrid.SelectedItem;
+            if(selectedItem!=null)
+            {
+             
+            }
+        }
+        private void ClearUi()
+        {
+            txtID.Text = "";
+            txtName.Text = "";
+            txtQuantity.Text = "";
+            txtPriceNoTax.Text = "";
         }
     }
 }
