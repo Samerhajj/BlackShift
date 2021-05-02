@@ -12,45 +12,63 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Threading;
+
 namespace StockControl
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for MainPage.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : UserControl
     {
         public MainWindow()
         {
             InitializeComponent();
-        }
-        private void btnLogin_Click(object sender, RoutedEventArgs e)
-        {
-            if (txtPassword.Password.ToLower() == "admin" && txtUsername.Text.ToLower() == "admin")
-            {
-                MessageBox.Show("Proccessing Login detaiils");
-                Thread.Sleep(2000);
-                MessageBox.Show("Admin Confirmed, enjoy your stay");
-                MainPage mainpage = new MainPage();
-                Window main = new Window();
-                main.Content = mainpage;
-                main.Show();
-                this.Close();
-            }
-            else
-            {
-                MessageBox.Show ("Incorrect username or password,please use admin as username and password");
-                txtUsername.Text = "";
-                txtPassword.Clear();
-            }
+            
 
         }
-
-        private void Label_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        List<Employee> employees = new List<Employee>();
+        List<Product> products = new List<Product>();
+        private void ListViewMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            txtUsername.Text = "";
-            txtPassword.Clear();
+            int index = ListViewMenu.SelectedIndex;
+            MoveCursorMenu(index);
+
+            switch (index)
+            {
+                case 0:
+                    GridPrincipal.Children.Clear();
+                    GridPrincipal.Children.Add(new HomePage());
+                    break;
+                case 1:
+                    GridPrincipal.Children.Clear();
+                    GridPrincipal.Children.Add(new InventoryManagementPage());
+                    break;
+                case 2:
+                    GridPrincipal.Children.Clear();
+                    GridPrincipal.Children.Add(new InventoryManagementPage());
+                    break;
+                case 3:
+                    GridPrincipal.Children.Clear();
+                    GridPrincipal.Children.Add(new EmployeePage(employees));
+               
+                    break;
+                case 4:
+                    GridPrincipal.Children.Clear();
+                    GridPrincipal.Children.Add(new ProductsPage(products));
+                    break;
+                case 5:
+                    GridPrincipal.Children.Clear();
+                    GridPrincipal.Children.Add(new AboutUsPage());
+                    break;
+                default:
+                    break;
+            }
         }
-        
+        private void MoveCursorMenu(int index)
+        {
+            TransitionSlideHome.OnApplyTemplate();
+            GridCursor.Margin = new Thickness(0, 120 + (60 * index), 0, 0);
+        }
+
     }
 }

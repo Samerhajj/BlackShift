@@ -4,23 +4,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StockControl.Classes
+namespace StockControl
 {
     public class Employee
     {
-        public int Id { get; set; }
+        public int ID { get; set; }
         public string Name { get; set; }
+        public string DateOfBirth { get; set; }
+        public string Sex { get; set; }
+        public string Department { get; set; }
         public double Salary { get; set; }
 
+        public Employee() { }
         public Employee(string name, int id, double salary)
         {
             this.Name = name;
-            this.Id = id;
+            this.ID = id;
             this.Salary = salary;
         }
         public override string ToString()
         {
-            return "Name : " + Name + " Id : " + Id + " Salary : " + Salary;
+            return "Name : " + Name + " Id : " + ID + " Salary : " + Salary;
         }
     }
+
 }

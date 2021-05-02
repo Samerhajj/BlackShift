@@ -18,40 +18,36 @@ namespace StockControl
     /// <summary>
     /// Interaction logic for Products.xaml
     /// </summary>
-    public partial class Products : UserControl
+    public partial class ProductsPage : UserControl
     {
-        public Products(List<Product> products)
+        private Product currentProduct = new Product();
+        List<Product> products;
+
+        public ProductsPage(List<Product> products)
         {
             InitializeComponent();
           
             ProductGrid.ItemsSource = products;
             this.products = products;
         }
-        Product productss = new Product();
-
-
-        private List<Product> products;
       
         private void addBtn_Click(object sender, RoutedEventArgs e)
         {
             try
-          
             {
                 products.Add(new Product()
-            {
-                ID = Convert.ToInt32(txtID.Text),
-                Name = txtName.Text,
-                Quantity = Convert.ToInt32(txtQuantity.Text),
-                Price = Convert.ToDouble(txtPriceNoTax.Text),
-                PriceTax = productss.PriceWithTax(Convert.ToDouble(txtPriceNoTax.Text)) + Convert.ToDouble(txtPriceNoTax.Text)
-
-            }) ;
-        }
+                {
+                    ID = Convert.ToInt32(txtID.Text),
+                    Name = txtName.Text,
+                    Quantity = Convert.ToInt32(txtQuantity.Text),
+                    Price = Convert.ToDouble(txtPriceNoTax.Text),
+                    PriceTax = currentProduct.PriceWithTax(Convert.ToDouble(txtPriceNoTax.Text)) + Convert.ToDouble(txtPriceNoTax.Text)
+                });
+            }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-               
 
             ProductGrid.ItemsSource = null;
             ProductGrid.ItemsSource = products;
@@ -74,6 +70,5 @@ namespace StockControl
             txtQuantity.Text = "";
             txtPriceNoTax.Text = "";
         }
-      
     }
 }

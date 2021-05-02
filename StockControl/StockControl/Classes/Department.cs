@@ -36,7 +36,7 @@ namespace StockControl.Classes
         {
             for (int i = 0; i < employees.Count; i++)
             {
-                if ((employees[i]).Id == id) this.employees.Remove(employees[i]);
+                if ((employees[i]).ID == id) this.employees.Remove(employees[i]);
             }
         }
         public void SetEmployee() { }

@@ -18,9 +18,9 @@ namespace StockControl
     /// <summary>
     /// Interaction logic for AboutUs.xaml
     /// </summary>
-    public partial class AboutUs : UserControl
+    public partial class AboutUsPage : UserControl
     {
-        public AboutUs()
+        public AboutUsPage()
         {
             InitializeComponent();
         }

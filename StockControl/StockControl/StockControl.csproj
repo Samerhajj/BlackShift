@@ -63,11 +63,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="AboutUs.xaml">
+    <Page Include="AboutUsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Employee.xaml">
+    <Page Include="EmployeePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -75,51 +75,53 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="InventoryManagement.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="MainPage.xaml">
+    <Page Include="InventoryManagementPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LoginWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="AboutUs.xaml.cs">
-      <DependentUpon>AboutUs.xaml</DependentUpon>
+    <Compile Include="AboutUsPage.xaml.cs">
+      <DependentUpon>AboutUsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Employ.cs" />
-    <Compile Include="Employee.xaml.cs">
-      <DependentUpon>Employee.xaml</DependentUpon>
+    <Compile Include="Classes\Department.cs" />
+    <Compile Include="Classes\Employee.cs" />
+    <Compile Include="Classes\Storage.cs" />
+    <Compile Include="EmployeePage.xaml.cs">
+      <DependentUpon>EmployeePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="InventoryManagement.xaml.cs">
-      <DependentUpon>InventoryManagement.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="MainPage.xaml.cs">
-      <DependentUpon>MainPage.xaml</DependentUpon>
+    <Compile Include="InventoryManagementPage.xaml.cs">
+      <DependentUpon>InventoryManagementPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LoginWindow.xaml.cs">
+      <DependentUpon>LoginWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Products.xaml">
+    <Page Include="ProductsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Product.cs" />
-    <Compile Include="Products.xaml.cs">
-      <DependentUpon>Products.xaml</DependentUpon>
+    <Compile Include="Classes\Product.cs" />
+    <Compile Include="ProductsPage.xaml.cs">
+      <DependentUpon>ProductsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

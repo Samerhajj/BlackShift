@@ -18,9 +18,9 @@ namespace StockControl
     /// <summary>
     /// Interaction logic for InventoryManagement.xaml
     /// </summary>
-    public partial class InventoryManagement : UserControl
+    public partial class InventoryManagementPage : UserControl
     {
-        public InventoryManagement()
+        public InventoryManagementPage()
         {
             InitializeComponent();
         }

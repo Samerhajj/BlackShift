@@ -18,16 +18,16 @@ namespace StockControl
     /// <summary>
     /// Interaction logic for Employee.xaml
     /// </summary>
-    public partial class Employee : UserControl
+    public partial class EmployeePage : UserControl
     {
-        public Employee(List<Employ> employee)
+        private List<Employee> employee;
+     
+        public EmployeePage(List<Employee> employee)
         {
             InitializeComponent();
             EmployeeGrid.ItemsSource = employee;
             this.employee = employee;
         }
-        private List<Employ> employee;
-
 
         private void deleteBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -39,7 +39,7 @@ namespace StockControl
             
             try
             {
-                employee.Add(new Employ()
+                employee.Add(new Employee()
                 {
                     ID = Convert.ToInt32(txtEmployeeID.Text),
                     Name = txtEmployeeName.Text,
