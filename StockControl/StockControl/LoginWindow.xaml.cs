@@ -61,5 +61,13 @@ namespace StockControl
             txtUsername.Text = "";
             txtPassword.Clear();
         }
+
+        private void txtLogin_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Enter)
+            {
+                btnLogin_Click(sender, e);
+            }
+        }
     }
 }
