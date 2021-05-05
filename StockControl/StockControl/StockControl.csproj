@@ -161,7 +161,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Kinneret LOGO.jpg" />
-    <Resource Include="Images\warehousestock.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\LoadAnimation.gif" />

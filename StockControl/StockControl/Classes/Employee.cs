@@ -10,7 +10,7 @@ namespace StockControl
     {
         public int ID { get; set; }
         public string Name { get; set; }
-        public string DateOfBirth { get; set; }
+        public DateTime DateOfBirth { get; set; }
         public string Sex { get; set; }
         public string Department { get; set; }
         public double Salary { get; set; }

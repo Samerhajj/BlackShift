@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:StockControl"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-          Title="Login" Height="319" Width="300" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" FontSize="14" Background="#04c582" Visibility="Visible">
+        Title="Login" Height="319" Width="300" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" FontSize="14" Background="#04c582" Visibility="Visible">
     
     <Grid>
         <Border Background="#2e3137" CornerRadius="20" Margin="20,20,18,17">
@@ -26,7 +26,5 @@
                 <TextBlock Foreground="#04c582" Text="Processing Login Details..."/>
             </Popup>
         </DockPanel>
-
-
     </Grid>
 </Window>

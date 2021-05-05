@@ -4,9 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:StockControl"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="1024">
-    <Grid Background="#FFEEEEEE">
+    <Grid Background="#FFEEEEEE" Margin="0,20,0,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*" />
             <ColumnDefinition Width="2*"/>
@@ -25,8 +26,11 @@
         <TextBlock FontSize="18" Foreground="Gray" Text="Employee Name" Width="142" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0" Grid.Column="1"/>
 
         <TextBox x:Name="txtEmployeeName" Width="127" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" MaxLength="25"  Grid.Column="1" />
-        <TextBlock Text="DateOfBirth" Grid.Column="2" FontSize="18" Foreground="Gray" Margin="10,0,0,0" />
-        <TextBox x:Name="txtDateOfBirth" Width="127" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" MaxLength="10"  Grid.Column="2" />
+        <TextBlock FontSize="18" Foreground="Gray" Text="Date Of Birth" Width="142" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0" Grid.Column="2"/>
+        <Button x:Name="btn_Date" Content="{Binding ElementName=calBirthDate, Path=SelectedDate}" Grid.Column="2" Click="DatePopup_Click"/>
+        <Popup x:Name="popupDate" PopupAnimation="Slide" IsOpen="False" StaysOpen="False" PlacementTarget="{Binding ElementName=btn_Date}">
+            <Calendar x:Name="calBirthDate" SelectionMode="SingleDate" SelectedDate="{x:Static sys:DateTime.Today}" DisplayDateEnd="{x:Static sys:DateTime.Today}"/>
+        </Popup>
         <TextBlock Text="Sex" Grid.Column="3" FontSize="18" Foreground="Gray" Margin="10,0,0,0"/>
         <TextBox x:Name="txtSex" Width="127" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" MaxLength="25"  Grid.Column="3" />
         <TextBlock Text="Department" Grid.Column="4" FontSize="18" Foreground="Gray" Margin="5,0,0,0"/>
@@ -36,12 +40,10 @@
             <Button Grid.Column="5" x:Name="editBtn" Width="75" Height="28" Content="Edit"  FontSize="14" Background="LightBlue"/>
             <Button Grid.Column="5" x:Name="deleteBtn" Width="75" Height="28" Content="Delete"  FontSize="14" Background="LightBlue" Click="deleteBtn_Click"/>
         </StackPanel>
-        <DataGrid x:Name="EmployeeGrid" Margin="0,10,10,10" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="6">
+        <DataGrid x:Name="EmployeeGrid" Margin="0,10,10,10" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="6" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" IsReadOnly="True">
             <DataGrid.Columns>
-                <DataGridCheckBoxColumn Header="Select" Binding="{Binding Path=Selected,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
-                </DataGridCheckBoxColumn >
+                <DataGridCheckBoxColumn Header="Select" Binding="{Binding Path=Selected,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsReadOnly="False"/>
             </DataGrid.Columns>
         </DataGrid>
-
     </Grid>
 </UserControl>

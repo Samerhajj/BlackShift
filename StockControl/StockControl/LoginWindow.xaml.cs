@@ -42,15 +42,15 @@ namespace StockControl
                     Thread.Sleep(2000);
                 });
                 MessageBox.Show("Admin Confirmed, enjoy your stay");
-                MainWindow mainpage = new MainWindow();
-                Window main = new Window();
-                main.Content = mainpage;
-                main.Show();
+
+                Window mainWindow = new Window();
+                mainWindow.Content = new MainWindow();      
+                mainWindow.Show();
                 this.Close();
             }
             else
             {
-                MessageBox.Show ("Incorrect username or password,please use admin as username and password");
+                MessageBox.Show ("Incorrect username or password,\nPlease use admin as username and password", "Incorrecnt Input", MessageBoxButton.OKCancel, MessageBoxImage.Error);
                 txtUsername.Text = "";
                 txtPassword.Clear();
             }

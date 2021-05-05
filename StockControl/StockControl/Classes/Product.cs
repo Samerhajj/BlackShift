@@ -8,6 +8,7 @@ namespace StockControl
 {
    public class Product
     {
+        private const double TAX = 17 / 100;
         public int ID { get; set; }
         public string Name { get; set; }
         public int Quantity { get; set; }
@@ -16,7 +17,7 @@ namespace StockControl
 
         public double PriceWithTax(double price)
         {
-            this.PriceTax = price * 17 / 100;
+            this.PriceTax = price * TAX;
             return PriceTax;
         }
 
