@@ -157,13 +157,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\warehousestock.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\Kinneret LOGO.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Images\LoadAnimation.gif" />
+    <Resource Include="Images\warehousestock.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets')" />

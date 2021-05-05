@@ -20,10 +20,12 @@ namespace StockControl
     /// </summary>
     public partial class SplashScreen : Window
     {
+       
+
         public SplashScreen()
         {
             InitializeComponent();
-            Media.Source = new Uri(Environment.CurrentDirectory + @"\LoadAnimation.gif");
+           
             Loading();
         }
         DispatcherTimer timer = new DispatcherTimer();
