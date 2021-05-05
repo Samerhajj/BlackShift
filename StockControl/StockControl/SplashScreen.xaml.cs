@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Media;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -24,12 +26,13 @@ namespace StockControl
 
         public SplashScreen()
         {
+            Thread.Sleep(300);
             InitializeComponent();
            
             Loading();
         }
         DispatcherTimer timer = new DispatcherTimer();
-  
+        SoundPlayer soundPlayer = new SoundPlayer();
 
         private void Media_Unloaded(object sender, RoutedEventArgs e)
         {
@@ -45,7 +48,7 @@ namespace StockControl
         void Loading()
         {
             timer.Tick += timer_tick;
-            timer.Interval = TimeSpan.FromMilliseconds(1600);
+            timer.Interval = TimeSpan.FromMilliseconds(1350);
             timer.Start();
         }
     }
