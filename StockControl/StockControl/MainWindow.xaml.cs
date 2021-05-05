@@ -12,27 +12,37 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO;
 
 namespace StockControl
 {
     /// <summary>
-    /// Interaction logic for MainPage.xaml
+    /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : UserControl
     {
+        List<Employee> employees = new List<Employee>();
+        List<Product> products = new List<Product>();
         public MainWindow()
         {
             InitializeComponent();
-            
-
+            MoveCursorMenu(0);
+            ChooseTab(0);
         }
-        List<Employee> employees = new List<Employee>();
-        List<Product> products = new List<Product>();
+
         private void ListViewMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             int index = ListViewMenu.SelectedIndex;
             MoveCursorMenu(index);
-
+            ChooseTab(index);
+        }
+        private void MoveCursorMenu(int index)
+        {
+            TransitionSlideHome.OnApplyTemplate();
+            GridCursor.Margin = new Thickness(0, 120 + (60 * index), 0, 0);
+        }
+        private void ChooseTab(int index)
+        {
             switch (index)
             {
                 case 0:
@@ -50,7 +60,6 @@ namespace StockControl
                 case 3:
                     GridPrincipal.Children.Clear();
                     GridPrincipal.Children.Add(new EmployeePage(employees));
-               
                     break;
                 case 4:
                     GridPrincipal.Children.Clear();
@@ -64,11 +73,5 @@ namespace StockControl
                     break;
             }
         }
-        private void MoveCursorMenu(int index)
-        {
-            TransitionSlideHome.OnApplyTemplate();
-            GridCursor.Margin = new Thickness(0, 120 + (60 * index), 0, 0);
-        }
-
     }
 }

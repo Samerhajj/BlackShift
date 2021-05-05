@@ -158,7 +158,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Kinneret LOGO.jpg" />
-    <Resource Include="Images\warehousestock.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets')" />

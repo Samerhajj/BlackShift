@@ -6,37 +6,28 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:StockControl"  
              mc:Ignorable="d" 
-             d:DesignHeight="700" d:DesignWidth="1000">
-    <Grid >
-        <TextBlock FontFamily="Cooper black" Foreground="Maroon" VerticalAlignment="Top" HorizontalAlignment="Center" FontWeight="ExtraBold" FontSize="30">WareHouse Management
-        </TextBlock>
+             d:DesignHeight="600" d:DesignWidth="774">
 
         <materialDesign:TransitioningContent x:Name="TransitionSlideHome" OpeningEffect="{materialDesign:TransitionEffect SlideInfromLeft,Duration=0:0:0.2}">
-            <Border  Width="auto"  BorderBrush="DarkGoldenrod" BorderThickness="4" Margin="2,50,0,0" >
-
+            <Border>
                 <Border.Background>
                     <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
-                        <GradientStop Color="Firebrick" Offset="0.9"/>
-                        <GradientStop Color="#000000" Offset="0.4"/>
+                        <GradientStop Color="#FF0069C0" Offset="1.9"/>
+                        <GradientStop Color="#FF222222" Offset="0"/>
                     </LinearGradientBrush>
                 </Border.Background>
                 <Grid>
-                    <TextBlock Width="700" FontSize="30" FontFamily="Cooper black" Foreground="Maroon" Margin="10,54,280,351" >
-                    Welcome to the homepage admin
-                        <LineBreak></LineBreak>
-                   
-                          <LineBreak></LineBreak>
-                        We hope you have a great time
-                        <LineBreak></LineBreak>
-                        <LineBreak></LineBreak>
-                          Please Enjoy Your Stay
+                    <TextBlock Width="370" Height="50" FontSize="30" FontFamily="Cooper black" Foreground="LightBlue" VerticalAlignment="Top" Margin="0,35,0,0">
+                Warehouse Management
                     </TextBlock>
-
-                    <Image Source="Images\warehousestock.jpg" Width="700" Height="340" Stretch="Fill" Margin="6,296,284,6"/>
+                    <TextBlock Width="700" Height="200" FontSize="30" FontFamily="Cooper black" Foreground="#FF0069C0" Margin="51,125,49,275">
+                        Welcome to the homepage admin
+                        <LineBreak/>
+                        We hope you have a great time
+                        <LineBreak/>
+                        Please Enjoy Your Stay
+                    </TextBlock>
                 </Grid>
             </Border>
-
         </materialDesign:TransitioningContent>
-
-    </Grid>
 </UserControl>

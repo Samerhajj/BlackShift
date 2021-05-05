@@ -21,12 +21,12 @@ namespace StockControl
     public partial class EmployeePage : UserControl
     {
         private List<Employee> employee;
-     
         public EmployeePage(List<Employee> employee)
         {
             InitializeComponent();
             EmployeeGrid.ItemsSource = employee;
             this.employee = employee;
+
         }
 
         private void deleteBtn_Click(object sender, RoutedEventArgs e)
@@ -36,17 +36,15 @@ namespace StockControl
 
         private void addEmployeeBtn_Click(object sender, RoutedEventArgs e)
         {
-            
             try
             {
                 employee.Add(new Employee()
                 {
                     ID = Convert.ToInt32(txtEmployeeID.Text),
                     Name = txtEmployeeName.Text,
-                    DateOfBirth=txtDateOfBirth.Text,
+                    DateOfBirth=((DateTime)calBirthDate.SelectedDate).Date,
                     Sex = txtSex.Text,
                     Department = txtDepartment.Text
-
                 });
             }
             catch (Exception ex)
@@ -57,13 +55,20 @@ namespace StockControl
             EmployeeGrid.ItemsSource = employee;
             ClearUi();
         }
-        private void ClearUi()
-        {
-            txtEmployeeID.Text = "";
-            txtEmployeeName.Text = "";
-            txtDateOfBirth.Text = "";
-            txtSex.Text = "";
-            txtDepartment.Text = "";
-        }
+    private void ClearUi()
+    {
+        txtEmployeeID.Text = "";
+        txtEmployeeName.Text = "";
+        calBirthDate.SelectedDate = DateTime.Today;
+        calBirthDate.DisplayDate = DateTime.Today;
+        txtSex.Text = "";
+        txtDepartment.Text = "";
+    }
+
+    private void DatePopup_Click(object sender, RoutedEventArgs e)
+    {
+        popupDate.IsOpen = true;
     }
 }
+}
+
