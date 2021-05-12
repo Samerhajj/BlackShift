@@ -41,7 +41,7 @@ namespace StockControl
                     Name = txtName.Text,
                     Quantity = Convert.ToInt32(txtQuantity.Text),
                     Price = Convert.ToDouble(txtPriceNoTax.Text),
-                    PriceTax = currentProduct.PriceWithTax(Convert.ToDouble(txtPriceNoTax.Text)) + Convert.ToDouble(txtPriceNoTax.Text)
+                    PriceTax = currentProduct.PriceWithTax(Convert.ToDouble(txtPriceNoTax.Text))
                 });
             }
             catch (Exception ex)
