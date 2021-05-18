@@ -99,7 +99,7 @@
     </Compile>
     <Compile Include="Classes\Department.cs" />
     <Compile Include="Classes\Employee.cs" />
-    <Compile Include="Classes\Storage.cs" />
+    <Compile Include="Classes\Warehouse.cs" />
     <Compile Include="EmployeePage.xaml.cs">
       <DependentUpon>EmployeePage.xaml</DependentUpon>
     </Compile>
