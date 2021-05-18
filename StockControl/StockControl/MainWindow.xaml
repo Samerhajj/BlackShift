@@ -44,8 +44,8 @@
 
                 <ListViewItem Height="60">
                     <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="Work" Width="30" VerticalAlignment="Center" Margin="5" FontFamily="Corbel Light"/>
-                        <TextBlock Text="Teams" FontSize="26" VerticalAlignment="Center" Margin="20,0"/>
+                        <materialDesign:PackIcon Kind="AccountGroup" Width="30" VerticalAlignment="Center" Margin="5" FontFamily="Corbel Light"/>
+                        <TextBlock Text="Departments" FontSize="26" VerticalAlignment="Center" Margin="20,0"/>
                     </StackPanel>
                 </ListViewItem>
 

@@ -8,13 +8,15 @@ namespace StockControl
 {
     public class Employee
     {
+        //Properties
         public int ID { get; set; }
         public string Name { get; set; }
-        public DateTime DateOfBirth { get; set; }
-        public string Sex { get; set; }
         public string Department { get; set; }
+        public string Gender { get; set; }
         public double Salary { get; set; }
+        public DateTime DateOfBirth { get; set; }
 
+        //Constructors
         public Employee() { }
         public Employee(string name, int id, double salary)
         {
@@ -22,6 +24,8 @@ namespace StockControl
             this.ID = id;
             this.Salary = salary;
         }
+        
+        //Methods
         public override string ToString()
         {
             return "Name : " + Name + " Id : " + ID + " Salary : " + Salary;
