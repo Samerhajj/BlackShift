@@ -61,7 +61,7 @@ namespace StockControl
         }
         private void editBtn_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show($"Tag is: {((Employee)((Button)sender).DataContext).ID}");
+            MessageBox.Show($"{(Employee)((Button)sender).DataContext}");
             UpdateDatagrid();
         }
 
