@@ -27,7 +27,8 @@ namespace StockControl
         List<Product> products = new List<Product>();
 
         HomePage homePage;
-        InventoryManagementPage managementPage;
+        OrderPage orderPage;
+        DepartmentsPage departmentsPage;
         EmployeePage employeePage;
         ProductsPage productsPage;
         AboutUsPage aboutUsPage;
@@ -61,11 +62,11 @@ namespace StockControl
                     break;
                 case 1:
                     GridPrincipal.Children.Clear();
-                    GridPrincipal.Children.Add(managementPage);
+                    GridPrincipal.Children.Add(orderPage);
                     break;
                 case 2:
                     GridPrincipal.Children.Clear();
-                    GridPrincipal.Children.Add(managementPage);
+                    GridPrincipal.Children.Add(departmentsPage);
                     break;
                 case 3:
                     GridPrincipal.Children.Clear();
@@ -86,7 +87,8 @@ namespace StockControl
         private void InitializePages()
         {
             homePage = new HomePage();
-            managementPage = new InventoryManagementPage();
+            departmentsPage = new DepartmentsPage();
+            orderPage = new OrderPage();
             employeePage = new EmployeePage(employees);
             productsPage = new ProductsPage(products);
             aboutUsPage = new AboutUsPage();

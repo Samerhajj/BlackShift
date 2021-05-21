@@ -70,5 +70,10 @@ namespace StockControl
             txtQuantity.Text = "";
             txtPriceNoTax.Text = "";
         }
+
+        private void editBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

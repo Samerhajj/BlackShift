@@ -8,41 +8,50 @@ namespace StockControl
 {
     public class Department
     {
-        protected string departmentName;
-        protected List<Employee> employees;
-        protected List<Product> products;
-        protected int departmentNumber;
+        //Properties
+        public int ID { get; set; }
+        public string Name { get; set; }
+        private Dictionary<int,Employee> employees;
+        private Dictionary<int,Product> products;
 
-        public Department(int departmentNumber, string departmentName)
+        //Constructors
+        public Department() { }
+        public Department(int departmentID, string departmentName)
         {
-            this.departmentNumber = departmentNumber;
-            this.departmentName = departmentName;
-            products = new List<Product>();
-            employees = new List<Employee>();
+            ID = departmentID;
+            this.Name = departmentName;
+            products = new Dictionary<int, Product>();
+            employees = new Dictionary<int, Employee>();
         }
-        public void AddItem(Product item)
+
+        //Methods
+        public void AddProduct(Product item)
         {
-            products.Add(item);
+            products.Add(item.ID, item);
         }
         public void AddEmployee(Employee employee)
         {
-            employees.Add(employee);
+            employees.Add(employee.ID, employee);
         }
-        public void RemoveItem(Product item)
+        public void RemoveProduct(int productID)
         {
-            products.Remove(item);
+            products.Remove(productID);
         }
-        public void RemoveEmployee(int id)
+        public void RemoveEmployee(int employeeID)
         {
-            for (int i = 0; i < employees.Count; i++)
-            {
-                if ((employees[i]).ID == id) this.employees.Remove(employees[i]);
-            }
+            employees.Remove(employeeID);
         }
-        public void SetEmployee() { }
+        public int EmployeeCapacity() 
+        {
+            return employees.Count();
+        }
+        public int ProductCapacity()
+        {
+            return products.Count();
+        }
         public override string ToString()
         {
-            return "Department Name : " + departmentName + "\n";
+            return "Department Name : " + Name + "\n";
         }
     }
 }
