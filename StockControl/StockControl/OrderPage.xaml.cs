@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace StockControl
 {
     /// <summary>
-    /// Interaction logic for InventoryManagement.xaml
+    /// Interaction logic for OrderPage.xaml
     /// </summary>
-    public partial class InventoryManagementPage : UserControl
+    public partial class OrderPage : UserControl
     {
-        public InventoryManagementPage()
+        public OrderPage()
         {
             InitializeComponent();
         }

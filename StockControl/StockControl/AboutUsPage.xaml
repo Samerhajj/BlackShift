@@ -11,7 +11,7 @@
         <materialDesign:TransitioningContent x:Name="TransitionSlideHome" OpeningEffect="{materialDesign:TransitionEffect SlideInfromLeft,Duration=0:0:0.2}">
             <StackPanel Margin="10,0,0,0">
             <TextBlock Text="We are students at the Kinneret Academic College" FontSize="20" FontWeight="Bold" Foreground="Gray"/>
-        <TextBlock Text="Doctor Mohanad Shini" FontSize="20" FontWeight="Bold" Foreground="Gray" VerticalAlignment="Bottom"/>
+            <TextBlock Text="Doctor Mohanad Shini" FontSize="20" FontWeight="Bold" Foreground="Gray" VerticalAlignment="Bottom"/>
             <TextBlock Text="This Project was created by the BlackShift Group" Foreground="Gray" FontSize="20" FontWeight="Bold"/>
             <TextBlock Text="Majd Assad,Samer Haj,Jeries Nesery,Mohamed Sayed Ahmad" Foreground="Gray" FontSize="20" FontWeight="Bold"/>
             <TextBlock Text="For Business inquiries please contact at funkyfour@bitcoin.com" Foreground="Gray" FontSize="20" FontWeight="Bold"/>

@@ -10,7 +10,7 @@
 
     <Grid Background="#FFEEEEEE">
         <!--This StackPanel is used on the Upper Center Grid for Buttons/Text.-->
-        <Grid x:Name="GridPrincipal" Margin="250,0,0,0">
+        <Grid x:Name="GridPrincipal" Margin="240,0,0,0">
             <Grid.ColumnDefinitions/>
             <!--<Grid x:Name="GridContainer" HorizontalAlignment="Center" VerticalAlignment="Center" Width="600" Height="550"/>-->
         </Grid>
@@ -37,8 +37,8 @@
 
                 <ListViewItem Height="60">
                     <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="Warehouse" Width="30" VerticalAlignment="Center" Margin="5" FontFamily="Corbel Light"/>
-                        <TextBlock Text="InvManagement" FontSize="22" VerticalAlignment="Center" Margin="20,0"/>
+                        <materialDesign:PackIcon Kind="Receipt" Width="30" VerticalAlignment="Center" Margin="5" FontFamily="Corbel Light"/>
+                        <TextBlock Text="Orders" FontSize="22" VerticalAlignment="Center" Margin="20,0"/>
                     </StackPanel>
                 </ListViewItem>
 
@@ -52,7 +52,7 @@
                 <ListViewItem Height="60">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="Worker" Width="30" VerticalAlignment="Center" Margin="5" FontFamily="Corbel Light"/>
-                        <TextBlock Text="Employee" FontSize="26" VerticalAlignment="Center" Margin="20,0"/>
+                        <TextBlock Text="Employees" FontSize="26" VerticalAlignment="Center" Margin="20,0"/>
                     </StackPanel>
                 </ListViewItem>
 
