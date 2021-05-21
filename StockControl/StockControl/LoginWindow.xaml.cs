@@ -33,6 +33,7 @@ namespace StockControl
 
             if (txtPassword.Password.ToLower() == "admin" && txtUsername.Text.ToLower() == "admin")
             {
+                ((Button)this.FindName("btnLogin")).IsHitTestVisible = false;
                 login_popup.IsOpen = true;
                 //tasks normaly includes a different Thread than the main thread,
                 //there for we had to add asyc/await to force the main thread to wait for the task to finish.
@@ -43,8 +44,8 @@ namespace StockControl
                 });
                 MessageBox.Show("Admin Confirmed, enjoy your stay");
 
-                Window mainWindow = new Window();
-                mainWindow.Content = new MainWindow();      
+               Window mainWindow = new Window();
+                mainWindow.Content = new MainWindow();
                 mainWindow.Show();
                 this.Close();
             }
