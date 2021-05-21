@@ -23,8 +23,8 @@ namespace StockControl
     public partial class MainWindow : UserControl
     {
         //Dictionary<int,Department> departments = new Dictionary<int,Department>();
-        ObservableCollection<Employee> employees = new ObservableCollection<Employee>();
-        List<Product> products = new List<Product>();
+        Dictionary<int,Employee> employees = new Dictionary<int, Employee>();
+        Dictionary<int,Product> products = new Dictionary<int, Product>();
 
         HomePage homePage;
         OrderPage orderPage;

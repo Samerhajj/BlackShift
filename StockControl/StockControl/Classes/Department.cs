@@ -11,6 +11,8 @@ namespace StockControl
         //Properties
         public int ID { get; set; }
         public string Name { get; set; }
+        public int EmployeeCapacity { get; set; }
+        public int ProductCapacity { get; set; }
         private Dictionary<int,Employee> employees;
         private Dictionary<int,Product> products;
 
@@ -19,7 +21,7 @@ namespace StockControl
         public Department(int departmentID, string departmentName)
         {
             ID = departmentID;
-            this.Name = departmentName;
+            Name = departmentName;
             products = new Dictionary<int, Product>();
             employees = new Dictionary<int, Employee>();
         }
@@ -27,11 +29,25 @@ namespace StockControl
         //Methods
         public void AddProduct(Product item)
         {
-            products.Add(item.ID, item);
+            if (products.Count <= ProductCapacity)
+            {
+                //products.Add(item.ID, item);
+            }
+            else
+            {
+                throw new OverCapacityException($"The Department Can't Have More Than {ProductCapacity} Products.");
+            }
         }
         public void AddEmployee(Employee employee)
         {
-            employees.Add(employee.ID, employee);
+            if (employees.Count <= EmployeeCapacity)
+            {
+                //employees.Add(employee.ID, employee);
+            }
+            else
+            {
+                throw new OverCapacityException($"The Department Can't Have More Than {EmployeeCapacity} Employees.");
+            }
         }
         public void RemoveProduct(int productID)
         {
@@ -40,14 +56,6 @@ namespace StockControl
         public void RemoveEmployee(int employeeID)
         {
             employees.Remove(employeeID);
-        }
-        public int EmployeeCapacity() 
-        {
-            return employees.Count();
-        }
-        public int ProductCapacity()
-        {
-            return products.Count();
         }
         public override string ToString()
         {

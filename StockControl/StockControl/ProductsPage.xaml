@@ -33,18 +33,24 @@
                 <Button Grid.Column="5" x:Name="addBtn" Width="75" Height="28" Content="Add" FontSize="14" Background="LightBlue" Click="addBtn_Click"/>
                 <Button Grid.Column="5" x:Name="deleteBtn" Width="75" Height="28" Content="Delete" FontSize="14" Background="LightBlue" Click="deleteBtn_Click"/>
             </StackPanel>
-            <DataGrid x:Name="ProductGrid" Margin="10" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="6" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" AutoGenerateColumns="False" ItemsSource="{Binding Path=products, Mode=TwoWay}" IsReadOnly="True">
+            <DataGrid x:Name="ProductGrid" Margin="10" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="6" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" AutoGenerateColumns="False" ItemsSource="{Binding Path=products}" IsReadOnly="True">
                 <DataGrid.Columns>
-                    <DataGridCheckBoxColumn Header="Select" Binding="{Binding Path=Selected}" CanUserSort="False" IsReadOnly="False"/>
-                    <DataGridTextColumn Header="ID" Binding="{Binding Path=ID}"/>
-                    <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}"/>
-                    <DataGridTextColumn Header="Quantity" Binding="{Binding Path=Quantity}"/>
-                    <DataGridTextColumn Header="Price" Binding="{Binding Path=Price, Mode=TwoWay}"/>
-                    <DataGridTextColumn Header="Price With Tax" Binding="{Binding Path=PriceTax}"/>
+                    <DataGridTemplateColumn Header="Select" CanUserSort="False" IsReadOnly="False">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox x:Name="selectCb" Checked="selectCb_Checked" Unchecked="selectCb_Unchecked" DataContext="{Binding Path=Key}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="ID" Binding="{Binding Path=Key}"/>
+                    <DataGridTextColumn Header="Name" Binding="{Binding Path=Value.Name}"/>
+                    <DataGridTextColumn Header="Quantity" Binding="{Binding Path=Value.Quantity}"/>
+                    <DataGridTextColumn Header="Price" Binding="{Binding Path=Value.Price}"/>
+                    <DataGridTextColumn Header="Price With Tax" Binding="{Binding Path=Value.PriceTax}"/>
                     <DataGridTemplateColumn Width="150" CanUserSort="False">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Grid.Column="5" x:Name="editBtn" Width="75" Height="28" FontSize="14" Click="editBtn_Click">
+                                <Button Grid.Column="5" x:Name="editBtn" Width="75" Height="28" FontSize="14" Click="editBtn_Click" DataContext="{Binding Path=Value}">
                                     <materialDesign:PackIcon Kind="AccountEdit" Width="30" VerticalAlignment="Center" Margin="5" FontFamily="Corbel Light"/>
                                 </Button>
                             </DataTemplate>

@@ -37,22 +37,28 @@
                 <Calendar x:Name="calBirthDate" SelectionMode="SingleDate" SelectedDate="{x:Static sys:DateTime.Today}" DisplayDateEnd="{x:Static sys:DateTime.Today}"/>
             </Popup>
             <StackPanel Grid.Column="6" HorizontalAlignment="Center">
-                <Button x:Name="addEmployeeBtn" Width="75" Height="28"  Content="Add"  FontSize="14" Background="LightBlue" Click="addEmployeeBtn_Click"/>
+                <Button x:Name="addBtn" Width="75" Height="28"  Content="Add"  FontSize="14" Background="LightBlue" Click="addBtn_Click"/>
                 <Button x:Name="deleteBtn" Width="75" Height="28" Content="Delete"  FontSize="14" Background="LightBlue" Click="deleteBtn_Click"/>
             </StackPanel>
-            <DataGrid x:Name="EmployeeGrid" Margin="10" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="7" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" AutoGenerateColumns="False" ItemsSource="{Binding Path=employees, Mode=TwoWay}" IsReadOnly="True">
+            <DataGrid x:Name="EmployeeGrid" Margin="10" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="7" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" AutoGenerateColumns="False" ItemsSource="{Binding Path=employees}" IsReadOnly="True">
                 <DataGrid.Columns>
-                    <DataGridCheckBoxColumn Header="Select" Binding="{Binding Path=Selected}" CanUserSort="False" IsReadOnly="False"/>
-                    <DataGridTextColumn Header="ID" Binding="{Binding Path=ID}"/>
-                    <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}"/>
-                    <DataGridTextColumn Header="Department" Binding="{Binding Path=Department}"/>
-                    <DataGridTextColumn Header="Salary" Binding="{Binding Path=Salary}"/>
-                    <DataGridTextColumn Header="Gender" Binding="{Binding Path=Gender}"/>
-                    <DataGridTextColumn x:Name="birthDateColumn" Header="DateOfBirth" Binding="{Binding Path=DateOfBirth, StringFormat=d}"/>
+                    <DataGridTemplateColumn Header="Select" CanUserSort="False" IsReadOnly="False">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox x:Name="selectCb" Checked="selectCb_Checked" Unchecked="selectCb_Unchecked" DataContext="{Binding Path=Key}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="ID" Binding="{Binding Path=Key}"/>
+                    <DataGridTextColumn Header="Name" Binding="{Binding Path=Value.Name}"/>
+                    <DataGridTextColumn Header="Department" Binding="{Binding Path=Value.Department}"/>
+                    <DataGridTextColumn Header="Salary" Binding="{Binding Path=Value.Salary}"/>
+                    <DataGridTextColumn Header="Gender" Binding="{Binding Path=Value.Gender}"/>
+                    <DataGridTextColumn x:Name="birthDateColumn" Header="DateOfBirth" Binding="{Binding Path=Value.DateOfBirth, StringFormat=d}"/>
                     <DataGridTemplateColumn Width="150" CanUserSort="False">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Grid.Column="5" x:Name="editBtn" Width="75" Height="28" FontSize="14" Click="editBtn_Click">
+                                <Button x:Name="editBtn" Width="75" Height="28" FontSize="14" Click="editBtn_Click" DataContext="{Binding Path=Value}">
                                     <materialDesign:PackIcon Kind="AccountEdit" Width="30" VerticalAlignment="Center" Margin="5" FontFamily="Corbel Light"/>
                                 </Button>
                             </DataTemplate>
