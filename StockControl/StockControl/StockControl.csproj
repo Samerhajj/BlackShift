@@ -94,6 +94,7 @@
     <Compile Include="OrderPage.xaml.cs">
       <DependentUpon>OrderPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="OverCapacityException.cs" />
     <Compile Include="SplashScreen.xaml.cs">
       <DependentUpon>SplashScreen.xaml</DependentUpon>
     </Compile>
@@ -205,7 +206,7 @@
     <Folder Include="Gifs\" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\homepage1.png" />
+    <Resource Include="Images\homepage.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\LOGO.ico" />

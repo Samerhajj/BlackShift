@@ -17,42 +17,70 @@ using System.Collections.ObjectModel;
 namespace StockControl
 {
     /// <summary>
-    /// Interaction logic for Employee.xaml
+    /// Interaction logic for EmployeePage.xaml
     /// </summary>
     public partial class EmployeePage : UserControl
     {
-        ObservableCollection<Employee> employees;
-        public EmployeePage(ObservableCollection<Employee> employee)
+        Dictionary<int, Employee> employees;
+        List<int> selectedEmployees = new List<int>();
+
+        public EmployeePage(Dictionary<int, Employee> employees)
         {
             InitializeComponent();
-            //EmployeeGrid.ItemsSource = employee;
-            this.employees = employee;
+            this.employees = employees;
         }
 
         //Events
         private void deleteBtn_Click(object sender, RoutedEventArgs e)
         {
-            
-        }
+            //Checks if there is nothing selected.
+            if(selectedEmployees.Count < 1)
+            {
+                MessageBox.Show("There is no selected employees to delete.", "No employees selected", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else
+            {
+                MessageBoxResult result;
+                //Checks if there is one or more employees and display the apropriate MessageBox.
+                result = (selectedEmployees.Count == 1) ? MessageBox.Show($"Are you sure you want to permanently delete this employee ?", "Delete one employee", MessageBoxButton.YesNo)
+                : MessageBox.Show($"Are you sure you want to permanently delete {selectedEmployees.Count} employees ?", "Delete multiple employees", MessageBoxButton.YesNo);
 
-        private void addEmployeeBtn_Click(object sender, RoutedEventArgs e)
+                //Checks the result of the MessageBox.
+                if (result == MessageBoxResult.Yes)
+                {
+                    foreach (var item in selectedEmployees)
+                    {
+                        employees.Remove(item);
+                    }
+                    UpdateData();
+                }
+            }
+        }
+        private void addBtn_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                employees.Add(new Employee()
+                employees.Add(Convert.ToInt32(txtEmployeeID.Text), new Employee()
                 {
-                    ID = Convert.ToInt32(txtEmployeeID.Text),
                     Name = txtEmployeeName.Text,
                     DateOfBirth = ((DateTime)calBirthDate.SelectedDate).Date,
                     Gender = txtGender.Text,
                     Department = txtDepartment.Text
                 });
             }
+            catch (ArgumentException)
+            {
+                MessageBox.Show("The employee id is already taken.");
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("Id can only include integers.");
+            }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-            UpdateDatagrid();
+            UpdateData();
             ClearUi();
         }
         private void DatePopup_Click(object sender, RoutedEventArgs e)
@@ -62,7 +90,15 @@ namespace StockControl
         private void editBtn_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show($"{(Employee)((Button)sender).DataContext}");
-            UpdateDatagrid();
+            UpdateData();
+        }
+        private void selectCb_Checked(object sender, RoutedEventArgs e)
+        {
+            selectedEmployees.Add((int)(((CheckBox)sender).DataContext));
+        }
+        private void selectCb_Unchecked(object sender, RoutedEventArgs e)
+        {
+            selectedEmployees.Remove((int)(((CheckBox)sender).DataContext));
         }
 
         //Extra Functions
@@ -75,11 +111,11 @@ namespace StockControl
             txtGender.Text = "";
             txtDepartment.Text = "";
         }
-
-        private void UpdateDatagrid()
+        private void UpdateData()
         {
             EmployeeGrid.ItemsSource = null;
             EmployeeGrid.ItemsSource = employees;
+            selectedEmployees.Clear();
         }
     }
 }

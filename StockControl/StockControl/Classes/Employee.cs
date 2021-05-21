@@ -9,7 +9,6 @@ namespace StockControl
     public class Employee
     {
         //Properties
-        public int ID { get; set; }
         public string Name { get; set; }
         public string Department { get; set; }
         public string Gender { get; set; }
@@ -18,17 +17,16 @@ namespace StockControl
 
         //Constructors
         public Employee() { }
-        public Employee(string name, int id, double salary)
+        public Employee(string name, double salary)
         {
             this.Name = name;
-            this.ID = id;
             this.Salary = salary;
         }
         
         //Methods
         public override string ToString()
         {
-            return "Name : " + Name + " Id : " + ID + " Salary : " + Salary;
+            return "Name : " + Name + " Salary : " + Salary;
         }
     }
 
