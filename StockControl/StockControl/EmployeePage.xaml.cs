@@ -21,16 +21,44 @@ namespace StockControl
     /// </summary>
     public partial class EmployeePage : UserControl
     {
-        Dictionary<int, Employee> employees;
+        ObservableDictionary<int, Employee> employees;
         List<int> selectedEmployees = new List<int>();
 
-        public EmployeePage(Dictionary<int, Employee> employees)
+        public EmployeePage(ObservableDictionary<int, Employee> employees)
         {
             InitializeComponent();
+            EmployeeGrid.ItemsSource = employees;
             this.employees = employees;
         }
 
         //Events
+        private void addBtn_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                employees.Add(Convert.ToInt32(txtEmployeeID.Text), new Employee()
+                {
+                    Name = txtEmployeeName.Text,
+                    DateOfBirth = ((DateTime)calBirthDate.SelectedDate).Date,
+                    Gender = txtGender.Text,
+                    Department = txtDepartment.Text
+                });
+            }
+            catch (ArgumentException)
+            {
+                MessageBox.Show("The employee id is already taken.");
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("Id can only include numbers.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            UpdateData();
+            ClearUi();
+        }
         private void deleteBtn_Click(object sender, RoutedEventArgs e)
         {
             //Checks if there is nothing selected.
@@ -55,33 +83,6 @@ namespace StockControl
                     UpdateData();
                 }
             }
-        }
-        private void addBtn_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                employees.Add(Convert.ToInt32(txtEmployeeID.Text), new Employee()
-                {
-                    Name = txtEmployeeName.Text,
-                    DateOfBirth = ((DateTime)calBirthDate.SelectedDate).Date,
-                    Gender = txtGender.Text,
-                    Department = txtDepartment.Text
-                });
-            }
-            catch (ArgumentException)
-            {
-                MessageBox.Show("The employee id is already taken.");
-            }
-            catch (FormatException)
-            {
-                MessageBox.Show("Id can only include integers.");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            UpdateData();
-            ClearUi();
         }
         private void DatePopup_Click(object sender, RoutedEventArgs e)
         {
@@ -113,8 +114,8 @@ namespace StockControl
         }
         private void UpdateData()
         {
-            EmployeeGrid.ItemsSource = null;
-            EmployeeGrid.ItemsSource = employees;
+            //EmployeeGrid.ItemsSource = null;
+            //EmployeeGrid.ItemsSource = employees;
             selectedEmployees.Clear();
         }
     }

@@ -8,22 +8,18 @@ namespace StockControl
 {
    public class Product
     {
-        private const double TAX = 0.17;
         public string Name { get; set; }
         public int Quantity { get; set; }
-        public double Price { get; set; }
-        public double PriceTax { get; set; }
+        public double SellingPrice { get; set; }
+        public double BuyingPrice { get; set; }
 
-        public double PriceWithTax(double price)
+        public double SellingPriceWithTax
         {
-            this.PriceTax = price * TAX + price;
-            return PriceTax;
+            get { return SellingPrice * SettingsParams.Tax + SellingPrice; }
         }
-
-        public override string ToString()
+        public double BuyingPriceWithTax
         {
-            return "Name : " + Name + "Quantity : " + Quantity + "Price : " + Price;
+            get { return BuyingPrice * SettingsParams.Tax + BuyingPrice; }
         }
-
     }
 }

@@ -40,7 +40,7 @@
                 <Button x:Name="addBtn" Width="75" Height="28"  Content="Add"  FontSize="14" Background="LightBlue" Click="addBtn_Click"/>
                 <Button x:Name="deleteBtn" Width="75" Height="28" Content="Delete"  FontSize="14" Background="LightBlue" Click="deleteBtn_Click"/>
             </StackPanel>
-            <DataGrid x:Name="EmployeeGrid" Margin="10" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="7" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" AutoGenerateColumns="False" ItemsSource="{Binding Path=employees}" IsReadOnly="True">
+            <DataGrid x:Name="EmployeeGrid" Margin="10" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="7" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" AutoGenerateColumns="False" IsReadOnly="True">
                 <DataGrid.Columns>
                     <DataGridTemplateColumn Header="Select" CanUserSort="False" IsReadOnly="False">
                         <DataGridTemplateColumn.CellTemplate>

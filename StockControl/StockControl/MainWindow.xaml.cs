@@ -20,11 +20,11 @@ namespace StockControl
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : UserControl
+    public partial class MainWindow : Window
     {
         //Dictionary<int,Department> departments = new Dictionary<int,Department>();
-        Dictionary<int,Employee> employees = new Dictionary<int, Employee>();
-        Dictionary<int,Product> products = new Dictionary<int, Product>();
+        ObservableDictionary<int,Employee> employees = new ObservableDictionary<int, Employee>();
+        ObservableDictionary<int,Product> products = new ObservableDictionary<int, Product>();
 
         HomePage homePage;
         OrderPage orderPage;
@@ -88,10 +88,15 @@ namespace StockControl
         {
             homePage = new HomePage();
             departmentsPage = new DepartmentsPage();
-            orderPage = new OrderPage();
+            orderPage = new OrderPage(products);
             employeePage = new EmployeePage(employees);
             productsPage = new ProductsPage(products);
             aboutUsPage = new AboutUsPage();
+        }
+
+        private void btnExit_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

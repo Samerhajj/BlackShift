@@ -22,12 +22,5 @@ namespace StockControl
             this.Name = name;
             this.Salary = salary;
         }
-        
-        //Methods
-        public override string ToString()
-        {
-            return "Name : " + Name + " Salary : " + Salary;
-        }
     }
-
 }

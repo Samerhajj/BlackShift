@@ -22,11 +22,12 @@ namespace StockControl
     {
         private Product currentProduct = new Product();
         List<int> selectedProducts = new List<int>();
-        Dictionary<int,Product> products;
+        ObservableDictionary<int,Product> products;
 
-        public ProductsPage(Dictionary<int, Product> products)
+        public ProductsPage(ObservableDictionary<int, Product> products)
         {
             InitializeComponent();
+            ProductGrid.ItemsSource = products;
             this.products = products;
         }
 
@@ -35,20 +36,24 @@ namespace StockControl
         {
             try
             {
-                products.Add(Convert.ToInt32(txtID.Text), new Product()
+                Product product = new Product()
                 {
                     Name = txtName.Text,
                     Quantity = Convert.ToInt32(txtQuantity.Text),
-                    Price = Convert.ToDouble(txtPriceNoTax.Text),
-                    PriceTax = currentProduct.PriceWithTax(Convert.ToDouble(txtPriceNoTax.Text))
-                });
+                    SellingPrice = Convert.ToDouble(txtPriceNoTax.Text),
+                    BuyingPrice = Convert.ToDouble(txtBuyingPriceNoTax.Text)
+                };
+                products.Add(Convert.ToInt32(txtID.Text), product);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-            UpdateData();
-            ClearUi();
+            finally
+            {
+                UpdateData();
+                ClearUi();
+            }
         }
         private void deleteBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -82,7 +87,7 @@ namespace StockControl
         }
         private void selectCb_Checked(object sender, RoutedEventArgs e)
         {
-            selectedProducts.Add(((int)((CheckBox)sender).DataContext));
+            selectedProducts.Add((int)((CheckBox)sender).DataContext);
         }
         private void selectCb_Unchecked(object sender, RoutedEventArgs e)
         {
@@ -96,11 +101,10 @@ namespace StockControl
             txtName.Text = "";
             txtQuantity.Text = "";
             txtPriceNoTax.Text = "";
+            txtBuyingPriceNoTax.Text = "";
         }
         private void UpdateData()
         {
-            ProductGrid.ItemsSource = null;
-            ProductGrid.ItemsSource = products;
             selectedProducts.Clear();
         }
     }
