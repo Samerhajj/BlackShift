@@ -8,11 +8,11 @@ namespace StockControl
 {
     public struct Order
     {
+        public int ProductID { get; }
+        public string ProductName { get; }
         public DateTime OrderDate{ get; }
         public int OrderedQuantity { get; }
         public double CostPerUnit { get; }
-        public int ProductID { get; }
-        public string ProductName { get; }
         public double TotalCostWithTax
         {
             get { return CostPerUnit * OrderedQuantity; }

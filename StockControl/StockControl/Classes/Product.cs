@@ -9,6 +9,7 @@ namespace StockControl
    public class Product
     {
         public string Name { get; set; }
+        public int DepartmentID { get; set; }
         public int Quantity { get; set; }
         public double SellingPrice { get; set; }
         public double BuyingPrice { get; set; }

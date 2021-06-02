@@ -28,12 +28,25 @@
             <TextBlock FontSize="18" Foreground="Gray" Text="Employee Name" Width="142" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0" Grid.Column="1"/>
             <TextBox x:Name="txtEmployeeName" Width="127" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" MaxLength="25"  Grid.Column="1"/>
             <TextBlock FontSize="18" Foreground="Gray" Text="Department" Width="142" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0" Grid.Column="2"/>
-            <TextBox x:Name="txtDepartment" Width="127" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" MaxLength="10"  Grid.Column="2"/>
+            <ComboBox x:Name="cbDepartment" Width="127" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" Grid.Column="2">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock>
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0} - {1}">
+                                    <Binding Path="Key"/>
+                                    <Binding Path="Value.Name"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
             <TextBlock FontSize="18" Foreground="Gray" Text="Gender" Width="142" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0" Grid.Column="3"/>
-            <TextBox x:Name="txtGender" Width="127" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" MaxLength="25"  Grid.Column="3"/>
+            <ComboBox x:Name="cbGender" Width="127" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" Grid.Column="3"/>
             <TextBlock FontSize="18" Foreground="Gray" Text="Date Of Birth" Width="142" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0" Grid.Column="4"/>
-            <Button x:Name="btn_Date" Content="{Binding ElementName=calBirthDate, Path=SelectedDate}" Grid.Column="4" Click="DatePopup_Click"/>
-            <Popup x:Name="popupDate" PopupAnimation="Slide" IsOpen="False" StaysOpen="False" PlacementTarget="{Binding ElementName=btn_Date}">
+            <Button x:Name="btnDate" Content="{Binding ElementName=calBirthDate, Path=SelectedDate}" Grid.Column="4" Click="DatePopup_Click"/>
+            <Popup x:Name="popupDate" PopupAnimation="Slide" IsOpen="False" StaysOpen="False" PlacementTarget="{Binding ElementName=btnDate}">
                 <Calendar x:Name="calBirthDate" SelectionMode="SingleDate" SelectedDate="{x:Static sys:DateTime.Today}" DisplayDateEnd="{x:Static sys:DateTime.Today}"/>
             </Popup>
             <StackPanel Grid.Column="6" HorizontalAlignment="Center">
@@ -51,7 +64,7 @@
                     </DataGridTemplateColumn>
                     <DataGridTextColumn Header="ID" Binding="{Binding Path=Key}"/>
                     <DataGridTextColumn Header="Name" Binding="{Binding Path=Value.Name}"/>
-                    <DataGridTextColumn Header="Department" Binding="{Binding Path=Value.Department}"/>
+                    <DataGridTextColumn Header="DepartmentID" Binding="{Binding Path=Value.DepartmentID}"/>
                     <DataGridTextColumn Header="Salary" Binding="{Binding Path=Value.Salary}"/>
                     <DataGridTextColumn Header="Gender" Binding="{Binding Path=Value.Gender}"/>
                     <DataGridTextColumn x:Name="birthDateColumn" Header="DateOfBirth" Binding="{Binding Path=Value.DateOfBirth, StringFormat=d}"/>

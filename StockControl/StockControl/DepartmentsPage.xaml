@@ -7,7 +7,7 @@
              xmlns:local="clr-namespace:StockControl"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    
+
     <materialDesign:TransitioningContent x:Name="TransitionSlideHome" OpeningEffect="{materialDesign:TransitionEffect SlideInfromLeft,Duration=0:0:0.2}">
             <Grid Background="#FFEEEEEE" Margin="0,20,0,0">
                 <Grid.ColumnDefinitions>
@@ -30,25 +30,51 @@
                 <TextBlock FontSize="18" Foreground="Gray" Text="Product Capacity" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0" Grid.Column="3"/>
                 <TextBox x:Name="txtProductCapacity" Width="127" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" MaxLength="25"  Grid.Column="3"/>
                 <StackPanel Grid.Column="5" Width="160" Height="100" HorizontalAlignment="Center">
-                    <Button Grid.Column="5" x:Name="addDepartmentBtn" Width="75" Height="28" Content="Add"  FontSize="14" Background="LightBlue" Click="addDepartmentBtn_Click"/>
+                    <Button Grid.Column="5" x:Name="addDepartmentBtn" Width="75" Height="28" Content="Add"  FontSize="14" Background="LightBlue" Click="addBtn_Click"/>
                     <Button Grid.Column="5" x:Name="deleteBtn" Width="75" Height="28" Content="Delete"  FontSize="14" Background="LightBlue" Click="deleteBtn_Click"/>
                 </StackPanel>
-                <DataGrid x:Name="DepartmentGrid" Margin="0,10,10,10" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="6" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" AutoGenerateColumns="False" ItemsSource="{Binding Path=departments, Mode=TwoWay}" IsReadOnly="True">
-                    <DataGrid.Columns>
-                        <DataGridCheckBoxColumn Header="Select" Binding="{Binding Path=Selected}" CanUserSort="False" IsReadOnly="False"/>
-                        <DataGridTextColumn Header="ID" Binding="{Binding Path=ID, Mode=TwoWay}"/>
-                        <DataGridTextColumn Header="Name" Binding="{Binding Path=Name, Mode=TwoWay}"/>
+            <DataGrid x:Name="DepartmentGrid" Margin="0,10,10,10" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="6" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" AutoGenerateColumns="False" IsReadOnly="True" EnableRowVirtualization="True">
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Header="Select" CanUserSort="False" IsReadOnly="False">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox x:Name="selectCb" Checked="selectCb_Checked" Unchecked="selectCb_Unchecked" DataContext="{Binding Path=Key}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="ID" Binding="{Binding Path=Key}"/>
+                    <DataGridTextColumn Header="Name" Binding="{Binding Path=Value.Name}"/>
                     <DataGridTemplateColumn Header="Available Employees">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <ProgressBar x:Name="pgEmployees" Value="0" Width="120" Height="10" materialDesign:TransitionAssist.DisableTransitions="True"/>
+                                <StackPanel>
+                                    <ProgressBar x:Name="pgEmployees" Width="120" Height="10" materialDesign:TransitionAssist.DisableTransitions="True" Value="{Binding Path=Value.EmployeeCount, Mode=OneWay}" Maximum="{Binding Path=Value.EmployeeCapacity, Mode=OneWay}"/>
+                                    <TextBlock HorizontalAlignment="Right">
+                                        <TextBlock.Text>
+                                            <MultiBinding StringFormat="{}{0}/{1}">
+                                                <Binding Path="Value.EmployeeCount"/>
+                                                <Binding Path="Value.EmployeeCapacity"/>
+                                            </MultiBinding>
+                                        </TextBlock.Text>
+                                    </TextBlock>
+                                </StackPanel>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                     <DataGridTemplateColumn Header="Available Products">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <ProgressBar x:Name="pgProducts" Value="0" Width="120" Height="10" materialDesign:TransitionAssist.DisableTransitions="True"/>
+                                <StackPanel>
+                                    <ProgressBar x:Name="pgProducts" Width="120" Height="10" materialDesign:TransitionAssist.DisableTransitions="True" Value="{Binding Path=Value.ProductCount, Mode=OneWay}" Maximum="{Binding Path=Value.ProductCapacity, Mode=OneWay}"/>
+                                    <TextBlock HorizontalAlignment="Right">
+                                        <TextBlock.Text>
+                                            <MultiBinding StringFormat="{}{0}/{1}">
+                                                <Binding Path="Value.ProductCount"/>
+                                                <Binding Path="Value.ProductCapacity"/>
+                                            </MultiBinding>
+                                        </TextBlock.Text>
+                                    </TextBlock>
+                                </StackPanel>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>

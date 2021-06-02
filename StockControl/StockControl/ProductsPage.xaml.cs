@@ -20,15 +20,17 @@ namespace StockControl
     /// </summary>
     public partial class ProductsPage : UserControl
     {
-        private Product currentProduct = new Product();
-        List<int> selectedProducts = new List<int>();
+        List<int> selectedProductsIDs = new List<int>();
         ObservableDictionary<int,Product> products;
+        ObservableDictionary<int, Department> departments;
 
-        public ProductsPage(ObservableDictionary<int, Product> products)
+        public ProductsPage(ObservableDictionary<int, Product> products, ObservableDictionary<int, Department> departments)
         {
             InitializeComponent();
             ProductGrid.ItemsSource = products;
             this.products = products;
+            cbDepartment.ItemsSource = departments;
+            this.departments = departments;
         }
 
         //Events
@@ -36,14 +38,8 @@ namespace StockControl
         {
             try
             {
-                Product product = new Product()
-                {
-                    Name = txtName.Text,
-                    Quantity = Convert.ToInt32(txtQuantity.Text),
-                    SellingPrice = Convert.ToDouble(txtPriceNoTax.Text),
-                    BuyingPrice = Convert.ToDouble(txtBuyingPriceNoTax.Text)
-                };
-                products.Add(Convert.ToInt32(txtID.Text), product);
+                AddProduct();
+                ClearData();
             }
             catch (Exception ex)
             {
@@ -51,14 +47,18 @@ namespace StockControl
             }
             finally
             {
-                UpdateData();
                 ClearUi();
             }
+        }
+        private void editBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show($"{(Product)((Button)sender).DataContext}");
+            ClearData();
         }
         private void deleteBtn_Click(object sender, RoutedEventArgs e)
         {
             //Checks if there is nothing selected.
-            if (selectedProducts.Count < 1)
+            if (selectedProductsIDs.Count < 1)
             {
                 MessageBox.Show("There is no selected products to delete.", "No products selected", MessageBoxButton.OK, MessageBoxImage.Error);
             }
@@ -66,32 +66,29 @@ namespace StockControl
             {
                 MessageBoxResult result;
                 //Checks if there is one or more employees and display the apropriate MessageBox.
-                result = (selectedProducts.Count == 1) ? MessageBox.Show($"Are you sure you want to permanently delete this product ?", "Delete one product", MessageBoxButton.YesNo)
-                : MessageBox.Show($"Are you sure you want to permanently delete {selectedProducts.Count} products ?", "Delete multiple products", MessageBoxButton.YesNo);
+                result = (selectedProductsIDs.Count == 1) ? MessageBox.Show($"Are you sure you want to permanently delete this product ?", "Delete one product", MessageBoxButton.YesNo)
+                : MessageBox.Show($"Are you sure you want to permanently delete {selectedProductsIDs.Count} products ?", "Delete multiple products", MessageBoxButton.YesNo);
 
                 //Checks the result of the MessageBox.
                 if (result == MessageBoxResult.Yes)
                 {
-                    foreach (var item in selectedProducts)
+                    foreach (var productID in selectedProductsIDs)
                     {
-                        products.Remove(item);
+                        int depId = products[productID].DepartmentID;
+                        departments[depId].RemoveProduct(productID);
+                        products.Remove(productID);
                     }
-                    UpdateData();
+                    ClearData();
                 }
             }
         }
-        private void editBtn_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show($"{(Product)((Button)sender).DataContext}");
-            UpdateData();
-        }
         private void selectCb_Checked(object sender, RoutedEventArgs e)
         {
-            selectedProducts.Add((int)((CheckBox)sender).DataContext);
+            selectedProductsIDs.Add((int)((CheckBox)sender).DataContext);
         }
         private void selectCb_Unchecked(object sender, RoutedEventArgs e)
         {
-            selectedProducts.Remove(((int)((CheckBox)sender).DataContext));
+            selectedProductsIDs.Remove((int)((CheckBox)sender).DataContext);
         }
 
         //Extra Functions
@@ -99,13 +96,29 @@ namespace StockControl
         {
             txtID.Text = "";
             txtName.Text = "";
-            txtQuantity.Text = "";
             txtPriceNoTax.Text = "";
             txtBuyingPriceNoTax.Text = "";
+            cbDepartment.SelectedItem = null;
         }
-        private void UpdateData()
+        private void ClearData()
         {
-            selectedProducts.Clear();
+            selectedProductsIDs.Clear();
+        }
+        private void AddProduct()
+        {
+            int productId = Convert.ToInt32(txtID.Text);
+            var department = (KeyValuePair<int, Department>)cbDepartment.SelectedItem;
+
+            department.Value.AddProduct(productId, 0);
+            Product product = new Product()
+            {
+                Name = txtName.Text,
+                DepartmentID = department.Key,
+                SellingPrice = Convert.ToDouble(txtPriceNoTax.Text),
+                BuyingPrice = Convert.ToDouble(txtBuyingPriceNoTax.Text)
+            };
+            products.Add(productId, product);
+
         }
     }
 }

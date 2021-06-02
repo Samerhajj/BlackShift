@@ -22,24 +22,21 @@ namespace StockControl
     public partial class OrderPage : UserControl
     {
         ObservableCollection<Order> orders = new ObservableCollection<Order>();
-        
-        public OrderPage(ObservableDictionary<int,Product> products)
+        ObservableDictionary<int, Department> departments;
+
+        public OrderPage(ObservableDictionary<int,Product> products, ObservableDictionary<int, Department> departments)
         {
             InitializeComponent();
             comboBoxProducts.ItemsSource = products;
             OrdersGrid.ItemsSource = orders;
+            this.departments = departments;
         }
 
         private void orderBtn_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                KeyValuePair<int, Product> selectedProduct = (KeyValuePair<int, Product>)comboBoxProducts.SelectedValue;
-                orders.Add(new Order(
-                    Convert.ToInt32(txtOrderQuantity.Text),
-                    selectedProduct.Value.BuyingPriceWithTax,
-                    selectedProduct.Key,
-                    selectedProduct.Value.Name));
+                OrderProduct();
             }
             catch (FormatException)
             {
@@ -62,8 +59,19 @@ namespace StockControl
         //Extra Functions
         private void ClearUI()
         {
-            txtOrderQuantity.Text = "";
+            txtOrderQuantity.Text = string.Empty;
             comboBoxProducts.SelectedItem = null; 
+        }
+        private void OrderProduct()
+        {
+            KeyValuePair<int, Product> selectedProduct = (KeyValuePair<int, Product>)comboBoxProducts.SelectedValue;
+            int quantity = Convert.ToInt32(txtOrderQuantity.Text);
+            departments[selectedProduct.Value.DepartmentID].AddQuantity(selectedProduct.Key, quantity);
+            orders.Add(new Order(
+                quantity,
+                selectedProduct.Value.BuyingPriceWithTax,
+                selectedProduct.Key,
+                selectedProduct.Value.Name));
         }
     }
 }

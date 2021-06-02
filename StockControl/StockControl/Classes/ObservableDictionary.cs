@@ -31,16 +31,17 @@ namespace StockControl
             NotifyCollectionChanged();
             return result;
         }
-        public new int Count()
+        public new int Count
         {
-            return base.Count;
+            get { return base.Count; }
         }
 
         //Extra Functions
         private void NotifyCollectionChanged()
         {
             //Invoks the CollectionChanged event.
-            CollectionChanged(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+            CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+            //CollectionChanged(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
         }
         private void NotifyPropertyChanged()
         {
