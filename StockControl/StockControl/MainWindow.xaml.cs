@@ -20,11 +20,11 @@ namespace StockControl
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : UserControl
+    public partial class MainWindow : Window
     {
-        //Dictionary<int,Department> departments = new Dictionary<int,Department>();
-        Dictionary<int,Employee> employees = new Dictionary<int, Employee>();
-        Dictionary<int,Product> products = new Dictionary<int, Product>();
+        public ObservableDictionary<int, Department> departments { get; set; } = new ObservableDictionary<int, Department>();
+        public ObservableDictionary<int,Employee> employees { get; set; } = new ObservableDictionary<int, Employee>();
+        public ObservableDictionary<int,Product> products { get; set; } = new ObservableDictionary<int, Product>();
 
         HomePage homePage;
         OrderPage orderPage;
@@ -50,7 +50,7 @@ namespace StockControl
         private void MoveCursorMenu(int index)
         {
             TransitionSlideHome.OnApplyTemplate();
-            GridCursor.Margin = new Thickness(0, 120 + (60 * index), 0, 0);
+            GridCursor.Margin = new Thickness(0, 117.5 + (60 * index), 0, 0);
         }
         private void ChooseTab(int index)
         {
@@ -87,11 +87,15 @@ namespace StockControl
         private void InitializePages()
         {
             homePage = new HomePage();
-            departmentsPage = new DepartmentsPage();
-            orderPage = new OrderPage();
-            employeePage = new EmployeePage(employees);
-            productsPage = new ProductsPage(products);
+            departmentsPage = new DepartmentsPage(this);
+            orderPage = new OrderPage(products, departments);
+            employeePage = new EmployeePage(employees, departments);
+            productsPage = new ProductsPage(products, departments);
             aboutUsPage = new AboutUsPage();
+        }
+        private void btnExit_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

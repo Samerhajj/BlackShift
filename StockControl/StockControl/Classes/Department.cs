@@ -8,58 +8,82 @@ namespace StockControl
 {
     public class Department
     {
-        //Properties
+        //Properties / Fields
         public int ID { get; set; }
         public string Name { get; set; }
         public int EmployeeCapacity { get; set; }
         public int ProductCapacity { get; set; }
-        private Dictionary<int,Employee> employees;
-        private Dictionary<int,Product> products;
+        public int EmployeeCount
+        {
+            get { return employeesID.Count; }
+        }
+        public int ProductCount { get; set; }
+
+        private Dictionary<int,int> products = new Dictionary<int,int>();
+        private SortedSet<int> employeesID = new SortedSet<int>();
 
         //Constructors
         public Department() { }
-        public Department(int departmentID, string departmentName)
+        public Department(int departmentID, string departmentName, int employeeCapacity, int productCapacity)
         {
             ID = departmentID;
             Name = departmentName;
-            products = new Dictionary<int, Product>();
-            employees = new Dictionary<int, Employee>();
+            EmployeeCapacity = employeeCapacity;
+            ProductCapacity = productCapacity;
         }
 
         //Methods
-        public void AddProduct(Product item)
+        public void AddProduct(int productId, int quantity)
         {
-            if (products.Count <= ProductCapacity)
+            if (ProductCount + quantity <= ProductCapacity)
             {
-                //products.Add(item.ID, item);
+                products.Add(productId, quantity);
+                ProductCount += quantity;
             }
             else
             {
                 throw new OverCapacityException($"The Department Can't Have More Than {ProductCapacity} Products.");
             }
         }
-        public void AddEmployee(Employee employee)
+        public void AddEmployee(int employeeId)
         {
-            if (employees.Count <= EmployeeCapacity)
+            if (employeesID.Count + 1 <= EmployeeCapacity)
             {
-                //employees.Add(employee.ID, employee);
+                employeesID.Add(employeeId);
             }
             else
             {
                 throw new OverCapacityException($"The Department Can't Have More Than {EmployeeCapacity} Employees.");
             }
         }
-        public void RemoveProduct(int productID)
+        public void RemoveProduct(int productId)
         {
-            products.Remove(productID);
+            ProductCount -= products[productId];
+            products.Remove(productId);
         }
-        public void RemoveEmployee(int employeeID)
+        public void RemoveEmployee(int employeeId)
         {
-            employees.Remove(employeeID);
+            employeesID.Remove(employeeId);
         }
-        public override string ToString()
+        public void AddQuantity(int productId, int amount)
         {
-            return "Department Name : " + Name + "\n";
+            if (ProductCount + amount <= ProductCapacity)
+            {
+                products[productId] += amount;
+                ProductCount += amount;
+            }
+            else
+            {
+                throw new OverCapacityException($"The Department Can't Have More Than {ProductCapacity} Products.");
+            }
+        }
+        public SortedSet<int> GetEmployeesID()
+        {
+            return employeesID;
+        }
+        public Dictionary<int, int> GetProducts()
+        {
+            return products;
         }
     }
 }

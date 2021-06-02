@@ -21,16 +21,51 @@ namespace StockControl
     /// </summary>
     public partial class EmployeePage : UserControl
     {
-        Dictionary<int, Employee> employees;
-        List<int> selectedEmployees = new List<int>();
+        ObservableDictionary<int, Employee> employees;
+        SortedSet<int> selectedEmployees = new SortedSet<int>();
+        ObservableDictionary<int, Department> departments;
 
-        public EmployeePage(Dictionary<int, Employee> employees)
+        public EmployeePage(ObservableDictionary<int, Employee> employees, ObservableDictionary<int,Department> departments)
         {
             InitializeComponent();
+            EmployeeGrid.ItemsSource = employees;
             this.employees = employees;
+            cbDepartment.ItemsSource = departments;
+            this.departments = departments;
+            cbGender.Items.Add("Male");
+            cbGender.Items.Add("Female");
         }
 
         //Events
+        private void addBtn_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                AddEmployee();
+                ClearData();
+            }
+            catch (ArgumentNullException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            catch (ArgumentException)
+            {
+                MessageBox.Show("The employee id is already taken.");
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("Id can only include numbers.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                ClearUi();
+            }
+        }
         private void deleteBtn_Click(object sender, RoutedEventArgs e)
         {
             //Checks if there is nothing selected.
@@ -48,40 +83,15 @@ namespace StockControl
                 //Checks the result of the MessageBox.
                 if (result == MessageBoxResult.Yes)
                 {
-                    foreach (var item in selectedEmployees)
+                    foreach (var empId in selectedEmployees)
                     {
-                        employees.Remove(item);
+                        int depId = employees[empId].DepartmentID;
+                        departments[depId].RemoveEmployee(empId);
+                        employees.Remove(empId);
                     }
-                    UpdateData();
+                    ClearData();
                 }
             }
-        }
-        private void addBtn_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                employees.Add(Convert.ToInt32(txtEmployeeID.Text), new Employee()
-                {
-                    Name = txtEmployeeName.Text,
-                    DateOfBirth = ((DateTime)calBirthDate.SelectedDate).Date,
-                    Gender = txtGender.Text,
-                    Department = txtDepartment.Text
-                });
-            }
-            catch (ArgumentException)
-            {
-                MessageBox.Show("The employee id is already taken.");
-            }
-            catch (FormatException)
-            {
-                MessageBox.Show("Id can only include integers.");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            UpdateData();
-            ClearUi();
         }
         private void DatePopup_Click(object sender, RoutedEventArgs e)
         {
@@ -90,32 +100,42 @@ namespace StockControl
         private void editBtn_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show($"{(Employee)((Button)sender).DataContext}");
-            UpdateData();
+            ClearData();
         }
         private void selectCb_Checked(object sender, RoutedEventArgs e)
         {
-            selectedEmployees.Add((int)(((CheckBox)sender).DataContext));
+            selectedEmployees.Add((int)((CheckBox)sender).DataContext);
         }
         private void selectCb_Unchecked(object sender, RoutedEventArgs e)
         {
-            selectedEmployees.Remove((int)(((CheckBox)sender).DataContext));
+            selectedEmployees.Remove((int)((CheckBox)sender).DataContext);
         }
 
         //Extra Functions
         private void ClearUi()
         {
-            txtEmployeeID.Text = "";
-            txtEmployeeName.Text = "";
+            txtEmployeeID.Text = string.Empty;
+            txtEmployeeName.Text = string.Empty;
             calBirthDate.SelectedDate = DateTime.Today;
             calBirthDate.DisplayDate = DateTime.Today;
-            txtGender.Text = "";
-            txtDepartment.Text = "";
+            cbGender.SelectedItem = null;
+            cbDepartment.SelectedItem = null;
         }
-        private void UpdateData()
+        private void ClearData()
         {
-            EmployeeGrid.ItemsSource = null;
-            EmployeeGrid.ItemsSource = employees;
             selectedEmployees.Clear();
+        }
+        private void AddEmployee()
+        {
+            int employeeId = Convert.ToInt32(txtEmployeeID.Text);
+            var department = (KeyValuePair<int, Department>)cbDepartment.SelectedItem;
+
+            department.Value.AddEmployee(employeeId);
+            employees.Add(employeeId, new Employee(
+                txtEmployeeName.Text,
+                ((DateTime)calBirthDate.SelectedDate).Date,
+                (string)cbGender.SelectedItem,
+                department.Key));
         }
     }
 }

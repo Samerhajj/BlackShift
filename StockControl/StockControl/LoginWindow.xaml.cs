@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Threading;
+
 namespace StockControl
 {
     /// <summary>
@@ -45,10 +46,11 @@ namespace StockControl
                     {
                         Thread.Sleep(2000);
                     });
-                    MessageBox.Show("Admin Confirmed, enjoy your stay");
+                    //MessageBox.Show("Admin Confirmed, enjoy your stay");
 
-                    Window mainWindow = new Window();
-                    mainWindow.Content = new MainWindow();
+                    //Window mainWindow = new Window();
+                    //mainWindow.Content = new MainWindow();
+                    MainWindow mainWindow = new MainWindow();
                     mainWindow.Show();
                     this.Close();
                 }

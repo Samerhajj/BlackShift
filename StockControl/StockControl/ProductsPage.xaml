@@ -7,9 +7,11 @@
              xmlns:local="clr-namespace:StockControl"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="1024">
+
     <materialDesign:TransitioningContent x:Name="TransitionSlideHome" OpeningEffect="{materialDesign:TransitionEffect SlideInfromLeft,Duration=0:0:0.2}">
         <Grid Background="#FFEEEEEE" Margin="0,20,0,0">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="2*"/>
@@ -24,16 +26,31 @@
             <TextBlock FontSize="20" Foreground="Gray" Text="Product ID " Width="130" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0"/>
             <TextBox x:Name="txtID" Width="127" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" MaxLength="5"/>
             <TextBlock FontSize="20" Foreground="Gray" Text="Product Name " Width="142" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0" Grid.Column="1"/>
-            <TextBox x:Name="txtName" Width="127" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" MaxLength="25" Grid.Column="1" />
-            <TextBlock Text="Quantity" Grid.Column="2" FontSize="20" Foreground="Gray" Margin="10,0,0,0"/>
-            <TextBox x:Name="txtQuantity" Width="127" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" MaxLength="10" Grid.Column="2" />
-            <TextBlock Text="Price (No Tax)" Grid.Column="3" FontSize="20" Foreground="Gray" Margin="10,0,0,0"/>
-            <TextBox x:Name="txtPriceNoTax" Width="127" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" MaxLength="25" Grid.Column="3" />
+            <TextBox x:Name="txtName" Width="127" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" MaxLength="15" Grid.Column="1" />
+            <TextBlock FontSize="18" Foreground="Gray" Text="Department" Width="142" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0" Grid.Column="2"/>
+            <ComboBox x:Name="cbDepartment" Width="127" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" Grid.Column="2">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock>
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0} - {1}">
+                                    <Binding Path="Key"/>
+                                    <Binding Path="Value.Name"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <TextBlock Text="Selling Price" Grid.Column="3" FontSize="20" Foreground="Gray" Margin="10,0,0,0"/>
+            <TextBox x:Name="txtPriceNoTax" Width="127" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" MaxLength="8" Grid.Column="3" />
+            <TextBlock Text="Buying Price" Grid.Column="4" FontSize="20" Foreground="Gray" Margin="10,0,0,0"/>
+            <TextBox x:Name="txtBuyingPriceNoTax" Width="127" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" MaxLength="8" Grid.Column="4" />
             <StackPanel Grid.Column="5" Width="160" Height="100">
                 <Button Grid.Column="5" x:Name="addBtn" Width="75" Height="28" Content="Add" FontSize="14" Background="LightBlue" Click="addBtn_Click"/>
                 <Button Grid.Column="5" x:Name="deleteBtn" Width="75" Height="28" Content="Delete" FontSize="14" Background="LightBlue" Click="deleteBtn_Click"/>
             </StackPanel>
-            <DataGrid x:Name="ProductGrid" Margin="10" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="6" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" AutoGenerateColumns="False" ItemsSource="{Binding Path=products}" IsReadOnly="True">
+            <DataGrid x:Name="ProductGrid" Margin="10" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="6" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" AutoGenerateColumns="False" IsReadOnly="True" EnableRowVirtualization="True">
                 <DataGrid.Columns>
                     <DataGridTemplateColumn Header="Select" CanUserSort="False" IsReadOnly="False">
                         <DataGridTemplateColumn.CellTemplate>
@@ -44,9 +61,11 @@
                     </DataGridTemplateColumn>
                     <DataGridTextColumn Header="ID" Binding="{Binding Path=Key}"/>
                     <DataGridTextColumn Header="Name" Binding="{Binding Path=Value.Name}"/>
-                    <DataGridTextColumn Header="Quantity" Binding="{Binding Path=Value.Quantity}"/>
-                    <DataGridTextColumn Header="Price" Binding="{Binding Path=Value.Price}"/>
-                    <DataGridTextColumn Header="Price With Tax" Binding="{Binding Path=Value.PriceTax}"/>
+                    <DataGridTextColumn Header="DepartmentID" Binding="{Binding Path=Value.DepartmentID}"/>
+                    <DataGridTextColumn Header="Selling Price" Binding="{Binding Path=Value.SellingPrice, StringFormat=C2, ConverterCulture={x:Static local:SettingsParams.Culture}}"/>
+                    <DataGridTextColumn Header="Selling Price With Tax" Binding="{Binding Path=Value.SellingPriceWithTax, StringFormat=C2, ConverterCulture={x:Static local:SettingsParams.Culture}}"/>
+                    <DataGridTextColumn Header="Buying Price" Binding="{Binding Path=Value.BuyingPrice, StringFormat=C2, ConverterCulture={x:Static local:SettingsParams.Culture}}"/>
+                    <DataGridTextColumn Header="Buying Price With Tax" Binding="{Binding Path=Value.BuyingPriceWithTax, StringFormat=C2, ConverterCulture={x:Static local:SettingsParams.Culture}}"/>
                     <DataGridTemplateColumn Width="150" CanUserSort="False">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
