@@ -22,10 +22,6 @@ namespace StockControl
     /// </summary>
     public partial class MainWindow : Window
     {
-        public ObservableDictionary<int, Department> departments { get; set; } = new ObservableDictionary<int, Department>();
-        public ObservableDictionary<int,Employee> employees { get; set; } = new ObservableDictionary<int, Employee>();
-        public ObservableDictionary<int,Product> products { get; set; } = new ObservableDictionary<int, Product>();
-
         HomePage homePage;
         OrderPage orderPage;
         DepartmentsPage departmentsPage;
@@ -67,14 +63,17 @@ namespace StockControl
                 case 2:
                     GridPrincipal.Children.Clear();
                     GridPrincipal.Children.Add(departmentsPage);
+                    departmentsPage.ClearSelection();
                     break;
                 case 3:
                     GridPrincipal.Children.Clear();
                     GridPrincipal.Children.Add(employeePage);
+                    employeePage.ClearSelection();
                     break;
                 case 4:
                     GridPrincipal.Children.Clear();
                     GridPrincipal.Children.Add(productsPage);
+                    productsPage.ClearSelection();
                     break;
                 case 5:
                     GridPrincipal.Children.Clear();
@@ -83,19 +82,24 @@ namespace StockControl
                 default:
                     break;
             }
+            
         }
         private void InitializePages()
         {
             homePage = new HomePage();
-            departmentsPage = new DepartmentsPage(this);
-            orderPage = new OrderPage(products, departments);
-            employeePage = new EmployeePage(employees, departments);
-            productsPage = new ProductsPage(products, departments);
+            departmentsPage = new DepartmentsPage();
+            orderPage = new OrderPage();
+            employeePage = new EmployeePage();
+            productsPage = new ProductsPage();
             aboutUsPage = new AboutUsPage();
         }
         private void btnExit_Click(object sender, RoutedEventArgs e)
         {
+            Data.StoreAll();
             this.Close();
+        }
+        private void btnSettings_Click(object sender, RoutedEventArgs e)
+        {
         }
     }
 }

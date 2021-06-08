@@ -21,11 +21,12 @@ namespace StockControl
     /// </summary>
     public partial class LoginWindow : Window
     {
+        private bool isLogged = false;
+
         public LoginWindow()
         {
             InitializeComponent();
         }
-        bool isLogged = false;
         //why are we using async/await:
         //when turning a method into async it allows us to write the code as a sequence of statements
         //the compiler waits for a task (where the await keyword is written) before jumping to the next line of code.
@@ -46,10 +47,6 @@ namespace StockControl
                     {
                         Thread.Sleep(2000);
                     });
-                    //MessageBox.Show("Admin Confirmed, enjoy your stay");
-
-                    //Window mainWindow = new Window();
-                    //mainWindow.Content = new MainWindow();
                     MainWindow mainWindow = new MainWindow();
                     mainWindow.Show();
                     this.Close();
@@ -63,15 +60,15 @@ namespace StockControl
             }
         }
 
-        private void Label_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void Clearlbl_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             txtUsername.Text = "";
             txtPassword.Clear();
         }
 
-        private void txtPassword_PreviewKeyDown(object sender, KeyEventArgs e)
+        private void enterInTxt_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Enter )
+            if (e.Key == Key.Enter)
             {
                 btnLogin_Click(sender, e);
             }

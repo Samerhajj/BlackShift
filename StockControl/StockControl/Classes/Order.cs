@@ -9,23 +9,28 @@ namespace StockControl
     public struct Order
     {
         public int ProductID { get; }
-        public string ProductName { get; }
+        public Product OrderedProduct { get; }
         public DateTime OrderDate{ get; }
         public int OrderedQuantity { get; }
-        public double CostPerUnit { get; }
         public double TotalCostWithTax
         {
-            get { return CostPerUnit * OrderedQuantity; }
+            get { return OrderedProduct.BuyingPriceWithTax * OrderedQuantity; }
         }
 
         //Constructer
-        public Order(int orderedQuantity, double costPerUnit, int productID, string productName)
+        public Order(int productID, Product orderedProduct, int orderedQuantity)
         {
-            OrderedQuantity = orderedQuantity;
-            CostPerUnit = costPerUnit;
-            OrderDate = DateTime.Now;
-            ProductID = productID;
-            ProductName = productName;
+            if (orderedQuantity > 0)
+            {
+                OrderedQuantity = orderedQuantity;
+                OrderDate = DateTime.Now;
+                ProductID = productID;
+                OrderedProduct = orderedProduct;
+            }
+            else
+            {
+                throw new FormatException("Quantity must be at least 1.");
+            }
         }
     }
 }

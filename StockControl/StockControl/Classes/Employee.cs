@@ -6,26 +6,37 @@ using System.Threading.Tasks;
 
 namespace StockControl
 {
-    public class Employee
+    public abstract class Employee
     {
         //Properties
         public string Name { get; set; }
         public int DepartmentID { get; set; }
         public string Gender { get; set; }
-        public double Salary { get; set; }
+        public double Raise { get; set; } //Contains the extra raise in % (Percentage e.g. 13%)
         public DateTime DateOfBirth { get; set; }
+        public abstract double Income { get; }
 
         //Constructors
-        public Employee(string name, DateTime dateOfBirth, string gender, int departmentId)
+        public Employee() { }
+
+        public Employee(string name, int departmentId, DateTime dateOfBirth, string gender, double raise = 0)
         {
-            if(name != string.Empty)
+            if (!String.IsNullOrEmpty(name))
             {
-                if (gender != null)
+                if (!String.IsNullOrEmpty(gender))
                 {
-                    Name = name;
-                    DateOfBirth = dateOfBirth;
-                    Gender = gender;
-                    DepartmentID = departmentId;
+                    if (DateTime.Now.Date > dateOfBirth.AddYears(18))
+                    {
+                        Name = name;
+                        Raise = raise;
+                        DepartmentID = departmentId;
+                        DateOfBirth = dateOfBirth;
+                        Gender = gender;
+                    }
+                    else
+                    {
+                        throw new InvalidOperationException("Employee must be over 18.");
+                    }
                 }
                 else
                 {
@@ -34,7 +45,7 @@ namespace StockControl
             }
             else
             {
-                throw new ArgumentNullException("","Employee name was not entered.");
+                throw new ArgumentNullException("", "Employee name was not entered.");
             }
         }
 

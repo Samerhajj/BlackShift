@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.Dynamic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,7 +22,7 @@ namespace StockControl
         public event NotifyCollectionChangedEventHandler CollectionChanged;
 
         public ObservableDictionary()
-            :base() { }
+            : base() { }
         public new void Add(TKey key, TValue value)
         {
             base.Add(key, value);
