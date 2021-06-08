@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MaterialDesignThemes.Wpf;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,17 +21,14 @@ namespace StockControl
     /// </summary>
     public partial class ProductsPage : UserControl
     {
-        List<int> selectedProductsIDs = new List<int>();
-        ObservableDictionary<int,Product> products;
-        ObservableDictionary<int, Department> departments;
+        List<int> selectedProductsID = new List<int>();
+        SnackbarMessageQueue messageQueue = new SnackbarMessageQueue(Data.SnackbarMessageTime);
 
-        public ProductsPage(ObservableDictionary<int, Product> products, ObservableDictionary<int, Department> departments)
+        public ProductsPage()
         {
             InitializeComponent();
-            ProductGrid.ItemsSource = products;
-            this.products = products;
-            cbDepartment.ItemsSource = departments;
-            this.departments = departments;
+            ProductGrid.ItemsSource = Data.Products;
+            cbDepartment.ItemsSource = Data.Departments;
         }
 
         //Events
@@ -38,27 +36,43 @@ namespace StockControl
         {
             try
             {
-                AddProduct();
-                ClearData();
+                if (String.IsNullOrEmpty(txtID.Text))
+                {
+                    throw new ArgumentNullException("", "The id was not entered.");
+                }
+                else if ((KeyValuePair<int, Department>?)cbDepartment.SelectedItem is null)
+                {
+                    throw new ArgumentNullException("", "The department was not choosen.");
+                }
+                else if (String.IsNullOrEmpty(txtSellingPriceNoTax.Text)) 
+                {
+                    throw new ArgumentNullException("", "The selling price was not entered.");
+                }
+                else if (String.IsNullOrEmpty(txtBuyingPriceNoTax.Text))
+                {
+                    throw new ArgumentNullException("", "The buying price was not entered.");
+                }
+                int productId = Convert.ToInt32(txtID.Text);
+                var department = (KeyValuePair<int, Department>)cbDepartment.SelectedItem;
+                Product product = new Product(txtName.Text, department.Key, Convert.ToDouble(txtSellingPriceNoTax.Text), Convert.ToDouble(txtBuyingPriceNoTax.Text));
+                
+                department.Value.AddProduct(productId);
+                Data.Products.Add(productId, product);
+
+                ClearUI();
+                ClearSelection();
+                ExecuteMessage("Product added successfully.");
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                if (!sbNotification.IsActive)
+                    ExecuteMessage(ex.Message);
             }
-            finally
-            {
-                ClearUi();
-            }
-        }
-        private void editBtn_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show($"{(Product)((Button)sender).DataContext}");
-            ClearData();
         }
         private void deleteBtn_Click(object sender, RoutedEventArgs e)
         {
             //Checks if there is nothing selected.
-            if (selectedProductsIDs.Count < 1)
+            if (selectedProductsID.Count < 1)
             {
                 MessageBox.Show("There is no selected products to delete.", "No products selected", MessageBoxButton.OK, MessageBoxImage.Error);
             }
@@ -66,59 +80,80 @@ namespace StockControl
             {
                 MessageBoxResult result;
                 //Checks if there is one or more employees and display the apropriate MessageBox.
-                result = (selectedProductsIDs.Count == 1) ? MessageBox.Show($"Are you sure you want to permanently delete this product ?", "Delete one product", MessageBoxButton.YesNo)
-                : MessageBox.Show($"Are you sure you want to permanently delete {selectedProductsIDs.Count} products ?", "Delete multiple products", MessageBoxButton.YesNo);
+                result = (selectedProductsID.Count == 1) ? MessageBox.Show($"Are you sure you want to permanently delete this product ?", "Delete one product", MessageBoxButton.YesNo)
+                : MessageBox.Show($"Are you sure you want to permanently delete {selectedProductsID.Count} products ?", "Delete multiple products", MessageBoxButton.YesNo);
 
                 //Checks the result of the MessageBox.
                 if (result == MessageBoxResult.Yes)
                 {
-                    foreach (var productID in selectedProductsIDs)
+                    foreach (var productID in selectedProductsID)
                     {
-                        int depId = products[productID].DepartmentID;
-                        departments[depId].RemoveProduct(productID);
-                        products.Remove(productID);
+                        int depId = Data.Products[productID].DepartmentID;
+                        Data.Departments[depId].RemoveProduct(productID);
+                        Data.Products.Remove(productID);
                     }
-                    ClearData();
+                    if (selectedProductsID.Count == 1)
+                    {
+                        ExecuteMessage("The product was deleted successfully.");
+                    }
+                    else ExecuteMessage($"{selectedProductsID.Count} products were deleted successfully.");
+                    ClearSelection();
                 }
             }
         }
+        private void editBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show($"{(Product)((Button)sender).DataContext}");
+            ClearSelection();
+        }
         private void selectCb_Checked(object sender, RoutedEventArgs e)
         {
-            selectedProductsIDs.Add((int)((CheckBox)sender).DataContext);
+            selectedProductsID.Add((int)((CheckBox)sender).DataContext);
+            if (selectedProductsID.Count == 1)
+            {
+                Deletebtn.Visibility = Visibility.Visible;
+                ProductGrid.CanUserSortColumns = false;
+            }
         }
         private void selectCb_Unchecked(object sender, RoutedEventArgs e)
         {
-            selectedProductsIDs.Remove((int)((CheckBox)sender).DataContext);
+            selectedProductsID.Remove((int)((CheckBox)sender).DataContext);
+            if (selectedProductsID.Count <= 0)
+            {
+                Deletebtn.Visibility = Visibility.Hidden;
+                ProductGrid.CanUserSortColumns = true;
+            }
+        }
+        //VVV Code Reuse VVV
+        private void NumberCheckInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = Data.NumRegex.IsMatch(e.Text);
+            if (e.Handled && !sbNotification.IsActive)
+                ExecuteMessage($"{(string)((TextBox)sender).Tag} can include numbers only");
+
         }
 
         //Extra Functions
-        private void ClearUi()
+        private void ClearUI()
         {
             txtID.Text = "";
             txtName.Text = "";
-            txtPriceNoTax.Text = "";
+            txtSellingPriceNoTax.Text = "";
             txtBuyingPriceNoTax.Text = "";
             cbDepartment.SelectedItem = null;
         }
-        private void ClearData()
+        public void ClearSelection()
         {
-            selectedProductsIDs.Clear();
+            selectedProductsID.Clear();
+            Deletebtn.Visibility = Visibility.Hidden;
+            ProductGrid.CanUserSortColumns = true;
+            ProductGrid.ItemsSource = null;
+            ProductGrid.ItemsSource = Data.Products;
         }
-        private void AddProduct()
+        private void ExecuteMessage(string message)
         {
-            int productId = Convert.ToInt32(txtID.Text);
-            var department = (KeyValuePair<int, Department>)cbDepartment.SelectedItem;
-
-            department.Value.AddProduct(productId, 0);
-            Product product = new Product()
-            {
-                Name = txtName.Text,
-                DepartmentID = department.Key,
-                SellingPrice = Convert.ToDouble(txtPriceNoTax.Text),
-                BuyingPrice = Convert.ToDouble(txtBuyingPriceNoTax.Text)
-            };
-            products.Add(productId, product);
-
+            sbNotification.MessageQueue = messageQueue;
+            sbNotification.MessageQueue.Enqueue(message);
         }
     }
 }

@@ -88,8 +88,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Classes\Data.cs" />
+    <Compile Include="Classes\MaterialHandler.cs" />
     <Compile Include="Classes\Order.cs" />
     <Compile Include="Classes\SettingsParams.cs" />
+    <Compile Include="Classes\WarehousePacker.cs" />
+    <Compile Include="Classes\WarehouseWorker.cs" />
     <Compile Include="EditEmployee.xaml.cs">
       <DependentUpon>EditEmployee.xaml</DependentUpon>
     </Compile>
@@ -138,7 +142,6 @@
     </Compile>
     <Compile Include="Classes\Department.cs" />
     <Compile Include="Classes\Employee.cs" />
-    <Compile Include="Classes\Warehouse.cs" />
     <Compile Include="EmployeePage.xaml.cs">
       <DependentUpon>EmployeePage.xaml</DependentUpon>
     </Compile>

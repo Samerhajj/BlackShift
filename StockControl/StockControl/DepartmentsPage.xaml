@@ -6,9 +6,10 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:StockControl"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="850" d:DesignWidth="1024">
 
     <materialDesign:TransitioningContent x:Name="TransitionSlideHome" OpeningEffect="{materialDesign:TransitionEffect SlideInfromLeft,Duration=0:0:0.2}">
+        <StackPanel>
             <Grid Background="#FFEEEEEE" Margin="0,20,0,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2*"/>
@@ -18,77 +19,87 @@
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="100"/>
-                    <RowDefinition/>
+                    <RowDefinition Height="80"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
                 <TextBlock FontSize="18" Foreground="Gray" Text="Department ID" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0"/>
-                <TextBox x:Name="txtDepartmentID" Width="127" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" MaxLength="5"/>
+                <TextBox x:Name="txtDepartmentID" Width="127" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" MaxLength="5" Tag="Department id" PreviewTextInput="Number_PreviewTextInput"/>
                 <TextBlock FontSize="18" Foreground="Gray" Text="Department Name" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0" Grid.Column="1"/>
-                <TextBox x:Name="txtDepartmentName" Width="127" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" MaxLength="25"  Grid.Column="1"/>
+                <TextBox x:Name="txtDepartmentName" Width="127" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" MaxLength="25" Grid.Column="1"/>
                 <TextBlock FontSize="18" Foreground="Gray" Text="Employee Capacity" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0" Grid.Column="2"/>
-                <TextBox x:Name="txtEmployeeCapacity" Width="127" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" MaxLength="10"  Grid.Column="2"/>
+                <TextBox x:Name="txtEmployeeCapacity" Width="127" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" MaxLength="8" Grid.Column="2" Tag="Employee capacity" PreviewTextInput="Number_PreviewTextInput"/>
                 <TextBlock FontSize="18" Foreground="Gray" Text="Product Capacity" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0" Grid.Column="3"/>
-                <TextBox x:Name="txtProductCapacity" Width="127" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" MaxLength="25"  Grid.Column="3"/>
-                <StackPanel Grid.Column="5" Width="160" Height="100" HorizontalAlignment="Center">
-                    <Button Grid.Column="5" x:Name="addDepartmentBtn" Width="75" Height="28" Content="Add"  FontSize="14" Background="LightBlue" Click="addBtn_Click"/>
-                    <Button Grid.Column="5" x:Name="deleteBtn" Width="75" Height="28" Content="Delete"  FontSize="14" Background="LightBlue" Click="deleteBtn_Click"/>
-                </StackPanel>
-            <DataGrid x:Name="DepartmentGrid" Margin="0,10,10,10" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="6" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" AutoGenerateColumns="False" IsReadOnly="True" EnableRowVirtualization="True">
-                <DataGrid.Columns>
-                    <DataGridTemplateColumn Header="Select" CanUserSort="False" IsReadOnly="False">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <CheckBox x:Name="selectCb" Checked="selectCb_Checked" Unchecked="selectCb_Unchecked" DataContext="{Binding Path=Key}"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTextColumn Header="ID" Binding="{Binding Path=Key}"/>
-                    <DataGridTextColumn Header="Name" Binding="{Binding Path=Value.Name}"/>
-                    <DataGridTemplateColumn Header="Available Employees">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <StackPanel>
-                                    <ProgressBar x:Name="pgEmployees" Width="120" Height="10" materialDesign:TransitionAssist.DisableTransitions="True" Value="{Binding Path=Value.EmployeeCount, Mode=OneWay}" Maximum="{Binding Path=Value.EmployeeCapacity, Mode=OneWay}"/>
-                                    <TextBlock HorizontalAlignment="Right">
-                                        <TextBlock.Text>
-                                            <MultiBinding StringFormat="{}{0}/{1}">
-                                                <Binding Path="Value.EmployeeCount"/>
-                                                <Binding Path="Value.EmployeeCapacity"/>
-                                            </MultiBinding>
-                                        </TextBlock.Text>
-                                    </TextBlock>
-                                </StackPanel>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="Available Products">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <StackPanel>
-                                    <ProgressBar x:Name="pgProducts" Width="120" Height="10" materialDesign:TransitionAssist.DisableTransitions="True" Value="{Binding Path=Value.ProductCount, Mode=OneWay}" Maximum="{Binding Path=Value.ProductCapacity, Mode=OneWay}"/>
-                                    <TextBlock HorizontalAlignment="Right">
-                                        <TextBlock.Text>
-                                            <MultiBinding StringFormat="{}{0}/{1}">
-                                                <Binding Path="Value.ProductCount"/>
-                                                <Binding Path="Value.ProductCapacity"/>
-                                            </MultiBinding>
-                                        </TextBlock.Text>
-                                    </TextBlock>
-                                </StackPanel>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Width="150" CanUserSort="False">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Button Grid.Column="5" x:Name="editBtn" Width="75" Height="28" FontSize="14" Click="editBtn_Click">
-                                    <materialDesign:PackIcon Kind="AccountEdit" Width="30" VerticalAlignment="Center" Margin="5" FontFamily="Corbel Light"/>
-                                </Button>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                </DataGrid.Columns>
+                <TextBox x:Name="txtProductCapacity" Width="127" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" MaxLength="8" Grid.Column="3" Tag="Product capacity" PreviewTextInput="Number_PreviewTextInput"/>
+                <Button x:Name="addBtn" Width="75" Height="28" FontSize="14" Click="addBtn_Click" Grid.Column="6" VerticalAlignment="Center" ToolTip="Add a new department.">
+                    <Button.Content>
+                        <materialDesign:PackIcon Kind="HomePlus" VerticalAlignment="Center"/>
+                    </Button.Content>
+                </Button>
+                <Button x:Name="Deletebtn" Width="75" Height="28" FontSize="14" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="1" Background="Red" BorderThickness="0" Visibility="Hidden" Click="deleteBtn_Click">
+                    <Button.Content>
+                        <materialDesign:PackIcon x:Name="deleteIco" Kind="HomeMinus" Foreground="White"/>
+                    </Button.Content>
+                </Button>
+
+                <DataGrid x:Name="DepartmentGrid" Margin="10" Height="660" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="6" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" AutoGenerateColumns="False" IsReadOnly="True" EnableRowVirtualization="True">
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn Header="Select" CanUserSort="False" IsReadOnly="False">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox x:Name="selectCb" Checked="selectCb_Checked" Unchecked="selectCb_Unchecked" DataContext="{Binding Path=Key}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Header="ID" Binding="{Binding Path=Key}"/>
+                        <DataGridTextColumn Header="Name" Binding="{Binding Path=Value.Name}"/>
+                        <DataGridTemplateColumn Header="Available Employees">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel>
+                                        <ProgressBar x:Name="pgEmployees" Width="120" Height="10" materialDesign:TransitionAssist.DisableTransitions="True" Value="{Binding Path=Value.EmployeeCount, Mode=OneWay}" Maximum="{Binding Path=Value.EmployeeCapacity, Mode=OneWay}"/>
+                                        <TextBlock HorizontalAlignment="Right">
+                                            <TextBlock.Text>
+                                                <MultiBinding StringFormat="{}{0}/{1}">
+                                                    <Binding Path="Value.EmployeeCount"/>
+                                                    <Binding Path="Value.EmployeeCapacity"/>
+                                                </MultiBinding>
+                                            </TextBlock.Text>
+                                        </TextBlock>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Available Products">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel>
+                                        <ProgressBar x:Name="pgProducts" Width="120" Height="10" materialDesign:TransitionAssist.DisableTransitions="True" Value="{Binding Path=Value.ProductCount, Mode=OneWay}" Maximum="{Binding Path=Value.ProductCapacity, Mode=OneWay}"/>
+                                        <TextBlock HorizontalAlignment="Right">
+                                            <TextBlock.Text>
+                                                <MultiBinding StringFormat="{}{0}/{1}">
+                                                    <Binding Path="Value.ProductCount"/>
+                                                    <Binding Path="Value.ProductCapacity"/>
+                                                </MultiBinding>
+                                            </TextBlock.Text>
+                                        </TextBlock>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Width="150" CanUserSort="False">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Grid.Column="5" x:Name="editBtn" Width="75" Height="28" FontSize="14" Click="editBtn_Click">
+                                        <materialDesign:PackIcon Kind="HomeEdit" Width="30" VerticalAlignment="Center" Margin="5" FontFamily="Corbel Light"/>
+                                    </Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
                 </DataGrid>
             </Grid>
-        </materialDesign:TransitioningContent>
+            <materialDesign:Snackbar x:Name="sbNotification" Margin="50,0,50,0" HorizontalAlignment="Center"/>
+        </StackPanel>
+    </materialDesign:TransitioningContent>
 </UserControl>

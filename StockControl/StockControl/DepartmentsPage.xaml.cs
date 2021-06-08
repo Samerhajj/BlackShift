@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MaterialDesignThemes.Wpf;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,14 +22,12 @@ namespace StockControl
     public partial class DepartmentsPage : UserControl
     {
         List<int> selectedDepartments = new List<int>();
-        //ObservableDictionary<int, Department> departments;
-        MainWindow main;
-        public DepartmentsPage(MainWindow mainWindow)
+        SnackbarMessageQueue messageQueue = new SnackbarMessageQueue(Data.SnackbarMessageTime);
+
+        public DepartmentsPage()
         {
             InitializeComponent();
-            DepartmentGrid.ItemsSource = mainWindow.departments;
-            //departments = mainWindow.departments;
-            main = mainWindow;
+            DepartmentGrid.ItemsSource = Data.Departments;
         }
 
         //Events
@@ -36,26 +35,32 @@ namespace StockControl
         {
             try
             {
-                main.departments.Add(Convert.ToInt32(txtDepartmentID.Text), new Department()
+                if (String.IsNullOrEmpty(txtDepartmentID.Text))
                 {
-                    Name = txtDepartmentName.Text,
-                    EmployeeCapacity = Convert.ToInt32(txtEmployeeCapacity.Text),
-                    ProductCapacity = Convert.ToInt32(txtProductCapacity.Text)
-                });
-                ClearData();
+                    throw new ArgumentNullException("", "The department id was not entered.");
+                }
+                else if(String.IsNullOrEmpty(txtEmployeeCapacity.Text))
+                {
+                    throw new ArgumentNullException("", "The employee capacity was not entered.");
+                }
+                else if (String.IsNullOrEmpty(txtProductCapacity.Text))
+                {
+                    throw new ArgumentNullException("", "The product capacity was not entered.");
+                }
+
+                var departmentId = Convert.ToInt32(txtDepartmentID.Text);
+                var department = new Department(txtDepartmentName.Text, Convert.ToInt32(txtEmployeeCapacity.Text), Convert.ToInt32(txtProductCapacity.Text));
+
+                Data.Departments.Add(departmentId, department);
+                ClearSelection();
+                ClearUI();
+                ExecuteMessage("Department added successfully.");
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                if (!sbNotification.IsActive)
+                    ExecuteMessage(ex.Message);
             }
-            finally
-            {
-                ClearUi();
-            }
-        }
-        private void editBtn_Click(object sender, RoutedEventArgs e)
-        {
-
         }
         private void deleteBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -76,40 +81,75 @@ namespace StockControl
                 {
                     foreach (var deparmentID in selectedDepartments)
                     {
-                        foreach (var employeeID in main.departments[deparmentID].GetEmployeesID())
+                        foreach (var employeeID in Data.Departments[deparmentID].GetEmployeesID())
                         {
-                            main.employees.Remove(employeeID);
+                            Data.Employees.Remove(employeeID);
                         }
-                        foreach (var productID in main.departments[deparmentID].GetProducts())
+                        foreach (var productID in Data.Departments[deparmentID].GetProducts())
                         {
-                            main.products.Remove(productID.Key);
+                            Data.Products.Remove(productID.Key);
                         }
-                        main.departments.Remove(deparmentID);
+                        Data.Departments.Remove(deparmentID);
                     }
-                    ClearData();
+                    if (selectedDepartments.Count == 1)
+                    {
+                        ExecuteMessage("The department was deleted successfully.");
+                    }
+                    else ExecuteMessage($"{selectedDepartments.Count} departments were deleted successfully.");
+                    ClearSelection();
                 }
             }
+        }
+        private void editBtn_Click(object sender, RoutedEventArgs e)
+        {
+
         }
         private void selectCb_Checked(object sender, RoutedEventArgs e)
         {
             selectedDepartments.Add((int)((CheckBox)sender).DataContext);
+            if (selectedDepartments.Count == 1)
+            {
+                Deletebtn.Visibility = Visibility.Visible;
+                DepartmentGrid.CanUserSortColumns = false;
+            }
         }
         private void selectCb_Unchecked(object sender, RoutedEventArgs e)
         {
             selectedDepartments.Remove((int)((CheckBox)sender).DataContext);
+            if (selectedDepartments.Count <= 0)
+            {
+                Deletebtn.Visibility = Visibility.Hidden;
+                DepartmentGrid.CanUserSortColumns = true;
+            }
+        }
+        //VVV Code Reuse VVV
+        private void Number_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = Data.NumRegex.IsMatch(e.Text);
+            if (e.Handled && !sbNotification.IsActive)
+                    ExecuteMessage($"{(string)((TextBox)sender).Tag} can include numbers only.");
         }
 
         //Extra Functions
-        private void ClearUi()
+        private void ClearUI()
         {
             txtDepartmentID.Text = "";
             txtDepartmentName.Text = "";
             txtEmployeeCapacity.Text = "";
             txtProductCapacity.Text = "";
         }
-        private void ClearData()
+        public void ClearSelection()
         {
             selectedDepartments.Clear();
+            Deletebtn.Visibility = Visibility.Hidden;
+            DepartmentGrid.CanUserSortColumns = true;
+            DepartmentGrid.ItemsSource = null;
+            DepartmentGrid.ItemsSource = Data.Departments;
+        }
+        private void ExecuteMessage(string message)
+        {
+            sbNotification.MessageQueue = messageQueue;
+            sbNotification.MessageQueue.Enqueue(message);
         }
     }
 }

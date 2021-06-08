@@ -9,7 +9,6 @@ namespace StockControl
     public class Department
     {
         //Properties / Fields
-        public int ID { get; set; }
         public string Name { get; set; }
         public int EmployeeCapacity { get; set; }
         public int ProductCapacity { get; set; }
@@ -24,16 +23,26 @@ namespace StockControl
 
         //Constructors
         public Department() { }
-        public Department(int departmentID, string departmentName, int employeeCapacity, int productCapacity)
+        public Department(string departmentName, int employeeCapacity, int productCapacity)
         {
-            ID = departmentID;
-            Name = departmentName;
-            EmployeeCapacity = employeeCapacity;
-            ProductCapacity = productCapacity;
+            if (!String.IsNullOrEmpty(departmentName))
+            {
+                if (employeeCapacity > 0 && productCapacity > 0)
+                {
+                    Name = departmentName;
+                    EmployeeCapacity = employeeCapacity;
+                    ProductCapacity = productCapacity;
+                }
+                else throw new FormatException("Capacity must be at least 1.");
+            }
+            else
+            {
+                throw new ArgumentNullException("", "The department name was not entered.");
+            }
         }
 
         //Methods
-        public void AddProduct(int productId, int quantity)
+        public void AddProduct(int productId, int quantity = 0)
         {
             if (ProductCount + quantity <= ProductCapacity)
             {

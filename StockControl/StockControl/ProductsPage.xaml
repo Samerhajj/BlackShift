@@ -6,77 +6,86 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:StockControl"
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="1024">
+             d:DesignHeight="850" d:DesignWidth="1024">
 
     <materialDesign:TransitioningContent x:Name="TransitionSlideHome" OpeningEffect="{materialDesign:TransitionEffect SlideInfromLeft,Duration=0:0:0.2}">
-        <Grid Background="#FFEEEEEE" Margin="0,20,0,0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="2*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="100"/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-
-            <TextBlock FontSize="20" Foreground="Gray" Text="Product ID " Width="130" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0"/>
-            <TextBox x:Name="txtID" Width="127" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" MaxLength="5"/>
-            <TextBlock FontSize="20" Foreground="Gray" Text="Product Name " Width="142" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0" Grid.Column="1"/>
-            <TextBox x:Name="txtName" Width="127" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" MaxLength="15" Grid.Column="1" />
-            <TextBlock FontSize="18" Foreground="Gray" Text="Department" Width="142" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0" Grid.Column="2"/>
-            <ComboBox x:Name="cbDepartment" Width="127" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" Grid.Column="2">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock>
-                            <TextBlock.Text>
-                                <MultiBinding StringFormat="{}{0} - {1}">
-                                    <Binding Path="Key"/>
-                                    <Binding Path="Value.Name"/>
-                                </MultiBinding>
-                            </TextBlock.Text>
-                        </TextBlock>
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
-            <TextBlock Text="Selling Price" Grid.Column="3" FontSize="20" Foreground="Gray" Margin="10,0,0,0"/>
-            <TextBox x:Name="txtPriceNoTax" Width="127" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" MaxLength="8" Grid.Column="3" />
-            <TextBlock Text="Buying Price" Grid.Column="4" FontSize="20" Foreground="Gray" Margin="10,0,0,0"/>
-            <TextBox x:Name="txtBuyingPriceNoTax" Width="127" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" MaxLength="8" Grid.Column="4" />
-            <StackPanel Grid.Column="5" Width="160" Height="100">
-                <Button Grid.Column="5" x:Name="addBtn" Width="75" Height="28" Content="Add" FontSize="14" Background="LightBlue" Click="addBtn_Click"/>
-                <Button Grid.Column="5" x:Name="deleteBtn" Width="75" Height="28" Content="Delete" FontSize="14" Background="LightBlue" Click="deleteBtn_Click"/>
-            </StackPanel>
-            <DataGrid x:Name="ProductGrid" Margin="10" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="6" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" AutoGenerateColumns="False" IsReadOnly="True" EnableRowVirtualization="True">
-                <DataGrid.Columns>
-                    <DataGridTemplateColumn Header="Select" CanUserSort="False" IsReadOnly="False">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <CheckBox x:Name="selectCb" Checked="selectCb_Checked" Unchecked="selectCb_Unchecked" DataContext="{Binding Path=Key}"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTextColumn Header="ID" Binding="{Binding Path=Key}"/>
-                    <DataGridTextColumn Header="Name" Binding="{Binding Path=Value.Name}"/>
-                    <DataGridTextColumn Header="DepartmentID" Binding="{Binding Path=Value.DepartmentID}"/>
-                    <DataGridTextColumn Header="Selling Price" Binding="{Binding Path=Value.SellingPrice, StringFormat=C2, ConverterCulture={x:Static local:SettingsParams.Culture}}"/>
-                    <DataGridTextColumn Header="Selling Price With Tax" Binding="{Binding Path=Value.SellingPriceWithTax, StringFormat=C2, ConverterCulture={x:Static local:SettingsParams.Culture}}"/>
-                    <DataGridTextColumn Header="Buying Price" Binding="{Binding Path=Value.BuyingPrice, StringFormat=C2, ConverterCulture={x:Static local:SettingsParams.Culture}}"/>
-                    <DataGridTextColumn Header="Buying Price With Tax" Binding="{Binding Path=Value.BuyingPriceWithTax, StringFormat=C2, ConverterCulture={x:Static local:SettingsParams.Culture}}"/>
-                    <DataGridTemplateColumn Width="150" CanUserSort="False">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Button Grid.Column="5" x:Name="editBtn" Width="75" Height="28" FontSize="14" Click="editBtn_Click" DataContext="{Binding Path=Value}">
-                                    <materialDesign:PackIcon Kind="AccountEdit" Width="30" VerticalAlignment="Center" Margin="5" FontFamily="Corbel Light"/>
-                                </Button>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                </DataGrid.Columns>
-            </DataGrid>
-        </Grid>
+        <StackPanel>
+            <Grid Background="#FFEEEEEE" Margin="0,20,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="80"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <TextBlock FontSize="20" Foreground="Gray" Text="Product ID " Width="130" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0"/>
+                <TextBox x:Name="txtID" Width="127" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" MaxLength="5" Tag="Product id" PreviewTextInput="NumberCheckInput"/>
+                <TextBlock FontSize="20" Foreground="Gray" Text="Product Name " Width="142" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0" Grid.Column="1"/>
+                <TextBox x:Name="txtName" Width="127" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" MaxLength="15" Grid.Column="1" />
+                <TextBlock FontSize="18" Foreground="Gray" Text="Department" Width="142" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0" Grid.Column="2"/>
+                <ComboBox x:Name="cbDepartment" Width="127" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" Grid.Column="2">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{0} - {1}">
+                                        <Binding Path="Key"/>
+                                        <Binding Path="Value.Name"/>
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <TextBlock Text="Selling Price" Grid.Column="3" FontSize="20" Foreground="Gray" Margin="10,0,0,0"/>
+                <TextBox x:Name="txtSellingPriceNoTax" Width="127" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" MaxLength="8" Grid.Column="3" Tag="Selling price" PreviewTextInput="NumberCheckInput"/>
+                <TextBlock Text="Buying Price" Grid.Column="4" FontSize="20" Foreground="Gray" Margin="10,0,0,0"/>
+                <TextBox x:Name="txtBuyingPriceNoTax" Width="127" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" MaxLength="8" Grid.Column="4" Tag="Buying price" PreviewTextInput="NumberCheckInput"/>
+                <Button x:Name="addBtn" Grid.Column="5" Width="75" Height="28" FontSize="14" Click="addBtn_Click" ToolTip="Add a new product.">
+                    <Button.Content>
+                        <materialDesign:PackIcon Kind="BoxAdd" VerticalAlignment="Center"/>
+                    </Button.Content>
+                </Button>
+                <Button x:Name="Deletebtn" Width="75" Height="28" FontSize="14" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="1" Background="Red" BorderThickness="0" Visibility="Hidden" Click="deleteBtn_Click">
+                    <Button.Content>
+                        <materialDesign:PackIcon x:Name="deleteIco" Kind="BoxMinus" Foreground="White"/>
+                    </Button.Content>
+                </Button>
+                <DataGrid x:Name="ProductGrid" Margin="10" Height="660" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="6" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" AutoGenerateColumns="False" IsReadOnly="True" EnableRowVirtualization="True">
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn Header="Select" CanUserSort="False" IsReadOnly="False">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox x:Name="selectCb" Checked="selectCb_Checked" Unchecked="selectCb_Unchecked" DataContext="{Binding Path=Key}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Header="ID" Binding="{Binding Path=Key}"/>
+                        <DataGridTextColumn Header="Name" Binding="{Binding Path=Value.Name}"/>
+                        <DataGridTextColumn Header="DepartmentID" Binding="{Binding Path=Value.DepartmentID}"/>
+                        <DataGridTextColumn Header="Selling Price" Binding="{Binding Path=Value.SellingPrice, StringFormat=C2, ConverterCulture={x:Static local:SettingsParams.Culture}}"/>
+                        <DataGridTextColumn Header="Selling Price With Tax" Binding="{Binding Path=Value.SellingPriceWithTax, StringFormat=C2, ConverterCulture={x:Static local:SettingsParams.Culture}}"/>
+                        <DataGridTextColumn Header="Buying Price" Binding="{Binding Path=Value.BuyingPrice, StringFormat=C2, ConverterCulture={x:Static local:SettingsParams.Culture}}"/>
+                        <DataGridTextColumn Header="Buying Price With Tax" Binding="{Binding Path=Value.BuyingPriceWithTax, StringFormat=C2, ConverterCulture={x:Static local:SettingsParams.Culture}}"/>
+                        <DataGridTemplateColumn Width="150" CanUserSort="False">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Grid.Column="5" x:Name="editBtn" Width="75" Height="28" FontSize="14" Click="editBtn_Click" DataContext="{Binding Path=Value}">
+                                        <materialDesign:PackIcon Kind="BoxEdit" Width="30" VerticalAlignment="Center" Margin="5" FontFamily="Corbel Light"/>
+                                    </Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+            <materialDesign:Snackbar x:Name="sbNotification" Margin="50,0,50,0" HorizontalAlignment="Center"/>
+        </StackPanel>
     </materialDesign:TransitioningContent>
 </UserControl>

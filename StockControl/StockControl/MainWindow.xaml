@@ -31,7 +31,7 @@
                 <Button x:Name="btnExit" Margin="5,0,0,5" Click="btnExit_Click">
                     <materialDesign:PackIcon Kind="Shutdown" HorizontalAlignment="Center" Foreground="LightBlue" FontFamily="Corbel Light" Grid.RowSpan="2"/>
                 </Button>
-                <Button x:Name="btnSettings" Margin="5,0,0,5">
+                <Button x:Name="btnSettings" Margin="5,0,0,5" Click="btnSettings_Click">
                     <materialDesign:PackIcon Kind="SettingsOutline" HorizontalAlignment="Center" Foreground="LightBlue" FontFamily="Corbel Light" Grid.RowSpan="2"/>
                 </Button>
             </StackPanel>
@@ -54,21 +54,21 @@
 
                 <ListViewItem Height="60">
                     <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="AccountGroup" Width="30" VerticalAlignment="Center" Margin="5" FontFamily="Corbel Light"/>
+                        <materialDesign:PackIcon Kind="Warehouse" Width="30" VerticalAlignment="Center" Margin="5" FontFamily="Corbel Light"/>
                         <TextBlock Text="Departments" FontSize="26" VerticalAlignment="Center" Margin="20,0"/>
                     </StackPanel>
                 </ListViewItem>
 
                 <ListViewItem Height="60">
                     <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="Worker" Width="30" VerticalAlignment="Center" Margin="5" FontFamily="Corbel Light"/>
+                        <materialDesign:PackIcon Kind="Account" Width="30" VerticalAlignment="Center" Margin="5" FontFamily="Corbel Light"/>
                         <TextBlock Text="Employees" FontSize="26" VerticalAlignment="Center" Margin="20,0"/>
                     </StackPanel>
                 </ListViewItem>
 
                 <ListViewItem Height="60">
                     <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="BoxAdd" Width="30" VerticalAlignment="Center" Margin="5" FontFamily="Corbel Light"/>
+                        <materialDesign:PackIcon Kind="BoxEye" Width="30" VerticalAlignment="Center" Margin="5" FontFamily="Corbel Light"/>
                         <TextBlock Text="Products" FontSize="26" VerticalAlignment="Center" Margin="20,0"/>
                     </StackPanel>
                 </ListViewItem>

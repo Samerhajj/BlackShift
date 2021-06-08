@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
+using MaterialDesignThemes.Wpf;
 
 namespace StockControl
 {
@@ -21,39 +22,50 @@ namespace StockControl
     /// </summary>
     public partial class OrderPage : UserControl
     {
-        ObservableCollection<Order> orders = new ObservableCollection<Order>();
-        ObservableDictionary<int, Department> departments;
+        SnackbarMessageQueue messageQueue = new SnackbarMessageQueue(Data.SnackbarMessageTime);
 
-        public OrderPage(ObservableDictionary<int,Product> products, ObservableDictionary<int, Department> departments)
+        public OrderPage()
         {
             InitializeComponent();
-            comboBoxProducts.ItemsSource = products;
-            OrdersGrid.ItemsSource = orders;
-            this.departments = departments;
+            comboBoxProducts.ItemsSource = Data.Products;
+            OrdersGrid.ItemsSource = Data.Orders;
         }
 
         private void orderBtn_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                OrderProduct();
-            }
-            catch (FormatException)
-            {
-                _ = (txtOrderQuantity.Text.Trim() == "") ? MessageBox.Show("The intended quantity was not entered.") : MessageBox.Show("The quantity should contain numbers only.");
-            }
-            catch(NullReferenceException)
-            {
-                MessageBox.Show("The intended product was not selected.");
+                if ((KeyValuePair<int, Product>?)comboBoxProducts.SelectedValue is null)
+                {
+                    throw new ArgumentNullException("", "The intended product was not selected.");
+                }
+                if (String.IsNullOrEmpty(txtOrderQuantity.Text))
+                {
+                    throw new ArgumentNullException("", "The intended quantity was not entered.");
+                }
+                var selectedProduct = (KeyValuePair<int, Product>)comboBoxProducts.SelectedValue;
+                var quantity = Convert.ToInt32(txtOrderQuantity.Text);
+                var order = new Order(
+                    selectedProduct.Key,
+                    selectedProduct.Value,
+                    quantity);
+                Data.Departments[selectedProduct.Value.DepartmentID].AddQuantity(selectedProduct.Key, quantity);
+
+                Data.Orders.Add(order);
+                ClearUI();
+                ExecuteMessage("Product ordered successfully.");
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                ExecuteMessage(ex.Message);
             }
-            finally
-            {
-            ClearUI();
-            }
+        }
+        //VVV Code Reuse VVV
+        private void txtOrderQuantity_CheckInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = Data.NumRegex.IsMatch(e.Text);
+            if (e.Handled && !sbNotification.IsActive)
+                ExecuteMessage($"Quantity can include numbers only");
         }
 
         //Extra Functions
@@ -62,16 +74,11 @@ namespace StockControl
             txtOrderQuantity.Text = string.Empty;
             comboBoxProducts.SelectedItem = null; 
         }
-        private void OrderProduct()
+        private void ExecuteMessage(string message)
         {
-            KeyValuePair<int, Product> selectedProduct = (KeyValuePair<int, Product>)comboBoxProducts.SelectedValue;
-            int quantity = Convert.ToInt32(txtOrderQuantity.Text);
-            departments[selectedProduct.Value.DepartmentID].AddQuantity(selectedProduct.Key, quantity);
-            orders.Add(new Order(
-                quantity,
-                selectedProduct.Value.BuyingPriceWithTax,
-                selectedProduct.Key,
-                selectedProduct.Value.Name));
+            sbNotification.MessageQueue = messageQueue;
+            sbNotification.MessageQueue.Enqueue(message);
         }
+
     }
 }
