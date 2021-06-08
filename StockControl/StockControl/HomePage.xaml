@@ -4,30 +4,52 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:gif="http://wpfanimatedgif.codeplex.com"
              xmlns:local="clr-namespace:StockControl"  
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="774">
 
-        <materialDesign:TransitioningContent x:Name="TransitionSlideHome" OpeningEffect="{materialDesign:TransitionEffect SlideInfromLeft,Duration=0:0:0.2}">
-            <Border>
-                <Border.Background>
-                    <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
-                        <GradientStop Color="#FF0069C0" Offset="1.9"/>
-                        <GradientStop Color="#FF222222" Offset="0"/>
-                    </LinearGradientBrush>
-                </Border.Background>
-                <Grid>
-                    <TextBlock Width="370" Height="50" FontSize="30" FontFamily="Cooper black" Foreground="LightBlue" VerticalAlignment="Top" Margin="0,35,0,0">
-                Warehouse Management
-                    </TextBlock>
-                    <TextBlock Width="700" Height="200" FontSize="30" FontFamily="Cooper black" Foreground="#FF0069C0" Margin="51,125,49,275">
-                        Welcome to the homepage admin
-                        <LineBreak/>
-                        We hope you have a great time
-                        <LineBreak/>
-                        Please Enjoy Your Stay
-                    </TextBlock>
-                </Grid>
-            </Border>
-        </materialDesign:TransitioningContent>
+    <materialDesign:TransitioningContent x:Name="TransitionSlideHome" OpeningEffect="{materialDesign:TransitionEffect SlideInfromLeft,Duration=0:0:0.2}">
+        <Border>
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
+                    <GradientStop Color="#0f316f" Offset="1.9"/>
+                    <GradientStop Color="#0f316f" Offset="0"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <Grid >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="110*"/>
+                    <ColumnDefinition Width="277*"/>
+                </Grid.ColumnDefinitions>
+                <Image Source="images/homepage.png" Margin="-365,-198,-366,1" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="2">
+
+                    <Image.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform AngleY="0.715"/>
+                            <RotateTransform/>
+                            <TranslateTransform Y="5.988"/>
+                        </TransformGroup>
+                    </Image.RenderTransform>
+                </Image>
+                <Image  gif:ImageBehavior.AnimationSpeedRatio="10" Height="150" Width="150" Margin="10,11,739,361" gif:ImageBehavior.AnimatedSource="C:\Download\BlackShift-main (2)\BlackShift-main\StockControl\StockControl\Images\oie_trans.gif" gif:ImageBehavior.RepeatBehavior="Forever" RenderTransformOrigin="0.5,0.5">
+                    <Image.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform AngleY="-0.754"/>
+                            <RotateTransform/>
+                            <TranslateTransform Y="-0.987"/>
+                        </TransformGroup>
+                    </Image.RenderTransform>
+                </Image>
+
+                <TextBlock Width="370" Height="50" FontSize="30" FontFamily="Cooper black" Foreground="LightBlue" VerticalAlignment="Top" Margin="200,37,204,0" Grid.ColumnSpan="2"><Run Text="Warehouse Management"/></TextBlock>
+
+                <TextBlock Width="700" FontSize="34" FontFamily="Cooper black" Margin="45,205,29,215" Grid.ColumnSpan="2" Foreground="#f6c348" TextAlignment="Center"><Run Text="Welcome to the homepage admin"/><LineBreak/><Run Text="We hope you have a great time"/><LineBreak/><Run Text="Please Enjoy Your Stay"/></TextBlock>
+                <Image  gif:ImageBehavior.AnimationSpeedRatio="0.8" Margin="0,-35,75,535" gif:ImageBehavior.AnimatedSource="C:\Download\BlackShift-main (2)\BlackShift-main\StockControl\StockControl\Images\oie_trans (1).gif" gif:ImageBehavior.RepeatBehavior="Forever"/>
+
+            </Grid>
+        </Border>
+    </materialDesign:TransitioningContent>
 </UserControl>
