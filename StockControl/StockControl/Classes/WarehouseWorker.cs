@@ -17,11 +17,9 @@ namespace StockControl
         //Constructor
         public WarehouseWorker() : base(){ }
         public WarehouseWorker(string name, int departmentId, string gender, DateTime dateOfBirth, int productsProcessed = 0)
-            : base(name, departmentId, dateOfBirth, gender)
+            : base(name, departmentId, dateOfBirth, gender, Data.EmployeeTypes.WarehouseWorker)
         {
             ProductsProcessed = productsProcessed;
         }
-
-        //Methods
     }
 }

@@ -17,11 +17,9 @@ namespace StockControl
         //Constructor
         public MaterialHandler() : base(){ }
         public MaterialHandler(string name, int departmentId, string gender, DateTime dateOfBirth, int materialHandled = 0)
-            : base(name, departmentId, dateOfBirth, gender)
+            : base(name, departmentId, dateOfBirth, gender, Data.EmployeeTypes.MaterialHandler)
         {
             MaterialHandled = materialHandled;
         }
-
-        //Methods
     }
 }

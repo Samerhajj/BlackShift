@@ -72,11 +72,12 @@
                         </DataGridTemplateColumn>
                         <DataGridTextColumn Header="ID" Binding="{Binding Path=Key}"/>
                         <DataGridTextColumn Header="Name" Binding="{Binding Path=Value.Name}"/>
-                        <DataGridTextColumn Header="DepartmentID" Binding="{Binding Path=Value.DepartmentID}"/>
+                        <DataGridTextColumn Header="Department ID" Binding="{Binding Path=Value.DepartmentID}"/>
                         <DataGridTextColumn Header="Gender" Binding="{Binding Path=Value.Gender}"/>
                         <DataGridTextColumn x:Name="birthDateColumn" Header="DateOfBirth" Binding="{Binding Path=Value.DateOfBirth, StringFormat=d}"/>
                         <DataGridTextColumn Header="Income" Binding="{Binding Path=Value.Income, StringFormat=C2, ConverterCulture={x:Static local:SettingsParams.Culture}}"/>
                         <DataGridTextColumn Header="Given Raise" Binding="{Binding Path=Value.Raise, StringFormat={}+{0}%}"/>
+                        <DataGridTextColumn Header="Employee Type" Binding="{Binding Path=Value.EmployeeType}"/>
                         <DataGridTemplateColumn Width="150" CanUserSort="False">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>

@@ -15,11 +15,13 @@ namespace StockControl
         public double Raise { get; set; } //Contains the extra raise in % (Percentage e.g. 13%)
         public DateTime DateOfBirth { get; set; }
         public abstract double Income { get; }
+        public Data.EmployeeTypes EmployeeType { get; set; }
+
 
         //Constructors
         public Employee() { }
 
-        public Employee(string name, int departmentId, DateTime dateOfBirth, string gender, double raise = 0)
+        public Employee(string name, int departmentId, DateTime dateOfBirth, string gender, Data.EmployeeTypes type, double raise = 0)
         {
             if (!String.IsNullOrEmpty(name))
             {
@@ -32,6 +34,7 @@ namespace StockControl
                         DepartmentID = departmentId;
                         DateOfBirth = dateOfBirth;
                         Gender = gender;
+                        EmployeeType = type;
                     }
                     else
                     {
@@ -48,7 +51,5 @@ namespace StockControl
                 throw new ArgumentNullException("", "Employee name was not entered.");
             }
         }
-
-        //Methods
     }
 }
