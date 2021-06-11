@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Threading;
 
+
 namespace StockControl
 {
     /// <summary>
@@ -37,16 +38,17 @@ namespace StockControl
             {
                 if (txtPassword.Password.ToLower() == "admin" && txtUsername.Text.ToLower() == "admin")
                 {
-
                     isLogged = true;
                     login_popup.IsOpen = true;
                     //tasks normaly includes a different Thread than the main thread,
                     //there for we had to add asyc/await to force the main thread to wait for the task to finish.
                     //The Lambda operator => separates the input parameters on the left side from the lambda body on the right side.
+
                     await Task.Run(() =>
                     {
-                        Thread.Sleep(2000);
+                        Data.LoadAll();
                     });
+                    
                     MainWindow mainWindow = new MainWindow();
                     mainWindow.Show();
                     this.Close();
