@@ -32,5 +32,19 @@ namespace StockControl
                 throw new FormatException("Quantity must be at least 1.");
             }
         }
+        public Order(int productID, Product orderedProduct, int orderedQuantity, DateTime orderDate)
+        {
+            if (orderedQuantity > 0)
+            {
+                OrderedQuantity = orderedQuantity;
+                OrderDate = orderDate;
+                ProductID = productID;
+                OrderedProduct = orderedProduct;
+            }
+            else
+            {
+                throw new FormatException("Quantity must be at least 1.");
+            }
+        }
     }
 }
