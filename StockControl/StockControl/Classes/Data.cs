@@ -25,7 +25,7 @@ namespace StockControl
         static public readonly Regex NumRegex = new Regex("[^0-9]+");
         static public readonly TimeSpan SnackbarMessageTime = TimeSpan.FromMilliseconds(2000);
 
-        static public readonly string CSVRoot = Directory.GetCurrentDirectory()+ "/../../CSV_FILE";
+        static public readonly string CSVRoot = Directory.GetCurrentDirectory()+ "/CSV_FILE";
 
         //tblSettingsParams
         private static void SaveParams()
@@ -408,6 +408,10 @@ namespace StockControl
 
         public static void LoadAll()
         {
+            if (!Directory.Exists(CSVRoot))
+            {
+                Directory.CreateDirectory(CSVRoot);
+            }
             if (File.Exists(CSVRoot + "/products_data.csv") && File.Exists(CSVRoot + "/departments_data.csv") && File.Exists(CSVRoot + "/orders_data.csv") && File.Exists(CSVRoot + "/employees_data.csv"))
             {
                 ReadParams();
@@ -419,6 +423,10 @@ namespace StockControl
         }//a function to read all the data from the csv
         public static void StoreAll()
         {
+            if (!Directory.Exists(CSVRoot))
+            {
+                Directory.CreateDirectory(CSVRoot);
+            }
             FillProductsTable();
             FillDepartmentsTable();
             FillOrdersTable();

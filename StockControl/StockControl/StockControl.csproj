@@ -209,7 +209,6 @@
     <Resource Include="Images\LoadAnimation.gif" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="CSV_FILE\" />
     <Folder Include="Gifs\" />
   </ItemGroup>
   <ItemGroup>
