@@ -48,8 +48,8 @@ namespace StockControl
                         Thread.Sleep(2000);
                     });
                     MainWindow mainWindow = new MainWindow();
-                    mainWindow.Show();
                     this.Close();
+                    mainWindow.Show();
                 }
                 else
                 {

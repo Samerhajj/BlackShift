@@ -10,8 +10,7 @@
              d:DesignHeight="850" d:DesignWidth="1024">
 
     <materialDesign:TransitioningContent x:Name="TransitionSlideHome" OpeningEffect="{materialDesign:TransitionEffect SlideInfromLeft,Duration=0:0:0.2}">
-        <StackPanel>
-            <Grid Background="#FFEEEEEE" Margin="0,20,0,0">
+        <Grid Background="#FFEEEEEE" Margin="0,20,0,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="2*"/>
@@ -24,7 +23,8 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="80"/>
                     <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="14*"/>
+                    <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
                 <TextBlock FontSize="18" Foreground="Gray" Text="Employee ID" Width="130" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0"/>
                 <TextBox x:Name="txtEmployeeID" Width="127" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" MaxLength="5" PreviewTextInput="txtEmployeeID_PreviewTextInput"/>
@@ -56,12 +56,15 @@
                         <materialDesign:PackIcon Kind="AccountAdd" VerticalAlignment="Center"/>
                     </Button.Content>
                 </Button>
-                <Button x:Name="Deletebtn" Width="75" Height="28" FontSize="14" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="1" Background="Red" BorderThickness="0" Visibility="Hidden" Click="deleteBtn_Click">
+                <Button x:Name="Deletebtn" Width="75" Height="28" FontSize="14" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="1" Background="Red" BorderThickness="0" Visibility="Hidden" Click="deleteBtn_Click" ToolTip="Remove selected employees.">
                     <Button.Content>
                         <materialDesign:PackIcon x:Name="deleteIco"  Kind="AccountMinus" Foreground="White"/>
                     </Button.Content>
                 </Button>
-                <DataGrid x:Name="EmployeeDtg" Margin="10" Height="660" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="7" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" AutoGenerateColumns="False" IsReadOnly="True">
+                <Border>
+                    
+                </Border>
+                <DataGrid x:Name="EmployeeDtg" Margin="10" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="7" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" AutoGenerateColumns="False" IsReadOnly="True" EnableRowVirtualization="True">
                     <DataGrid.Columns>
                         <DataGridTemplateColumn Header="Select" CanUserSort="False" IsReadOnly="False">
                             <DataGridTemplateColumn.CellTemplate>
@@ -81,7 +84,7 @@
                         <DataGridTemplateColumn Width="150" CanUserSort="False">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button x:Name="editBtn" Width="75" Height="28" FontSize="14" Click="editBtn_Click" DataContext="{Binding Path=Value}">
+                                    <Button x:Name="editBtn" Width="75" Height="28" FontSize="14" Click="editBtn_Click" DataContext="{Binding Path=Key}" ToolTip="Edit employee.">
                                         <materialDesign:PackIcon Kind="AccountEdit" Width="30" VerticalAlignment="Center" Margin="5" FontFamily="Corbel Light"/>
                                     </Button>
                                 </DataTemplate>
@@ -89,8 +92,7 @@
                         </DataGridTemplateColumn>
                     </DataGrid.Columns>
                 </DataGrid>
-            </Grid>
-            <materialDesign:Snackbar x:Name="sbNotification" Margin="50,0,50,0" HorizontalAlignment="Center"/>
-        </StackPanel>
+            <materialDesign:Snackbar x:Name="sbNotification" HorizontalAlignment="Center" Grid.Row="3" Grid.ColumnSpan="7"/>
+        </Grid>
     </materialDesign:TransitioningContent>
 </UserControl>

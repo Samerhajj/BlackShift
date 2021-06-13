@@ -11,7 +11,7 @@ namespace StockControl
         public int ProductsPacked { get; set; }
         public override double Income
         {
-            get { return SettingsParams.WarehousePackerWage * (Raise + 1); }
+            get { return SettingsParams.WarehousePackerWage * (Raise/100 + 1); }
         }
 
         //Constructor

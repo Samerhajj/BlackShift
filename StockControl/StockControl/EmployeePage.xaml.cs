@@ -117,7 +117,8 @@ namespace StockControl
         }
         private void editBtn_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show($"{(Employee)((Button)sender).DataContext}");
+            var editPage = new EditEmployee((int)((Button)sender).DataContext, (Grid)this.Parent);
+            editPage.Show();
             ClearSelection();
         }
         private void selectCb_Checked(object sender, RoutedEventArgs e)
@@ -155,7 +156,6 @@ namespace StockControl
         private void txtEmployeeID_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = Data.NumRegex.IsMatch(e.Text);
-            //TextFieldAssist.SetUnderlineBrush((DependencyObject)sender, Brushes.Red);
             if(e.Handled && !sbNotification.IsActive)
                 ExecuteMessage("The id must include numbers only.");
 

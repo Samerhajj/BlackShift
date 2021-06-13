@@ -9,8 +9,7 @@
              d:DesignHeight="850" d:DesignWidth="1024">
 
     <materialDesign:TransitioningContent x:Name="TransitionSlideHome" OpeningEffect="{materialDesign:TransitionEffect SlideInfromLeft,Duration=0:0:0.2}">
-        <StackPanel>
-            <Grid Background="#FFEEEEEE" Margin="0,20,0,0">
+        <Grid Background="#FFEEEEEE" Margin="0,20,0,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="2*"/>
@@ -22,7 +21,8 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="80"/>
                     <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="14*"/>
+                    <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
                 <TextBlock FontSize="20" Foreground="Gray" Text="Product ID " Width="130" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0"/>
                 <TextBox x:Name="txtID" Width="127" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" MaxLength="5" Tag="Product id" PreviewTextInput="NumberCheckInput"/>
@@ -52,12 +52,12 @@
                         <materialDesign:PackIcon Kind="BoxAdd" VerticalAlignment="Center"/>
                     </Button.Content>
                 </Button>
-                <Button x:Name="Deletebtn" Width="75" Height="28" FontSize="14" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="1" Background="Red" BorderThickness="0" Visibility="Hidden" Click="deleteBtn_Click">
+                <Button x:Name="Deletebtn" Width="75" Height="28" FontSize="14" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="1" Background="Red" BorderThickness="0" Visibility="Hidden" Click="deleteBtn_Click" ToolTip="Remove selected product.">
                     <Button.Content>
                         <materialDesign:PackIcon x:Name="deleteIco" Kind="BoxMinus" Foreground="White"/>
                     </Button.Content>
                 </Button>
-                <DataGrid x:Name="ProductGrid" Margin="10" Height="660" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="6" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" AutoGenerateColumns="False" IsReadOnly="True" EnableRowVirtualization="True">
+                <DataGrid x:Name="ProductGrid" Margin="10" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="6" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" AutoGenerateColumns="False" IsReadOnly="True" EnableRowVirtualization="True">
                     <DataGrid.Columns>
                         <DataGridTemplateColumn Header="Select" CanUserSort="False" IsReadOnly="False">
                             <DataGridTemplateColumn.CellTemplate>
@@ -76,7 +76,7 @@
                         <DataGridTemplateColumn Width="150" CanUserSort="False">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button Grid.Column="5" x:Name="editBtn" Width="75" Height="28" FontSize="14" Click="editBtn_Click" DataContext="{Binding Path=Value}">
+                                    <Button Grid.Column="5" x:Name="editBtn" Width="75" Height="28" FontSize="14" Click="editBtn_Click" DataContext="{Binding Path=Value}" ToolTip="Edit product.">
                                         <materialDesign:PackIcon Kind="BoxEdit" Width="30" VerticalAlignment="Center" Margin="5" FontFamily="Corbel Light"/>
                                     </Button>
                                 </DataTemplate>
@@ -84,8 +84,7 @@
                         </DataGridTemplateColumn>
                     </DataGrid.Columns>
                 </DataGrid>
-            </Grid>
-            <materialDesign:Snackbar x:Name="sbNotification" Margin="50,0,50,0" HorizontalAlignment="Center"/>
-        </StackPanel>
+            <materialDesign:Snackbar x:Name="sbNotification" HorizontalAlignment="Center" Grid.Row="3" Grid.ColumnSpan="6"/>
+        </Grid>
     </materialDesign:TransitioningContent>
 </UserControl>
