@@ -106,13 +106,14 @@ namespace StockControl
         private void btnExit_Click(object sender, RoutedEventArgs e)
         {
             Data.StoreAll();
-            this.Close();
+            Application.Current.Shutdown();
         }
         private void btnSettings_Click(object sender, RoutedEventArgs e)
         {
             GridPrincipal.Children.Clear();
             GridPrincipal.Children.Add(settingsPage);
             ListViewMenu.IsEnabled = false;
+
             
        
     

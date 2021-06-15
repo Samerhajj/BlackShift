@@ -9,7 +9,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Border Background="{StaticResource MaterialDesignDarkForeground}" Padding="15">
-        
+
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -28,7 +28,7 @@
             </Button>
             <!--Settings Title!-->
             <Grid Height="40">
-                        
+
                 <!--Settings Header!-->
                 <TextBlock FontSize="20"
                            Foreground="{StaticResource MaterialDesignDarkBackground}"
@@ -42,28 +42,65 @@
                 </TextBlock>
 
             </Grid>
-            <DockPanel  Grid.Row="1"  HorizontalAlignment="Center" VerticalAlignment="Center">
+            <StackPanel  Grid.Row="1"  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="311,98,399,82" >
 
 
                 <TextBox x:Name="taxBox"
                          Width="60"
-                         Height="50"             
+                         Height="40"             
                          materialDesign:HintAssist.Hint="Tax %"
-                         FontSize="20"
+                         FontSize="15"
+                            Margin="0,10,0,0"
                          PreviewTextInput="taxBox_PreviewTextInput"
                          MaxLength="4"/>
+                <TextBox x:Name="wwBox"
+                         Margin="0,10,0,0"
+                         Width="60"
+                         Height="40"             
+                      
+                         FontSize="15"
+                         
+                         PreviewTextInput="taxBox_PreviewTextInput"
+                         MaxLength="7"/>
+                <TextBox x:Name="mhBox"
+                         Width="60"
+                         Height="40"             
+                       
+                         FontSize="15"
+                         PreviewTextInput="taxBox_PreviewTextInput"
+                            Margin="0,10,0,0"
+                         MaxLength="7"/>
+                <TextBox x:Name="wpBox"
+                         Width="60"
+                         Height="40"             
+                          Margin="0,10,0,0"
+                         FontSize="15"
+                         PreviewTextInput="taxBox_PreviewTextInput"
+                         MaxLength="7"/>
+
                 <!--Save Button-->
-                <Button Margin="10,0,0,0"
+
+            </StackPanel>
+            <TextBlock Width="60" Height="50" Text="Tax" FontSize="14" FontFamily="Cooper Black" Margin="232,115,478,215" Grid.Row="1"/>
+            <TextBlock Width="140" Height="50" Text="WareHouseWorker" FontSize="14" FontFamily="Cooper Black" Margin="166,165,464,165" Grid.Row="1"/>
+            <TextBlock Width="120" Height="50" Text="MaterialHandler" FontSize="14" FontFamily="Cooper Black" Margin="181,215,469,115" Grid.Row="1"/>
+            <TextBlock Width="130" Height="50" Text="WareHousePacker" FontSize="14" FontFamily="Cooper Black" Margin="162,265,478,65" Grid.Row="1"/>
+            <Button Margin="355,331,375,9"
                         Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                         ToolTip="Save All"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    Click="Button_Click">
-                    <materialDesign:PackIcon
+                    Click="Button_Click" Grid.Row="1">
+                <materialDesign:PackIcon
                             Kind="ContentSave"/>
 
-                </Button>
-            </DockPanel>
+            </Button>
+          
+                <TextBlock Grid.Row="1" Text="Currency" FontSize="20" Margin="471,115,199,215" Height="50" Width="100"/>
+            <ComboBox Width="170" x:Name="CurrencyChanger" Grid.Row="1" Height="30"
+                    FontSize="20" VerticalAlignment="Center" Margin="424,170,176,180" MaxDropDownHeight="150" SelectionChanged="CurrencyChanger_SelectionChanged"/>
+
+
         </Grid>
     </Border>
 </UserControl>
