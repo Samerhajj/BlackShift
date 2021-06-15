@@ -20,9 +20,9 @@ namespace StockControl
     /// </summary>
     public partial class EditEmployee : Window
     {
-        int EmployeeId;
-        Grid GridPrincipal;
-        bool IsSaved;
+        private int employeeId;
+        private Grid gridPrincipal;
+        private bool isSaved;
 
         public EditEmployee(int employeeId , Grid gridPrincipal)
         {
@@ -32,14 +32,14 @@ namespace StockControl
             cbGender.Items.Add("Female");
             cbEmployeeType.ItemsSource = Enum.GetValues(typeof(Data.EmployeeTypes));
             cbDepartments.ItemsSource = Data.Departments;
-            EmployeeId = employeeId;
-            GridPrincipal = gridPrincipal;
+            this.employeeId = employeeId;
+            this.gridPrincipal = gridPrincipal;
             InitializeEmployee(employeeId);
         }
         private void cbEmployeeType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var type = (Data.EmployeeTypes)((ComboBox)sender).SelectedItem;
-            var employee = Data.Employees[EmployeeId];
+            var employee = Data.Employees[employeeId];
 
             if (type == employee.EmployeeType)
             {
@@ -73,7 +73,7 @@ namespace StockControl
             {
                 var newDepartment = (KeyValuePair<int, Department>)cbDepartments.SelectedItem;
                 Employee newEmployee;
-                var oldEmployee = Data.Employees[EmployeeId];
+                var oldEmployee = Data.Employees[employeeId];
                 var oldDepartment = Data.Departments[oldEmployee.DepartmentID];
 
                 switch ((Data.EmployeeTypes)cbEmployeeType.SelectedItem)
@@ -96,12 +96,12 @@ namespace StockControl
 
                 if (!(newDepartment.Key == oldEmployee.DepartmentID))
                 {
-                    newDepartment.Value.AddEmployee(EmployeeId);
-                    oldDepartment.RemoveEmployee(EmployeeId);
+                    newDepartment.Value.AddEmployee(employeeId);
+                    oldDepartment.RemoveEmployee(employeeId);
                 }
-                Data.Employees.Remove(EmployeeId);
-                Data.Employees.Add(EmployeeId,newEmployee);
-                IsSaved = true;
+                Data.Employees.Remove(employeeId);
+                Data.Employees.Add(employeeId,newEmployee);
+                isSaved = true;
                 this.Close();
             }
             catch(Exception ex)
@@ -111,7 +111,7 @@ namespace StockControl
         }
         private void resetBtn_Click(object sender, RoutedEventArgs e)
         {
-            InitializeEmployee(EmployeeId);
+            InitializeEmployee(employeeId);
         }
         private void exitBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -123,7 +123,7 @@ namespace StockControl
         }
         
         //Extra Functions
-        //This Function sets all the elements to the values of the employee.
+        //This function sets all the elements to the values of the employee.
         private void InitializeEmployee(int employeeId)
         {
             txtEmployeeID.Text = employeeId.ToString(); //this element is disabled.
@@ -157,12 +157,12 @@ namespace StockControl
         } 
         protected override void OnClosing(CancelEventArgs e)
         {
-            if (!IsSaved)
+            if (!isSaved)
             {
                 var result = MessageBox.Show("Are you sure you want to exit?\nAll the changes will not be saved.", "Exiting without saving", MessageBoxButton.YesNo);
                 if (result == MessageBoxResult.Yes)
                 {
-                    GridPrincipal.IsEnabled = true;
+                    gridPrincipal.IsEnabled = true;
                     base.OnClosing(e);
                 }
                 else
@@ -173,7 +173,7 @@ namespace StockControl
             }
             else
             {
-                GridPrincipal.IsEnabled = true;
+                gridPrincipal.IsEnabled = true;
                 base.OnClosing(e);
             }
         }

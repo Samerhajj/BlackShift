@@ -90,7 +90,7 @@
                         <DataGridTemplateColumn Width="150" CanUserSort="False">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button Grid.Column="5" x:Name="editBtn" Width="75" Height="28" FontSize="14" Click="editBtn_Click" ToolTip="Edit department.">
+                                <Button Grid.Column="5" x:Name="editBtn" Width="75" Height="28" FontSize="14" Click="editBtn_Click" DataContext="{Binding Path=Key}" ToolTip="Edit department.">
                                         <materialDesign:PackIcon Kind="HomeEdit" Width="30" VerticalAlignment="Center" Margin="5" FontFamily="Corbel Light"/>
                                     </Button>
                                 </DataTemplate>

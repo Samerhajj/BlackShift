@@ -7,10 +7,9 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="EditEmployee" Height="450" Width="900" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="Edit Employee" Height="450" Width="900" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
 
     <materialDesign:TransitioningContent x:Name="TransitionSlideHome" OpeningEffect="{materialDesign:TransitionEffect SlideInfromLeft,Duration=0:0:0.2}">
-
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>

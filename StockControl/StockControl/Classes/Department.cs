@@ -86,6 +86,10 @@ namespace StockControl
                 throw new OverCapacityException($"The Department Can't Have More Than {ProductCapacity} Products.");
             }
         }
+        public int GetQuantity(int productId)
+        {
+            return products[productId];
+        }
         public SortedSet<int> GetEmployeesID()
         {
             return employeesID;
