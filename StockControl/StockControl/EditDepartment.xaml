@@ -1,0 +1,58 @@
+﻿<Window x:Class="StockControl.EditDepartment"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StockControl"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="Edit Department" Height="450" Width="900" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+
+    <materialDesign:TransitioningContent x:Name="TransitionSlideHome" OpeningEffect="{materialDesign:TransitionEffect SlideInfromLeft,Duration=0:0:0.2}">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition/>
+                <RowDefinition Height="70"/>
+            </Grid.RowDefinitions>
+
+            <!--First Row-->
+            <TextBlock Text="Department Info:" FontSize="20" Foreground="Gray" FontWeight="Black" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0"/>
+
+            <!--Second Row-->
+            <TextBlock FontSize="18" Foreground="Gray" Text="Department ID" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0" Grid.Row="1"/>
+            <TextBox x:Name="txtDepartmentID" Width="127" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" MaxLength="5" IsEnabled="False" Grid.Row="1"/>
+            <TextBlock FontSize="18" Foreground="Gray" Text="Department Name" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0" Grid.Column="1" Grid.Row="1"/>
+            <TextBox x:Name="txtDepartmentName" Width="127" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" MaxLength="25" Grid.Column="1" Grid.Row="1"/>
+            <TextBlock FontSize="18" Foreground="Gray" Text="Employee Capacity" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0" Grid.Column="2" Grid.Row="1"/>
+            <TextBox x:Name="txtEmployeeCapacity" Width="127" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" MaxLength="8" Grid.Column="2" Grid.Row="1" PreviewTextInput="number_PreviewTextInput"/>
+            <TextBlock FontSize="18" Foreground="Gray" Text="Product Capacity" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0" Grid.Column="3" Grid.Row="1"/>
+            <TextBox x:Name="txtProductCapacity" Width="127" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" MaxLength="8" Grid.Column="3" Grid.Row="1" PreviewTextInput="number_PreviewTextInput"/>
+
+            <!--Third Row-->
+            <Button x:Name="saveBtn" Width="75" Height="28" Grid.Row="4" VerticalAlignment="Center" Click="saveBtn_Click" ToolTip="Save edited department.">
+                <Button.Content>
+                    <materialDesign:PackIcon Kind="CheckBold" VerticalAlignment="Center"/>
+                </Button.Content>
+            </Button>
+            <Button x:Name="resetBtn" Width="75" Height="28" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" Click="resetBtn_Click" ToolTip="Reset department.">
+                <Button.Content>
+                    <materialDesign:PackIcon Kind="Cached" VerticalAlignment="Center"/>
+                </Button.Content>
+            </Button>
+            <Button x:Name="exitBtn" Width="75" Height="28" Grid.Row="4" Grid.Column="3" VerticalAlignment="Center" Click="exitBtn_Click" ToolTip="Exit without saving.">
+                <Button.Content>
+                    <materialDesign:PackIcon Kind="ExitToApp" VerticalAlignment="Center"/>
+                </Button.Content>
+            </Button>
+
+        </Grid>
+    </materialDesign:TransitioningContent>
+</Window>

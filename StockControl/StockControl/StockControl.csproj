@@ -94,10 +94,16 @@
     <Compile Include="Classes\SettingsParams.cs" />
     <Compile Include="Classes\WarehousePacker.cs" />
     <Compile Include="Classes\WarehouseWorker.cs" />
+    <Compile Include="EditDepartment.xaml.cs">
+      <DependentUpon>EditDepartment.xaml</DependentUpon>
+    </Compile>
     <Compile Include="EditEmployee.xaml.cs">
       <DependentUpon>EditEmployee.xaml</DependentUpon>
     </Compile>
     <Compile Include="Classes\ObservableDictionary.cs" />
+    <Compile Include="EditProduct.xaml.cs">
+      <DependentUpon>EditProduct.xaml</DependentUpon>
+    </Compile>
     <Compile Include="OrderPage.xaml.cs">
       <DependentUpon>OrderPage.xaml</DependentUpon>
     </Compile>
@@ -112,7 +118,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="EditDepartment.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="EditEmployee.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EditProduct.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

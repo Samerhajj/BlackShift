@@ -103,7 +103,8 @@ namespace StockControl
         }
         private void editBtn_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show($"{(Product)((Button)sender).DataContext}");
+            var editPage = new EditProduct((int)((Button)sender).DataContext, (Grid)this.Parent);
+            editPage.Show();
             ClearSelection();
         }
         private void selectCb_Checked(object sender, RoutedEventArgs e)

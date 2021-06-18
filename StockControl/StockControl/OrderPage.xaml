@@ -7,10 +7,9 @@
              xmlns:local="clr-namespace:StockControl"
              mc:Ignorable="d" 
              d:DesignHeight="850" d:DesignWidth="1024">
-    
+
     <materialDesign:TransitioningContent x:Name="TransitionSlideHome" OpeningEffect="{materialDesign:TransitionEffect SlideInfromLeft,Duration=0:0:0.2}">
-        <StackPanel>
-            <Grid Background="#FFEEEEEE" Margin="0,20,0,0">
+        <Grid Background="#FFEEEEEE" Margin="0,20,0,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="2*"/>
@@ -19,7 +18,8 @@
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="80"/>
-                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="14*"/>
+                    <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
                 <TextBlock FontSize="18" Foreground="Gray" Text="Choose Product" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0"/>
                 <ComboBox x:Name="comboBoxProducts" Height="28" Width="175" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" Grid.Column="0">
@@ -43,7 +43,7 @@
                         <materialDesign:PackIcon Kind="ShoppingCartAdd" VerticalAlignment="Center"/>
                     </Button.Content>
                 </Button>
-                <DataGrid x:Name="OrdersGrid" Margin="10" Height="688" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="6" CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False" CanUserReorderColumns="False" IsReadOnly="True">
+                <DataGrid x:Name="OrdersGrid" Margin="10" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="6" CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False" CanUserReorderColumns="False" IsReadOnly="True">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Product ID" Binding="{Binding Path=ProductID}"/>
                         <DataGridTextColumn Header="Product Name" Binding="{Binding Path=OrderedProduct.Name}"/>
@@ -54,8 +54,7 @@
                         <DataGridTextColumn Header="Order Date" Binding="{Binding Path=OrderDate}"/>
                     </DataGrid.Columns>
                 </DataGrid>
-            </Grid>
-            <materialDesign:Snackbar x:Name="sbNotification" Margin="50,0,50,0" HorizontalAlignment="Center"/>
-        </StackPanel>
+            <materialDesign:Snackbar x:Name="sbNotification" HorizontalAlignment="Center" Grid.Row="3" Grid.ColumnSpan="4"/>
+        </Grid>
     </materialDesign:TransitioningContent>
 </UserControl>

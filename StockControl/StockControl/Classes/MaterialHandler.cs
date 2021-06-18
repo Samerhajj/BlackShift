@@ -11,7 +11,7 @@ namespace StockControl
         public int MaterialHandled { get; set; }
         public override double Income
         {
-            get { return SettingsParams.MaterialHandlerWage * (Raise + 1); }
+            get { return SettingsParams.MaterialHandlerWage * (Raise/100 + 1); }
         }
 
         //Constructor
