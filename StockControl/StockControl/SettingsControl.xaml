@@ -95,12 +95,6 @@
                             Kind="ContentSave"/>
 
             </Button>
-          
-                <TextBlock Grid.Row="1" Text="Currency" FontSize="20" Margin="471,115,199,215" Height="50" Width="100"/>
-            <ComboBox Width="170" x:Name="CurrencyChanger" Grid.Row="1" Height="30"
-                    FontSize="20" VerticalAlignment="Center" Margin="424,170,176,180" MaxDropDownHeight="150" SelectionChanged="CurrencyChanger_SelectionChanged"/>
-
-
         </Grid>
     </Border>
 </UserControl>

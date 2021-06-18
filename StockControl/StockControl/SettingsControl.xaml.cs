@@ -3,8 +3,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Navigation;
-using System.Data;
-using System.Globalization;
 namespace StockControl
 {
     /// <summary>
@@ -14,31 +12,12 @@ namespace StockControl
     {
         MainWindow mainWindow;
         public SettingsControl(MainWindow main)
-
-          
         {
             InitializeComponent();
-            mainWindow = main;
-            BindCurrency();
-           
-        }
-        private void BindCurrency()
-        {
-            DataTable dtCurrency = new DataTable();
-            dtCurrency.Columns.Add("Text");
-            dtCurrency.Columns.Add("Value");
+            mainWindow = main; 
 
-            //add rows in the datatable with text and value
-            dtCurrency.Rows.Add("--USD--","en-US");
-            dtCurrency.Rows.Add("--EUR--","fr-FR");
-            dtCurrency.Rows.Add("--ISR--","he-IL");
-
-            CurrencyChanger.ItemsSource = dtCurrency.DefaultView;
-            CurrencyChanger.DisplayMemberPath = "Text";
-            CurrencyChanger.SelectedValuePath = "Value";
-            CurrencyChanger.SelectedIndex = 0;
-
-        }
+       }
+      
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             if (!String.IsNullOrEmpty(taxBox.Text))
@@ -47,7 +26,6 @@ namespace StockControl
                 SettingsParams.MaterialHandlerWage = Convert.ToDouble(mhBox.Text);
                 SettingsParams.WarehouseWorkerWage = Convert.ToDouble(wwBox.Text);
                 SettingsParams.WarehousePackerWage = Convert.ToDouble(wpBox.Text);
-                SettingsParams.Culture = new CultureInfo(CurrencyChanger.SelectedValue.ToString());
             }
            
         }
@@ -63,10 +41,12 @@ namespace StockControl
             mainWindow.ListViewMenu.IsEnabled = true;
       
         }
-
-        private void CurrencyChanger_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        public void initializeParams()
         {
-
+            taxBox.Text = SettingsParams.Tax.ToString();
+            mhBox.Text = SettingsParams.MaterialHandlerWage.ToString();
+            wwBox.Text = SettingsParams.WarehouseWorkerWage.ToString();
+            wpBox.Text = SettingsParams.WarehousePackerWage.ToString();
         }
     }
 }

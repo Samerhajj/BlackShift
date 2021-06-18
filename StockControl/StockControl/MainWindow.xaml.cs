@@ -112,6 +112,7 @@ namespace StockControl
         {
             GridPrincipal.Children.Clear();
             GridPrincipal.Children.Add(settingsPage);
+            settingsPage.initializeParams();
             ListViewMenu.IsEnabled = false;
 
             
