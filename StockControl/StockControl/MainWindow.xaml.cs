@@ -28,6 +28,8 @@ namespace StockControl
         EmployeePage employeePage;
         ProductsPage productsPage;
         AboutUsPage aboutUsPage;
+        SettingsControl settingsPage;
+        public int lastChosenPage { get; set; } = 0;
 
         public MainWindow()
         {
@@ -48,37 +50,44 @@ namespace StockControl
             TransitionSlideHome.OnApplyTemplate();
             GridCursor.Margin = new Thickness(0, 117.5 + (60 * index), 0, 0);
         }
-        private void ChooseTab(int index)
+        public void ChooseTab(int index)
         {
             switch (index)
             {
                 case 0:
                     GridPrincipal.Children.Clear();
                     GridPrincipal.Children.Add(homePage);
+                    lastChosenPage = 0;
                     break;
                 case 1:
                     GridPrincipal.Children.Clear();
                     GridPrincipal.Children.Add(orderPage);
+                    lastChosenPage = 1;
                     break;
                 case 2:
                     GridPrincipal.Children.Clear();
                     GridPrincipal.Children.Add(departmentsPage);
                     departmentsPage.ClearSelection();
+                    lastChosenPage = 2;
                     break;
                 case 3:
                     GridPrincipal.Children.Clear();
                     GridPrincipal.Children.Add(employeePage);
                     employeePage.ClearSelection();
+                    lastChosenPage = 3;
                     break;
                 case 4:
                     GridPrincipal.Children.Clear();
                     GridPrincipal.Children.Add(productsPage);
                     productsPage.ClearSelection();
+                    lastChosenPage = 4;
                     break;
                 case 5:
                     GridPrincipal.Children.Clear();
                     GridPrincipal.Children.Add(aboutUsPage);
+                    lastChosenPage = 5;
                     break;
+               
                 default:
                     break;
             }
@@ -92,14 +101,23 @@ namespace StockControl
             employeePage = new EmployeePage();
             productsPage = new ProductsPage();
             aboutUsPage = new AboutUsPage();
+            settingsPage = new SettingsControl(this);
         }
         private void btnExit_Click(object sender, RoutedEventArgs e)
         {
             Data.StoreAll();
-            this.Close();
+            Application.Current.Shutdown();
         }
         private void btnSettings_Click(object sender, RoutedEventArgs e)
         {
+            GridPrincipal.Children.Clear();
+            GridPrincipal.Children.Add(settingsPage);
+            settingsPage.initializeParams();
+            ListViewMenu.IsEnabled = false;
+
+            
+       
+    
         }
     }
 }

@@ -1,0 +1,100 @@
+﻿<UserControl x:Class="StockControl.SettingsControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:StockControl" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+  
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Border Background="{StaticResource MaterialDesignDarkForeground}" Padding="15">
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <!--Back Arrow-->
+            <Button x:Name="backArrowBTN"
+                        Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                        ToolTip="Go Back"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Click="backArrowBTN_Click">
+                <materialDesign:PackIcon
+                            Kind="ArrowBack"/>
+
+            </Button>
+            <!--Settings Title!-->
+            <Grid Height="40">
+
+                <!--Settings Header!-->
+                <TextBlock FontSize="20"
+                           Foreground="{StaticResource MaterialDesignDarkBackground}"
+                           FontFamily="Cooper Black"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center">
+                   
+                     <!--Settings Text!-->
+                    <Run Text="Settings"
+                         FontFamily="Cooper Black"/>
+                </TextBlock>
+
+            </Grid>
+            <StackPanel  Grid.Row="1"  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="311,98,399,82" >
+
+
+                <TextBox x:Name="taxBox"
+                         Width="60"
+                         Height="40"             
+                         materialDesign:HintAssist.Hint="Tax %"
+                         FontSize="15"
+                            Margin="0,10,0,0"
+                         PreviewTextInput="taxBox_PreviewTextInput"
+                         MaxLength="4"/>
+                <TextBox x:Name="wwBox"
+                         Margin="0,10,0,0"
+                         Width="60"
+                         Height="40"             
+                      
+                         FontSize="15"
+                         
+                         PreviewTextInput="taxBox_PreviewTextInput"
+                         MaxLength="7"/>
+                <TextBox x:Name="mhBox"
+                         Width="60"
+                         Height="40"             
+                       
+                         FontSize="15"
+                         PreviewTextInput="taxBox_PreviewTextInput"
+                            Margin="0,10,0,0"
+                         MaxLength="7"/>
+                <TextBox x:Name="wpBox"
+                         Width="60"
+                         Height="40"             
+                          Margin="0,10,0,0"
+                         FontSize="15"
+                         PreviewTextInput="taxBox_PreviewTextInput"
+                         MaxLength="7"/>
+
+                <!--Save Button-->
+
+            </StackPanel>
+            <TextBlock Width="60" Height="50" Text="Tax" FontSize="14" FontFamily="Cooper Black" Margin="232,115,478,215" Grid.Row="1"/>
+            <TextBlock Width="140" Height="50" Text="WareHouseWorker" FontSize="14" FontFamily="Cooper Black" Margin="166,165,464,165" Grid.Row="1"/>
+            <TextBlock Width="120" Height="50" Text="MaterialHandler" FontSize="14" FontFamily="Cooper Black" Margin="181,215,469,115" Grid.Row="1"/>
+            <TextBlock Width="130" Height="50" Text="WareHousePacker" FontSize="14" FontFamily="Cooper Black" Margin="162,265,478,65" Grid.Row="1"/>
+            <Button Margin="355,331,375,9"
+                        Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                        ToolTip="Save All"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Click="Button_Click" Grid.Row="1">
+                <materialDesign:PackIcon
+                            Kind="ContentSave"/>
+
+            </Button>
+        </Grid>
+    </Border>
+</UserControl>
