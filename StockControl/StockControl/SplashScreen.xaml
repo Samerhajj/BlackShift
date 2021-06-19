@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:StockControl"
         
         mc:Ignorable="d"
-        Title="SplashScreen" Height="600" Width="800">
+        Title="SplashScreen" Height="600" Width="800" WindowStartupLocation="CenterScreen">
     <Grid>
         
         <Image gif:ImageBehavior.AnimatedSource="Images/LoadAnimation.gif" Stretch="Fill" gif:ImageBehavior.AnimationSpeedRatio="0.7" x:Name="Media"/>
