@@ -50,11 +50,17 @@ namespace StockControl
 
                 var departmentId = Convert.ToInt32(txtDepartmentID.Text);
                 var department = new Department(txtDepartmentName.Text, Convert.ToInt32(txtEmployeeCapacity.Text), Convert.ToInt32(txtProductCapacity.Text));
-
-                Data.Departments.Add(departmentId, department);
-                ClearSelection();
-                ClearUI();
-                ExecuteMessage("Department added successfully.");
+                if (!Data.Departments.ContainsKey(departmentId))
+                {
+                    Data.Departments.Add(departmentId, department);
+                    ClearSelection();
+                    ClearUI();
+                    ExecuteMessage("Department added successfully.");
+                }
+                else
+                {
+                    throw new ArgumentException("The department id is already taken.");
+                }
             }
             catch (Exception ex)
             {
@@ -125,11 +131,17 @@ namespace StockControl
             }
         }
         //VVV Code Reuse VVV
-        private void Number_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        private void NumberCheckInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = Data.NumRegex.IsMatch(e.Text);
             if (e.Handled && !sbNotification.IsActive)
                     ExecuteMessage($"{(string)((TextBox)sender).Tag} can include numbers only.");
+        }
+        private void NameCheckInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = Data.NameRegex.IsMatch(e.Text);
+            if (e.Handled && !sbNotification.IsActive)
+                ExecuteMessage($"{(string)((TextBox)sender).Tag} can't include \"{e.Text}\"");
         }
 
         //Extra Functions

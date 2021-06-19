@@ -42,13 +42,12 @@
                 </TextBlock>
 
             </Grid>
-            <StackPanel  Grid.Row="1"  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="311,98,399,82" >
+            <StackPanel x:Name="paramStack"  Grid.Row="1"  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="311,98,399,82" >
 
 
                 <TextBox x:Name="taxBox"
                          Width="60"
                          Height="40"             
-                         materialDesign:HintAssist.Hint="Tax %"
                          FontSize="15"
                             Margin="0,10,0,0"
                          PreviewTextInput="taxBox_PreviewTextInput"

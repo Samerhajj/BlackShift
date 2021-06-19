@@ -25,9 +25,9 @@
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
                 <TextBlock FontSize="20" Foreground="Gray" Text="Product ID " Width="130" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0"/>
-                <TextBox x:Name="txtID" Width="127" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" MaxLength="5" Tag="Product id" PreviewTextInput="NumberCheckInput"/>
+                <TextBox x:Name="txtID" Width="127" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" MaxLength="5" Tag="Product id" PreviewTextInput="number_PreviewTextInput"/>
                 <TextBlock FontSize="20" Foreground="Gray" Text="Product Name " Width="142" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0" Grid.Column="1"/>
-                <TextBox x:Name="txtName" Width="127" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" MaxLength="15" Grid.Column="1" />
+                <TextBox x:Name="txtName" Width="127" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" MaxLength="15" Grid.Column="1" Tag="Product Name" PreviewTextInput="name_PreviewTextInput"/>
                 <TextBlock FontSize="18" Foreground="Gray" Text="Department" Width="142" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0" Grid.Column="2"/>
                 <ComboBox x:Name="cbDepartment" Width="127" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" Grid.Column="2">
                     <ComboBox.ItemTemplate>
@@ -44,9 +44,9 @@
                     </ComboBox.ItemTemplate>
                 </ComboBox>
                 <TextBlock Text="Selling Price" Grid.Column="3" FontSize="20" Foreground="Gray" Margin="10,0,0,0"/>
-                <TextBox x:Name="txtSellingPriceNoTax" Width="127" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" MaxLength="8" Grid.Column="3" Tag="Selling price" PreviewTextInput="NumberCheckInput"/>
+                <TextBox x:Name="txtSellingPriceNoTax" Width="127" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" MaxLength="8" Grid.Column="3" Tag="Selling price" PreviewTextInput="double_PreviewTextInput"/>
                 <TextBlock Text="Buying Price" Grid.Column="4" FontSize="20" Foreground="Gray" Margin="10,0,0,0"/>
-                <TextBox x:Name="txtBuyingPriceNoTax" Width="127" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" MaxLength="8" Grid.Column="4" Tag="Buying price" PreviewTextInput="NumberCheckInput"/>
+                <TextBox x:Name="txtBuyingPriceNoTax" Width="127" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" MaxLength="8" Grid.Column="4" Tag="Buying price" PreviewTextInput="double_PreviewTextInput"/>
                 <Button x:Name="addBtn" Grid.Column="5" Width="75" Height="28" FontSize="14" Click="addBtn_Click" ToolTip="Add a new product.">
                     <Button.Content>
                         <materialDesign:PackIcon Kind="BoxAdd" VerticalAlignment="Center"/>

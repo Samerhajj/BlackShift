@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -30,7 +31,6 @@ namespace StockControl
             ProductGrid.ItemsSource = Data.Products;
             cbDepartment.ItemsSource = Data.Departments;
         }
-
         //Events
         private void addBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -55,13 +55,19 @@ namespace StockControl
                 int productId = Convert.ToInt32(txtID.Text);
                 var department = (KeyValuePair<int, Department>)cbDepartment.SelectedItem;
                 Product product = new Product(txtName.Text, department.Key, Convert.ToDouble(txtSellingPriceNoTax.Text), Convert.ToDouble(txtBuyingPriceNoTax.Text));
-                
-                department.Value.AddProduct(productId);
-                Data.Products.Add(productId, product);
 
-                ClearUI();
-                ClearSelection();
-                ExecuteMessage("Product added successfully.");
+                if (!Data.Products.ContainsKey(productId))
+                {
+                    department.Value.AddProduct(productId);
+                    Data.Products.Add(productId, product);
+                    ClearUI();
+                    ClearSelection();
+                    ExecuteMessage("Product added successfully.");
+                }
+                else
+                {
+                    throw new ArgumentException("The product id is already taken.");
+                }
             }
             catch (Exception ex)
             {
@@ -125,13 +131,27 @@ namespace StockControl
                 ProductGrid.CanUserSortColumns = true;
             }
         }
-        //VVV Code Reuse VVV
-        private void NumberCheckInput(object sender, TextCompositionEventArgs e)
+        private void number_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = Data.NumRegex.IsMatch(e.Text);
             if (e.Handled && !sbNotification.IsActive)
                 ExecuteMessage($"{(string)((TextBox)sender).Tag} can include numbers only");
-
+        }
+        private void double_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = Data.DoubleRegex.IsMatch(e.Text);
+            if(e.Text.ToString() == "." && ((TextBox)sender).Text.Contains("."))
+            {
+                e.Handled = true;
+            }
+            else if (e.Handled && !sbNotification.IsActive)
+                ExecuteMessage($"{(string)((TextBox)sender).Tag} can include numbers only");
+        }
+        private void name_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = Data.NameRegex.IsMatch(e.Text);
+            if (e.Handled && !sbNotification.IsActive)
+                ExecuteMessage($"{(string)((TextBox)sender).Tag} can't include \"{e.Text}\"");
         }
 
         //Extra Functions

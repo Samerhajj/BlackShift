@@ -76,15 +76,18 @@ namespace StockControl
             txtBuyingPrice.Text = product.BuyingPrice.ToString();
             cbDepartments.SelectedItem = new KeyValuePair<int, Department>(product.DepartmentID, Data.Departments[product.DepartmentID]);
         }
-        private void txtProductName_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        private void name_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            //Regex Name Match
+            e.Handled = Data.NameRegex.IsMatch(e.Text);
         }
-        private void number_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        private void double_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-
+            e.Handled = Data.DoubleRegex.IsMatch(e.Text);
+            if (e.Text.ToString() == "." && ((TextBox)sender).Text.Contains("."))
+            {
+                e.Handled = true;
+            }
         }
-
         protected override void OnClosing(CancelEventArgs e)
         {
             if (!isSaved)

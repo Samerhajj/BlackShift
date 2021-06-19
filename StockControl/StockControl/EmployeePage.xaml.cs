@@ -152,13 +152,17 @@ namespace StockControl
                 deleteIco.Kind = PackIconKind.AccountMultipleMinus;
             }
         }
-        //VVV Code Reuse VVV
-        private void txtEmployeeID_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        private void number_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = Data.NumRegex.IsMatch(e.Text);
             if(e.Handled && !sbNotification.IsActive)
                 ExecuteMessage("The id must include numbers only.");
-
+        }
+        private void name_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = Data.NameRegex.IsMatch(e.Text);
+            if (e.Handled && !sbNotification.IsActive)
+                ExecuteMessage($"{(string)((TextBox)sender).Tag} can't include \"{e.Text}\"");
         }
 
         //Extra Functions
@@ -201,5 +205,6 @@ namespace StockControl
             sbNotification.MessageQueue = messageQueue;
             sbNotification.MessageQueue.Enqueue(message);
         }
+
     }
 }
