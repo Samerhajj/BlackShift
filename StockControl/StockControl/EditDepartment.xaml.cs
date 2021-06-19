@@ -80,6 +80,10 @@ namespace StockControl
         {
             e.Handled = Data.NumRegex.IsMatch(e.Text);
         }
+        private void name_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = Data.NameRegex.IsMatch(e.Text);
+        }
 
         //Extra Functions
         //This function sets all the elements to the values of the department.

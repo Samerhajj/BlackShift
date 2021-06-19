@@ -27,9 +27,9 @@
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
                 <TextBlock FontSize="18" Foreground="Gray" Text="Employee ID" Width="130" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0"/>
-                <TextBox x:Name="txtEmployeeID" Width="127" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" MaxLength="5" PreviewTextInput="txtEmployeeID_PreviewTextInput"/>
+                <TextBox x:Name="txtEmployeeID" Width="127" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" MaxLength="5" PreviewTextInput="number_PreviewTextInput"/>
                 <TextBlock FontSize="18" Foreground="Gray" Text="Employee Name" Width="142" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0" Grid.Column="1"/>
-                <TextBox x:Name="txtEmployeeName" Width="127" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" MaxLength="25"  Grid.Column="1"/>
+                <TextBox x:Name="txtEmployeeName" Width="127" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" MaxLength="25"  Grid.Column="1" PreviewTextInput="name_PreviewTextInput"/>
                 <TextBlock FontSize="18" Foreground="Gray" Text="Department" Width="142" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0" Grid.Column="2"/>
                 <ComboBox x:Name="cbDepartment" Width="127" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" Grid.Column="2">
                     <ComboBox.ItemTemplate>
@@ -61,9 +61,6 @@
                         <materialDesign:PackIcon x:Name="deleteIco"  Kind="AccountMinus" Foreground="White"/>
                     </Button.Content>
                 </Button>
-                <Border>
-                    
-                </Border>
                 <DataGrid x:Name="EmployeeDtg" Margin="10" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="7" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" AutoGenerateColumns="False" IsReadOnly="True" EnableRowVirtualization="True">
                     <DataGrid.Columns>
                         <DataGridTemplateColumn Header="Select" CanUserSort="False" IsReadOnly="False">

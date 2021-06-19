@@ -9,6 +9,8 @@ using System.IO;
 using MaterialDesignThemes.Wpf;
 using System.Data;
 using System.Globalization;
+using System.Windows.Input;
+using System.Windows.Controls;
 
 namespace StockControl
 {
@@ -23,6 +25,8 @@ namespace StockControl
             WarehouseWorker, WarehousePacker, MaterialHandler
         };
         static public readonly Regex NumRegex = new Regex("[^0-9]+");
+        static public readonly Regex DoubleRegex = new Regex("[^0-9.]");
+        static public readonly Regex NameRegex = new Regex("[,;@#$%^&*()~_=+-]+");
         static public readonly TimeSpan SnackbarMessageTime = TimeSpan.FromMilliseconds(2000);
 
         static public readonly string CSVRoot = Directory.GetCurrentDirectory()+ "/CSV_FILE";
@@ -32,8 +36,6 @@ namespace StockControl
         {
             StreamWriter sw = new StreamWriter(CSVRoot + "/settings_data.csv", false);
             sw.Write(SettingsParams.Tax);
-            sw.Write(",");
-            sw.Write(SettingsParams.Culture.Name);
             sw.Write(",");
             sw.Write(SettingsParams.MaterialHandlerWage);
             sw.Write(",");
@@ -48,7 +50,6 @@ namespace StockControl
             var line = st.ReadLine();
             var values = line.Split(',');
             SettingsParams.Tax = Convert.ToDouble(values[0]);
-            SettingsParams.Culture = new CultureInfo(values[1]);
             SettingsParams.MaterialHandlerWage = Convert.ToDouble(values[2]);
             SettingsParams.WarehouseWorkerWage = Convert.ToDouble(values[3]);
             SettingsParams.WarehousePackerWage = Convert.ToDouble(values[3]);
