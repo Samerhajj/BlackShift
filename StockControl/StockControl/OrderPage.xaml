@@ -22,7 +22,7 @@
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
                 <TextBlock FontSize="18" Foreground="Gray" Text="Choose Product" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0"/>
-                <ComboBox x:Name="comboBoxProducts" Height="28" Width="175" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" Grid.Column="0">
+                <ComboBox x:Name="comboBoxProducts" Height="30" Width="175" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" Grid.Column="0">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <TextBlock>
@@ -37,7 +37,7 @@
                     </ComboBox.ItemTemplate>
                 </ComboBox>
                 <TextBlock FontSize="18" Foreground="Gray" Text="Quantity To Order" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0" Grid.Column="1"/>
-                <TextBox x:Name="txtOrderQuantity" Width="127" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" MaxLength="8"  Grid.Column="1" PreviewTextInput="txtOrderQuantity_CheckInput"/>
+                <TextBox x:Name="txtOrderQuantity" Width="127" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" MaxLength="8"  Grid.Column="1" PreviewTextInput="txtOrderQuantity_CheckInput"/>
                 <Button x:Name="orderBtn" Grid.Column="5" Width="75" Height="28" VerticalAlignment="Center" Click="orderBtn_Click" ToolTip="Make an order.">
                     <Button.Content>
                         <materialDesign:PackIcon Kind="ShoppingCartAdd" VerticalAlignment="Center"/>

@@ -24,13 +24,13 @@
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
                 <TextBlock FontSize="18" Foreground="Gray" Text="Department ID" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0"/>
-                <TextBox x:Name="txtDepartmentID" Width="127" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" MaxLength="5" Tag="Department id" PreviewTextInput="NumberCheckInput"/>
+                <TextBox x:Name="txtDepartmentID" Width="127" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" MaxLength="5" Tag="Department id" PreviewTextInput="NumberCheckInput"/>
                 <TextBlock FontSize="18" Foreground="Gray" Text="Department Name" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0" Grid.Column="1"/>
-                <TextBox x:Name="txtDepartmentName" Width="127" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" MaxLength="25" Grid.Column="1" PreviewTextInput="NameCheckInput"/>
+                <TextBox x:Name="txtDepartmentName" Width="127" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" MaxLength="25" Grid.Column="1" PreviewTextInput="NameCheckInput"/>
                 <TextBlock FontSize="18" Foreground="Gray" Text="Employee Capacity" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0" Grid.Column="2"/>
-                <TextBox x:Name="txtEmployeeCapacity" Width="127" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" MaxLength="8" Grid.Column="2" Tag="Employee capacity" PreviewTextInput="NumberCheckInput"/>
+                <TextBox x:Name="txtEmployeeCapacity" Width="127" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" MaxLength="8" Grid.Column="2" Tag="Employee capacity" PreviewTextInput="NumberCheckInput"/>
                 <TextBlock FontSize="18" Foreground="Gray" Text="Product Capacity" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0" Grid.Column="3"/>
-                <TextBox x:Name="txtProductCapacity" Width="127" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" MaxLength="8" Grid.Column="3" Tag="Product capacity" PreviewTextInput="NumberCheckInput"/>
+                <TextBox x:Name="txtProductCapacity" Width="127" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" MaxLength="8" Grid.Column="3" Tag="Product capacity" PreviewTextInput="NumberCheckInput"/>
                 <Button x:Name="addBtn" Width="75" Height="28" FontSize="14" Click="addBtn_Click" Grid.Column="6" VerticalAlignment="Center" ToolTip="Add a new department.">
                     <Button.Content>
                         <materialDesign:PackIcon Kind="HomePlus" VerticalAlignment="Center"/>

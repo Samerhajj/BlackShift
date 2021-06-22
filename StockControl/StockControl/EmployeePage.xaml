@@ -11,84 +11,84 @@
 
     <materialDesign:TransitioningContent x:Name="TransitionSlideHome" OpeningEffect="{materialDesign:TransitionEffect SlideInfromLeft,Duration=0:0:0.2}">
         <Grid Background="#FFEEEEEE" Margin="0,20,0,0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="1.5*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="80"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="14*"/>
-                    <RowDefinition Height="1*"/>
-                </Grid.RowDefinitions>
-                <TextBlock FontSize="18" Foreground="Gray" Text="Employee ID" Width="130" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0"/>
-                <TextBox x:Name="txtEmployeeID" Width="127" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" MaxLength="5" PreviewTextInput="number_PreviewTextInput"/>
-                <TextBlock FontSize="18" Foreground="Gray" Text="Employee Name" Width="142" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0" Grid.Column="1"/>
-                <TextBox x:Name="txtEmployeeName" Width="127" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" MaxLength="25"  Grid.Column="1" PreviewTextInput="name_PreviewTextInput"/>
-                <TextBlock FontSize="18" Foreground="Gray" Text="Department" Width="142" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0" Grid.Column="2"/>
-                <ComboBox x:Name="cbDepartment" Width="127" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" Grid.Column="2">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock>
-                                <TextBlock.Text>
-                                    <MultiBinding StringFormat="{}{0} - {1}">
-                                        <Binding Path="Key"/>
-                                        <Binding Path="Value.Name"/>
-                                    </MultiBinding>
-                                </TextBlock.Text>
-                            </TextBlock>
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
-                <TextBlock FontSize="18" Foreground="Gray" Text="Employee Type" Width="142" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0" Grid.Column="3"/>
-                <ComboBox x:Name="cbEmployeeType" Width="127" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" Grid.Column="3"/>
-                <TextBlock FontSize="18" Foreground="Gray" Text="Gender" Width="142" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0" Grid.Column="4"/>
-                <ComboBox x:Name="cbGender" Width="127" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" Grid.Column="4"/>
-                <TextBlock FontSize="18" Foreground="Gray" Text="Date Of Birth" Width="142" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0" Grid.Column="5"/>
-                <DatePicker x:Name="birthDatePicker" Grid.Column="5" VerticalAlignment="Top" Margin="15,35,0,0" DisplayDateEnd="{x:Static sys:DateTime.Now}"/>
-                <Button x:Name="addBtn" Width="75" Height="28" Grid.Column="6" VerticalAlignment="Center" Click="addBtn_Click" ToolTip="Add a new employee.">
-                    <Button.Content>
-                        <materialDesign:PackIcon Kind="AccountAdd" VerticalAlignment="Center"/>
-                    </Button.Content>
-                </Button>
-                <Button x:Name="Deletebtn" Width="75" Height="28" FontSize="14" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="1" Background="Red" BorderThickness="0" Visibility="Hidden" Click="deleteBtn_Click" ToolTip="Remove selected employees.">
-                    <Button.Content>
-                        <materialDesign:PackIcon x:Name="deleteIco"  Kind="AccountMinus" Foreground="White"/>
-                    </Button.Content>
-                </Button>
-                <DataGrid x:Name="EmployeeDtg" Margin="10" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="7" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" AutoGenerateColumns="False" IsReadOnly="True" EnableRowVirtualization="True">
-                    <DataGrid.Columns>
-                        <DataGridTemplateColumn Header="Select" CanUserSort="False" IsReadOnly="False">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <CheckBox x:Name="selectCb" Checked="selectCb_Checked" Unchecked="selectCb_Unchecked" DataContext="{Binding Path=Key}"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                        <DataGridTextColumn Header="ID" Binding="{Binding Path=Key}"/>
-                        <DataGridTextColumn Header="Name" Binding="{Binding Path=Value.Name}"/>
-                        <DataGridTextColumn Header="Department ID" Binding="{Binding Path=Value.DepartmentID}"/>
-                        <DataGridTextColumn Header="Gender" Binding="{Binding Path=Value.Gender}"/>
-                        <DataGridTextColumn x:Name="birthDateColumn" Header="DateOfBirth" Binding="{Binding Path=Value.DateOfBirth, StringFormat=d}"/>
-                        <DataGridTextColumn Header="Income" Binding="{Binding Path=Value.Income, StringFormat=C2, ConverterCulture={x:Static local:SettingsParams.Culture}}"/>
-                        <DataGridTextColumn Header="Given Raise" Binding="{Binding Path=Value.Raise, StringFormat={}+{0}%}"/>
-                        <DataGridTextColumn Header="Employee Type" Binding="{Binding Path=Value.EmployeeType}"/>
-                        <DataGridTemplateColumn Width="150" CanUserSort="False">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Button x:Name="editBtn" Width="75" Height="28" FontSize="14" Click="editBtn_Click" DataContext="{Binding Path=Key}" ToolTip="Edit employee.">
-                                        <materialDesign:PackIcon Kind="AccountEdit" Width="30" VerticalAlignment="Center" Margin="5" FontFamily="Corbel Light"/>
-                                    </Button>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="1.5*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="80"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="14*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <TextBlock FontSize="18" Foreground="Gray" Text="Employee ID" Width="130" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0"/>
+            <TextBox x:Name="txtEmployeeID" Width="127" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" MaxLength="5" PreviewTextInput="number_PreviewTextInput"/>
+            <TextBlock FontSize="18" Foreground="Gray" Text="Employee Name" Width="142" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0" Grid.Column="1"/>
+            <TextBox x:Name="txtEmployeeName" Width="127" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" MaxLength="25"  Grid.Column="1" PreviewTextInput="name_PreviewTextInput"/>
+            <TextBlock FontSize="18" Foreground="Gray" Text="Department" Width="142" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0" Grid.Column="2"/>
+            <ComboBox x:Name="cbDepartment" Width="127" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" Grid.Column="2">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock>
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0} - {1}">
+                                    <Binding Path="Key"/>
+                                    <Binding Path="Value.Name"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <TextBlock FontSize="18" Foreground="Gray" Text="Employee Type" Width="142" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0" Grid.Column="3"/>
+            <ComboBox x:Name="cbEmployeeType" Width="127" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" Grid.Column="3"/>
+            <TextBlock FontSize="18" Foreground="Gray" Text="Gender" Width="142" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0" Grid.Column="4"/>
+            <ComboBox x:Name="cbGender" Width="127" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,35,0,0" FontSize="16" Grid.Column="4"/>
+            <TextBlock FontSize="18" Foreground="Gray" Text="Date Of Birth" Width="142" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0" Grid.Column="5"/>
+            <DatePicker x:Name="birthDatePicker" Height="30" Grid.Column="5" VerticalAlignment="Top" Margin="15,35,0,0" DisplayDateEnd="{x:Static sys:DateTime.Now}"/>
+            <Button x:Name="addBtn" Width="75" Height="28" Grid.Column="6" VerticalAlignment="Center" Click="addBtn_Click" ToolTip="Add a new employee.">
+                <Button.Content>
+                    <materialDesign:PackIcon Kind="AccountAdd" VerticalAlignment="Center"/>
+                </Button.Content>
+            </Button>
+            <Button x:Name="Deletebtn" Width="75" Height="28" FontSize="14" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="1" Background="Red" BorderThickness="0" Visibility="Hidden" Click="deleteBtn_Click" ToolTip="Remove selected employees.">
+                <Button.Content>
+                    <materialDesign:PackIcon x:Name="deleteIco"  Kind="AccountMinus" Foreground="White"/>
+                </Button.Content>
+            </Button>
+            <DataGrid x:Name="EmployeeDtg" Margin="10" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="7" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" AutoGenerateColumns="False" IsReadOnly="True" EnableRowVirtualization="True">
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Header="Select" CanUserSort="False" IsReadOnly="False">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox x:Name="selectCb" Checked="selectCb_Checked" Unchecked="selectCb_Unchecked" DataContext="{Binding Path=Key}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="ID" Binding="{Binding Path=Key}"/>
+                    <DataGridTextColumn Header="Name" Binding="{Binding Path=Value.Name}"/>
+                    <DataGridTextColumn Header="Department ID" Binding="{Binding Path=Value.DepartmentID}"/>
+                    <DataGridTextColumn Header="Gender" Binding="{Binding Path=Value.Gender}"/>
+                    <DataGridTextColumn x:Name="birthDateColumn" Header="DateOfBirth" Binding="{Binding Path=Value.DateOfBirth, StringFormat=d}"/>
+                    <DataGridTextColumn Header="Income" Binding="{Binding Path=Value.Income, StringFormat=C2, ConverterCulture={x:Static local:SettingsParams.Culture}}"/>
+                    <DataGridTextColumn Header="Given Raise" Binding="{Binding Path=Value.Raise, StringFormat={}+{0}%}"/>
+                    <DataGridTextColumn Header="Employee Type" Binding="{Binding Path=Value.EmployeeType}"/>
+                    <DataGridTemplateColumn Width="150" CanUserSort="False">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button x:Name="editBtn" Width="75" Height="28" FontSize="14" Click="editBtn_Click" DataContext="{Binding Path=Key}" ToolTip="Edit employee.">
+                                    <materialDesign:PackIcon Kind="AccountEdit" Width="30" VerticalAlignment="Center" Margin="5" FontFamily="Corbel Light"/>
+                                </Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
             <materialDesign:Snackbar x:Name="sbNotification" HorizontalAlignment="Center" Grid.Row="3" Grid.ColumnSpan="7"/>
         </Grid>
     </materialDesign:TransitioningContent>
