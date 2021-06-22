@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MaterialDesignThemes.Wpf;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -12,6 +13,8 @@ namespace StockControl
     public partial class SettingsControl : UserControl
     {
         MainWindow mainWindow;
+        SnackbarMessageQueue messageQueue = new SnackbarMessageQueue(Data.SnackbarMessageTime);
+
         public SettingsControl(MainWindow main)
         {
             InitializeComponent();
@@ -27,13 +30,13 @@ namespace StockControl
                 SettingsParams.MaterialHandlerWage = Convert.ToDouble(mhBox.Text);
                 SettingsParams.WarehouseWorkerWage = Convert.ToDouble(wwBox.Text);
                 SettingsParams.WarehousePackerWage = Convert.ToDouble(wpBox.Text);
+                ExecuteMessage("All changes saved.");
             }
             else
             {
-                MessageBox.Show("Please fill all the textboxes.");
+                ExecuteMessage("Please fill all the textboxes.");
             }
         }
-
         private bool IfTextBoxesFull()
         {
             foreach (var item in paramStack.Children)
@@ -47,8 +50,7 @@ namespace StockControl
                 }
             }
             return true;
-        }
-           
+        }   
         private void taxBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = Data.DoubleRegex.IsMatch(e.Text);
@@ -57,7 +59,6 @@ namespace StockControl
                 e.Handled = true;
             }
         }
-
         private void backArrowBTN_Click(object sender, RoutedEventArgs e)
         {
             mainWindow.ChooseTab(mainWindow.lastChosenPage);
@@ -70,6 +71,11 @@ namespace StockControl
             mhBox.Text = SettingsParams.MaterialHandlerWage.ToString();
             wwBox.Text = SettingsParams.WarehouseWorkerWage.ToString();
             wpBox.Text = SettingsParams.WarehousePackerWage.ToString();
+        }
+        private void ExecuteMessage(string message)
+        {
+            sbNotification.MessageQueue = messageQueue;
+            sbNotification.MessageQueue.Enqueue(message);
         }
     }
 }
