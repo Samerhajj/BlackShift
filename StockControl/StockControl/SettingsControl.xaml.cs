@@ -12,14 +12,11 @@ namespace StockControl
     /// </summary>
     public partial class SettingsControl : UserControl
     {
-        MainWindow mainWindow;
         SnackbarMessageQueue messageQueue = new SnackbarMessageQueue(Data.SnackbarMessageTime);
 
         public SettingsControl(MainWindow main)
         {
             InitializeComponent();
-            mainWindow = main; 
-
        }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -30,7 +27,8 @@ namespace StockControl
                 SettingsParams.MaterialHandlerWage = Convert.ToDouble(mhBox.Text);
                 SettingsParams.WarehouseWorkerWage = Convert.ToDouble(wwBox.Text);
                 SettingsParams.WarehousePackerWage = Convert.ToDouble(wpBox.Text);
-                ExecuteMessage("All changes saved.");
+                if(!sbNotification.IsActive) 
+                    ExecuteMessage("All changes saved.");
             }
             else
             {
@@ -58,12 +56,6 @@ namespace StockControl
             {
                 e.Handled = true;
             }
-        }
-        private void backArrowBTN_Click(object sender, RoutedEventArgs e)
-        {
-            mainWindow.ChooseTab(mainWindow.lastChosenPage);
-            mainWindow.ListViewMenu.IsEnabled = true;
-      
         }
         public void initializeParams()
         {

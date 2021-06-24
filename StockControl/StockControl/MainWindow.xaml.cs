@@ -96,7 +96,7 @@ namespace StockControl
         private void InitializePages()
         {
             homePage = new HomePage();
-            departmentsPage = new DepartmentsPage();
+            departmentsPage = new DepartmentsPage(this);
             orderPage = new OrderPage();
             employeePage = new EmployeePage();
             productsPage = new ProductsPage();
@@ -114,10 +114,13 @@ namespace StockControl
             GridPrincipal.Children.Add(settingsPage);
             settingsPage.initializeParams();
             ListViewMenu.IsEnabled = false;
-
-            
-       
-    
+            backArrowBTN.Visibility = Visibility.Visible;
+        }
+        private void backArrowBTN_Click(object sender, RoutedEventArgs e)
+        {
+            ChooseTab(lastChosenPage);
+            ListViewMenu.IsEnabled = true;
+            backArrowBTN.Visibility = Visibility.Hidden;
         }
     }
 }

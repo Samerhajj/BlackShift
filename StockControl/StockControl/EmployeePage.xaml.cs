@@ -205,6 +205,5 @@ namespace StockControl
             sbNotification.MessageQueue = messageQueue;
             sbNotification.MessageQueue.Enqueue(message);
         }
-
     }
 }
