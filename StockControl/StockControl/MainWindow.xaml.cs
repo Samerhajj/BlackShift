@@ -96,7 +96,7 @@ namespace StockControl
         private void InitializePages()
         {
             homePage = new HomePage();
-            departmentsPage = new DepartmentsPage(this);
+            departmentsPage = new DepartmentsPage();
             orderPage = new OrderPage();
             employeePage = new EmployeePage();
             productsPage = new ProductsPage();
