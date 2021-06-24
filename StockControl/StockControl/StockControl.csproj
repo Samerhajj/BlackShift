@@ -229,9 +229,7 @@
   <ItemGroup>
     <Resource Include="Images\LoadAnimation.gif" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Gifs\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Images\homepage.png" />
   </ItemGroup>
@@ -249,12 +247,6 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\oie_trans.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\98900.gif" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\leftup.png" />

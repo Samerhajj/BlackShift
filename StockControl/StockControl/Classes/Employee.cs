@@ -12,7 +12,7 @@ namespace StockControl
         public string Name { get; set; }
         public int DepartmentID { get; set; }
         public string Gender { get; set; }
-        public double Raise { get; set; } //Contains the extra raise in % (Percentage e.g. 13%)
+        public double Raise { get; set; }
         public DateTime DateOfBirth { get; set; }
         public abstract double Income { get; }
         public Data.EmployeeTypes EmployeeType { get; set; }

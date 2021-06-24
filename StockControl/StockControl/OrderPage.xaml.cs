@@ -59,26 +59,24 @@ namespace StockControl
             {
                 ExecuteMessage(ex.Message);
             }
-        }
-        //VVV Code Reuse VVV
+        }//Makes a new order
         private void txtOrderQuantity_CheckInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = Data.NumRegex.IsMatch(e.Text);
             if (e.Handled && !sbNotification.IsActive)
                 ExecuteMessage($"Quantity can include numbers only");
-        }
+        }//checks if the input is valid for a number
 
         //Extra Functions
         private void ClearUI()
         {
             txtOrderQuantity.Text = string.Empty;
-            comboBoxProducts.SelectedItem = null; 
-        }
+            comboBoxProducts.SelectedItem = null;
+        }//Clears the input UI
         private void ExecuteMessage(string message)
         {
             sbNotification.MessageQueue = messageQueue;
             sbNotification.MessageQueue.Enqueue(message);
-        }
-
+        }//Notifies the user of a specified message
     }
 }

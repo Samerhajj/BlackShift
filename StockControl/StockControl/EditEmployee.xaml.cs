@@ -26,8 +26,8 @@ namespace StockControl
 
         public EditEmployee(int employeeId , Grid gridPrincipal)
         {
-            gridPrincipal.IsEnabled = false;
             InitializeComponent();
+            gridPrincipal.IsEnabled = false;
             cbGender.Items.Add("Male");
             cbGender.Items.Add("Female");
             cbEmployeeType.ItemsSource = Enum.GetValues(typeof(Data.EmployeeTypes));
@@ -66,7 +66,7 @@ namespace StockControl
                 }
                 txtSpecialtyValue.Text = "0";
             }
-        }
+        }//Event for the employee type changed
         private void saveBtn_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -108,30 +108,30 @@ namespace StockControl
             {
                 MessageBox.Show(ex.Message);
             }
-        }
+        }//Saves the new employee and closes the edit window
         private void resetBtn_Click(object sender, RoutedEventArgs e)
         {
             InitializeEmployee(employeeId);
-        }
+        }//Resets the values of the texboxes to be the intial values
         private void exitBtn_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
-        }
+        }//Closes the window(activates the OnClosing Method below)
         private void number_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = Data.NumRegex.IsMatch(e.Text);
-        }
+        }//Checks if the input is valid for a number
         private void name_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = Data.NameRegex.IsMatch(e.Text);
-        }
+        }//Checks if the input is valid for a name
         private void double_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = Data.DoubleRegex.IsMatch(e.Text);
-        }
+        }//Checks if the input is valid for a double
 
         //Extra Functions
-        //This function sets all the elements to the values of the employee.
+        
         private void InitializeEmployee(int employeeId)
         {
             txtEmployeeID.Text = employeeId.ToString(); //this element is disabled.
@@ -143,8 +143,7 @@ namespace StockControl
             cbEmployeeType.SelectedItem = employee.EmployeeType;
             txtRaise.Text = employee.Raise.ToString();
             SetSpecialtyForEmployeeType(employee);
-        }
-        //This function changes the name and the value of the specialty for the employee according to his type.
+        }//This function sets all the elements to the values of the employee
         private void SetSpecialtyForEmployeeType(Employee employee)
         {
             if (employee is WarehousePacker warehousePacker)
@@ -162,7 +161,7 @@ namespace StockControl
                 txtSpecialty.Text = nameof(materialHandler.MaterialHandled);
                 txtSpecialtyValue.Text = materialHandler.MaterialHandled.ToString();
             }
-        } 
+        }//This function changes the name and the value of the specialty for the employee according to his type
         protected override void OnClosing(CancelEventArgs e)
         {
             if (!isSaved)
@@ -184,6 +183,6 @@ namespace StockControl
                 gridPrincipal.IsEnabled = true;
                 base.OnClosing(e);
             }
-        }
+        }//Checks if saved and notifies the user if he is leaving without saving
     }
 }

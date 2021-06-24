@@ -10,8 +10,6 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 
@@ -22,22 +20,13 @@ namespace StockControl
     /// </summary>
     public partial class SplashScreen : Window
     {
-       
-
         public SplashScreen()
         {
             Thread.Sleep(300);
             InitializeComponent();
-           
             Loading();
         }
         DispatcherTimer timer = new DispatcherTimer();
-        SoundPlayer soundPlayer = new SoundPlayer();
-
-        private void Media_Unloaded(object sender, RoutedEventArgs e)
-        {
-
-        }
         private void timer_tick(object sender,EventArgs e)
         {
             timer.Stop();

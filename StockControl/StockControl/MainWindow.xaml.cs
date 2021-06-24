@@ -44,12 +44,12 @@ namespace StockControl
             int index = ListViewMenu.SelectedIndex;
             MoveCursorMenu(index);
             ChooseTab(index);
-        }
+        }//Takes the index of the selected ListViewMenu and opens the correct tab 
         private void MoveCursorMenu(int index)
         {
             TransitionSlideHome.OnApplyTemplate();
             GridCursor.Margin = new Thickness(0, 117.5 + (60 * index), 0, 0);
-        }
+        }//Changes the GridCursor to the intended index (place)
         public void ChooseTab(int index)
         {
             switch (index)
@@ -92,7 +92,7 @@ namespace StockControl
                     break;
             }
             
-        }
+        }//Shows the correct tab according to the index
         private void InitializePages()
         {
             homePage = new HomePage();
@@ -102,12 +102,15 @@ namespace StockControl
             productsPage = new ProductsPage();
             aboutUsPage = new AboutUsPage();
             settingsPage = new SettingsControl(this);
-        }
+        }//Initializes all the pages
         private void btnExit_Click(object sender, RoutedEventArgs e)
         {
-            Data.StoreAll();
+            Task.Run(() =>
+            {
+                Data.StoreAll();
+            });
             Application.Current.Shutdown();
-        }
+        }//Stores the data and closes all the application
         private void btnSettings_Click(object sender, RoutedEventArgs e)
         {
             GridPrincipal.Children.Clear();
@@ -115,12 +118,12 @@ namespace StockControl
             settingsPage.initializeParams();
             ListViewMenu.IsEnabled = false;
             backArrowBTN.Visibility = Visibility.Visible;
-        }
+        }//Opens the settings tab
         private void backArrowBTN_Click(object sender, RoutedEventArgs e)
         {
             ChooseTab(lastChosenPage);
             ListViewMenu.IsEnabled = true;
             backArrowBTN.Visibility = Visibility.Hidden;
-        }
+        }//Allows the user to come back after opening the settings(Shows a new button to go back)
     }
 }

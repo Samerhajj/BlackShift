@@ -67,7 +67,7 @@ namespace StockControl
                 if (!sbNotification.IsActive)
                     ExecuteMessage(ex.Message);
             }
-        }
+        }//Adds a department
         private void deleteBtn_Click(object sender, RoutedEventArgs e)
         {
             //Checks if there is nothing selected.
@@ -105,13 +105,13 @@ namespace StockControl
                     ClearSelection();
                 }
             }
-        }
+        }//Removes department/departments
         private void editBtn_Click(object sender, RoutedEventArgs e)
         {
             var editPage = new EditDepartment((int)((Button)sender).DataContext, (Grid)this.Parent);
             editPage.Show();
             ClearSelection();
-        }
+        }//Edit department
         private void selectCb_Checked(object sender, RoutedEventArgs e)
         {
             selectedDepartments.Add((int)((CheckBox)sender).DataContext);
@@ -120,7 +120,7 @@ namespace StockControl
                 Deletebtn.Visibility = Visibility.Visible;
                 DepartmentGrid.CanUserSortColumns = false;
             }
-        }
+        }//Department checked
         private void selectCb_Unchecked(object sender, RoutedEventArgs e)
         {
             selectedDepartments.Remove((int)((CheckBox)sender).DataContext);
@@ -129,19 +129,19 @@ namespace StockControl
                 Deletebtn.Visibility = Visibility.Hidden;
                 DepartmentGrid.CanUserSortColumns = true;
             }
-        }
+        }//Department unchecked
         private void NumberCheckInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = Data.NumRegex.IsMatch(e.Text);
             if (e.Handled && !sbNotification.IsActive)
                     ExecuteMessage($"{(string)((TextBox)sender).Tag} can include numbers only.");
-        }
+        }//checks if the input is valid for a number and notifies if not
         private void NameCheckInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = Data.NameRegex.IsMatch(e.Text);
             if (e.Handled && !sbNotification.IsActive)
                 ExecuteMessage($"{(string)((TextBox)sender).Tag} can't include \"{e.Text}\"");
-        }
+        }//checks if the input is valid for a name and notifies if not
 
         //Extra Functions
         private void ClearUI()
@@ -150,7 +150,7 @@ namespace StockControl
             txtDepartmentName.Text = "";
             txtEmployeeCapacity.Text = "";
             txtProductCapacity.Text = "";
-        }
+        }//Clears the input UI
         public void ClearSelection()
         {
             selectedDepartments.Clear();
@@ -158,11 +158,11 @@ namespace StockControl
             DepartmentGrid.CanUserSortColumns = true;
             DepartmentGrid.ItemsSource = null;
             DepartmentGrid.ItemsSource = Data.Departments;
-        }
+        }//Clears the selection and resets the grid 
         private void ExecuteMessage(string message)
         {
             sbNotification.MessageQueue = messageQueue;
             sbNotification.MessageQueue.Enqueue(message);
-        }
+        }//Notifies the user of a specified message
     }
 }

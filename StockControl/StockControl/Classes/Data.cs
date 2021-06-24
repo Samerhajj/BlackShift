@@ -23,13 +23,13 @@ namespace StockControl
         public enum EmployeeTypes : byte
         {
             WarehouseWorker, WarehousePacker, MaterialHandler
-        };
-        static public readonly Regex NumRegex = new Regex("[^0-9]+");
-        static public readonly Regex DoubleRegex = new Regex("[^0-9.]");
-        static public readonly Regex NameRegex = new Regex("[,;@#$%^&*()~_=+-]+");
-        static public readonly TimeSpan SnackbarMessageTime = TimeSpan.FromMilliseconds(2000);
+        };//Enum for employee types
+        static public readonly Regex NumRegex = new Regex("[^0-9]+");//Regex for numbers used to check numbers validation
+        static public readonly Regex DoubleRegex = new Regex("[^0-9.]");//Regex for doubles used to check doubles validation
+        static public readonly Regex NameRegex = new Regex("[,;@#$%^&*()~_=+-]+");//Regex for names used to check names validation
+        static public readonly TimeSpan SnackbarMessageTime = TimeSpan.FromMilliseconds(2000);//A global time for all the notifations
 
-        static public readonly string CSVRoot = Directory.GetCurrentDirectory()+ "/CSV_FILE";
+        static public readonly string CSVRoot = Directory.GetCurrentDirectory()+ "/CSV_FILE";//A directory where all the csv files will be saved
 
         //tblSettingsParams
         private static void SaveParams()
@@ -43,7 +43,7 @@ namespace StockControl
             sw.Write(",");
             sw.Write(SettingsParams.WarehousePackerWage);
             sw.Close();
-        }
+        }//Saves all the settings params
         private static void ReadParams()
         {
             var st = new StreamReader(CSVRoot + "/settings_data.csv");
@@ -53,7 +53,7 @@ namespace StockControl
             SettingsParams.MaterialHandlerWage = Convert.ToDouble(values[2]);
             SettingsParams.WarehouseWorkerWage = Convert.ToDouble(values[3]);
             SettingsParams.WarehousePackerWage = Convert.ToDouble(values[3]);
-        }
+        }//Reads all the settings params
 
 
         //tblProducts
@@ -65,7 +65,7 @@ namespace StockControl
             productsTable.Columns.Add("departmentID", typeof(int));
             productsTable.Columns.Add("sellingPrice", typeof(double));
             productsTable.Columns.Add("buyingPrice", typeof(double));
-        }
+        }//Builds the products table
         private static void FillProductsTable()
         {
             BuildProductsTable();
@@ -73,7 +73,7 @@ namespace StockControl
             {
                 productsTable.Rows.Add(item.Key, item.Value.Name, item.Value.DepartmentID, item.Value.SellingPrice, item.Value.BuyingPrice);
             }
-        }
+        }//Fills the products table
         private static void SaveProducts()
         {
             StreamWriter sw = new StreamWriter(CSVRoot + "/products_data.csv", false);
@@ -112,7 +112,7 @@ namespace StockControl
                 sw.Write(sw.NewLine);
             }
             sw.Close();
-        }
+        }//Saves the products in the csv file
         private static void ReadProducts()
         {
             var st = new StreamReader(CSVRoot + "/products_data.csv");
@@ -123,7 +123,7 @@ namespace StockControl
                 var values = line.Split(',');
                 Products.Add(Convert.ToInt32(values[0]), new Product(values[1], Convert.ToInt32(values[2]), Convert.ToDouble(values[3]), Convert.ToDouble(values[4])));
             }
-        }
+        }//Reads the products in the csv file
 
         //tblEmployees
         static private DataTable employeesTable = new DataTable();
@@ -136,7 +136,7 @@ namespace StockControl
             employeesTable.Columns.Add("dateOfBirth", typeof(DateTime));
             employeesTable.Columns.Add("employeeType", typeof(Data.EmployeeTypes));
             employeesTable.Columns.Add("special", typeof(int));
-        }
+        }//Builds the employees table
         private static void FillEmployeesTable()
         {
             BuildEmployeesTable();
@@ -160,7 +160,7 @@ namespace StockControl
                 }
             }
 
-        }
+        }//Fills the employees table
         private static void SaveEmployees()
         {
             StreamWriter sw = new StreamWriter(CSVRoot + "/employees_data.csv", false);
@@ -199,7 +199,7 @@ namespace StockControl
                 sw.Write(sw.NewLine);
             }
             sw.Close();
-        }
+        }//Saves the employees in the csv file
         private static void ReadEmployees()
         {
             var st = new StreamReader(CSVRoot + "/employees_data.csv");
@@ -229,7 +229,7 @@ namespace StockControl
                 }
             }
 
-        }
+        }//Reads the emplotees in the csv file
 
         //tblOrders
         static private DataTable ordersTable = new DataTable();
@@ -239,7 +239,7 @@ namespace StockControl
             ordersTable.Columns.Add("orderedProduct", typeof(Product));
             ordersTable.Columns.Add("orderedQuantity", typeof(int));
             ordersTable.Columns.Add("orderDate", typeof(DateTime));
-        }
+        }//Builds the orders table
         private static void FillOrdersTable()
         {
             BuildOrdersTable();
@@ -247,7 +247,7 @@ namespace StockControl
             {
                 ordersTable.Rows.Add(item.ProductID, item.OrderedProduct, item.OrderedQuantity, item.OrderDate);
             }
-        }
+        }//Fills the orders table
         private static void SaveOrders()
         {
             StreamWriter sw = new StreamWriter(CSVRoot + "/orders_data.csv", false);
@@ -293,7 +293,7 @@ namespace StockControl
                 sw.Write(sw.NewLine);
             }
             sw.Close();
-        }
+        }//Saves the orders in the csv file
         private static void ReadOrders()
         {
              var st = new StreamReader(CSVRoot + "/orders_data.csv");
@@ -307,7 +307,7 @@ namespace StockControl
                 var product = new Product(productInfo[0], Convert.ToInt32(productInfo[1]), Convert.ToDouble(productInfo[2]), Convert.ToDouble(productInfo[3]));
                 Orders.Add(new Order(Convert.ToInt32(values[0]), product, Convert.ToInt32(values[2]), Convert.ToDateTime(values[3])));
             }
-        }
+        }//Reads the orders in the csv file
 
         //tblDepartments
         static private DataTable departmentsTable = new DataTable();
@@ -319,7 +319,7 @@ namespace StockControl
             departmentsTable.Columns.Add("productCapacity", typeof(int));
             departmentsTable.Columns.Add("productsID", typeof(Dictionary<int, int>));
             departmentsTable.Columns.Add("employeesID", typeof(SortedSet<int>));
-        }//start the headers
+        }//Builds the departments table
         private static void FillDepartmentsTable()
         {
             BuildDepartmentsTable();
@@ -328,7 +328,7 @@ namespace StockControl
                 departmentsTable.Rows.Add(item.Key, item.Value.Name, item.Value.EmployeeCapacity
                                       , item.Value.ProductCapacity, item.Value.GetProducts(), item.Value.GetEmployeesID());
             }
-        }//get the data from the dictionary 
+        }//Fills the departments table
         private static void SaveDepartments()
         {
             StreamWriter sw = new StreamWriter(CSVRoot + "/departments_data.csv", false);
@@ -380,7 +380,7 @@ namespace StockControl
                 sw.Write(sw.NewLine);
             }
             sw.Close();
-        }//write the date to the csv file
+        }//Saves the orders in the csv file
         private static void ReadDepartments()
         {
         var st = new StreamReader(CSVRoot + "/departments_data.csv");
@@ -404,7 +404,7 @@ namespace StockControl
             }
             Departments.Add(Convert.ToInt32(values[0]), dep);
         }
-        }//read from the csv
+        }//Reads the orders in the csv file
 
 
         public static void LoadAll()
@@ -421,7 +421,7 @@ namespace StockControl
                 ReadOrders();
                 ReadEmployees();
             }
-        }//a function to read all the data from the csv
+        }//A function to read all the data from the csv
         public static void StoreAll()
         {
             if (!Directory.Exists(CSVRoot))
@@ -437,7 +437,7 @@ namespace StockControl
             SaveOrders();
             SaveEmployees();
             SaveParams();
-        }//a function to write all the data to the csv
+        }//A function to write all the data to the csv
         public static void ResetAll()
         {
             File.Delete(CSVRoot + "/products_data.csv");
@@ -445,7 +445,6 @@ namespace StockControl
             File.Delete(CSVRoot + "/orders_data.csv");
             File.Delete(CSVRoot + "/employees_data.csv");
             File.Delete(CSVRoot + "/settings_data.csv");
-        }//delete all the data (remove the data) from the csv   
-
+        }//Delete all the data (remove the data) from the csv
     }
 }
