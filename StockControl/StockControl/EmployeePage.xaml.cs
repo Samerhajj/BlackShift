@@ -82,7 +82,7 @@ namespace StockControl
                 if (!sbNotification.IsActive) 
                     ExecuteMessage(ex.Message);
             }
-        }
+        }//Adds a new employee
         private void deleteBtn_Click(object sender, RoutedEventArgs e)
         {
             //Checks if there is nothing selected.
@@ -114,13 +114,13 @@ namespace StockControl
                     ClearSelection();
                 }
             }
-        }
+        }//Removes employee/employees
         private void editBtn_Click(object sender, RoutedEventArgs e)
         {
             var editPage = new EditEmployee((int)((Button)sender).DataContext, (Grid)this.Parent);
             editPage.Show();
             ClearSelection();
-        }
+        }//Edit employee
         private void selectCb_Checked(object sender, RoutedEventArgs e)
         {
             selectedEmployeesID.Add((int)((CheckBox)sender).DataContext);
@@ -134,7 +134,7 @@ namespace StockControl
             {
                 deleteIco.Kind = PackIconKind.AccountMultipleMinus;
             }
-        }
+        }//Employee checked
         private void selectCb_Unchecked(object sender, RoutedEventArgs e)
         {
             selectedEmployeesID.Remove((int)((CheckBox)sender).DataContext);
@@ -151,19 +151,19 @@ namespace StockControl
             {
                 deleteIco.Kind = PackIconKind.AccountMultipleMinus;
             }
-        }
+        }//Employee unchecked
         private void number_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = Data.NumRegex.IsMatch(e.Text);
             if(e.Handled && !sbNotification.IsActive)
                 ExecuteMessage("The id must include numbers only.");
-        }
+        }//checks if the input is valid for a number and notifies if not
         private void name_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = Data.NameRegex.IsMatch(e.Text);
             if (e.Handled && !sbNotification.IsActive)
                 ExecuteMessage($"{(string)((TextBox)sender).Tag} can't include \"{e.Text}\"");
-        }
+        }//checks if the input is valid for a name and notifies if not
 
         //Extra Functions
         private void ClearUI()
@@ -174,7 +174,7 @@ namespace StockControl
             cbGender.SelectedItem = null;
             cbDepartment.SelectedItem = null;
             cbEmployeeType.SelectedItem = null;
-        }
+        }//Clears the input UI
         public void ClearSelection()
         {
             selectedEmployeesID.Clear();
@@ -182,7 +182,7 @@ namespace StockControl
             EmployeeDtg.CanUserSortColumns = true;
             EmployeeDtg.ItemsSource = null;
             EmployeeDtg.ItemsSource = Data.Employees;
-        }
+        }//Clears the selection and resets the grid
         private void CreateEmployeeWithType(Data.EmployeeTypes employeeType, string name, int departmentId, string gender, DateTime dateOfBirth, out Employee employee)
         {
             switch (employeeType)
@@ -199,11 +199,11 @@ namespace StockControl
                 default:
                     throw new ArgumentException("Employee type doesn't exist.");
             }
-        }
+        }//Create a new employee acording to the choosen type
         private void ExecuteMessage(string message)
         {
             sbNotification.MessageQueue = messageQueue;
             sbNotification.MessageQueue.Enqueue(message);
-        }
+        }//Notifies the user of a specified message
     }
 }

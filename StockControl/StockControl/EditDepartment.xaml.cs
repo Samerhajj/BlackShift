@@ -26,8 +26,8 @@ namespace StockControl
 
         public EditDepartment(int departmentId, Grid gridPrincipal)
         {
-            gridPrincipal.IsEnabled = false;
             InitializeComponent();
+            gridPrincipal.IsEnabled = false;
             this.departmentId = departmentId;
             this.gridPrincipal = gridPrincipal;
             InitializeDepartment();
@@ -67,26 +67,25 @@ namespace StockControl
             {
                 MessageBox.Show(ex.Message);
             }
-        }
+        }//Saves the new department and closes the edit window
         private void resetBtn_Click(object sender, RoutedEventArgs e)
         {
             InitializeDepartment();
-        }
+        }//Resets the values of the texboxes to be the intial values
         private void exitBtn_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
-        }
+        }//Closes the window (activates the OnClosing Method below)
         private void number_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = Data.NumRegex.IsMatch(e.Text);
-        }
+        }//Checks if the input is valid for a number
         private void name_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = Data.NameRegex.IsMatch(e.Text);
-        }
+        }//Checks if the input is valid for a name
 
         //Extra Functions
-        //This function sets all the elements to the values of the department.
         private void InitializeDepartment()
         {
             txtDepartmentID.Text = departmentId.ToString();
@@ -94,7 +93,7 @@ namespace StockControl
             txtDepartmentName.Text = department.Name;
             txtEmployeeCapacity.Text = department.EmployeeCapacity.ToString();
             txtProductCapacity.Text = department.ProductCapacity.ToString();
-        }
+        }//Sets all the elements to the values of the sent department
         protected override void OnClosing(CancelEventArgs e)
         {
             if (!isSaved)
@@ -116,6 +115,6 @@ namespace StockControl
                 gridPrincipal.IsEnabled = true;
                 base.OnClosing(e);
             }
-        }
+        }//Checks if saved and notifies the user if he is leaving without saving
     }
 }

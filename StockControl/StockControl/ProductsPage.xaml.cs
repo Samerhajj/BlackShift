@@ -74,7 +74,7 @@ namespace StockControl
                 if (!sbNotification.IsActive)
                     ExecuteMessage(ex.Message);
             }
-        }
+        }//Adds a product
         private void deleteBtn_Click(object sender, RoutedEventArgs e)
         {
             //Checks if there is nothing selected.
@@ -106,13 +106,13 @@ namespace StockControl
                     ClearSelection();
                 }
             }
-        }
+        }//Removes product/products
         private void editBtn_Click(object sender, RoutedEventArgs e)
         {
             var editPage = new EditProduct((int)((Button)sender).DataContext, (Grid)this.Parent);
             editPage.Show();
             ClearSelection();
-        }
+        }//Edit product
         private void selectCb_Checked(object sender, RoutedEventArgs e)
         {
             selectedProductsID.Add((int)((CheckBox)sender).DataContext);
@@ -121,7 +121,7 @@ namespace StockControl
                 Deletebtn.Visibility = Visibility.Visible;
                 ProductGrid.CanUserSortColumns = false;
             }
-        }
+        }//Product checked
         private void selectCb_Unchecked(object sender, RoutedEventArgs e)
         {
             selectedProductsID.Remove((int)((CheckBox)sender).DataContext);
@@ -130,13 +130,13 @@ namespace StockControl
                 Deletebtn.Visibility = Visibility.Hidden;
                 ProductGrid.CanUserSortColumns = true;
             }
-        }
+        }//Product unchecked
         private void number_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = Data.NumRegex.IsMatch(e.Text);
             if (e.Handled && !sbNotification.IsActive)
                 ExecuteMessage($"{(string)((TextBox)sender).Tag} can include numbers only");
-        }
+        }//checks if the input is valid for a number and notifies if not
         private void double_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = Data.DoubleRegex.IsMatch(e.Text);
@@ -146,13 +146,13 @@ namespace StockControl
             }
             else if (e.Handled && !sbNotification.IsActive)
                 ExecuteMessage($"{(string)((TextBox)sender).Tag} can include numbers only");
-        }
+        }//checks if the input is valid for a double and notifies if not
         private void name_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = Data.NameRegex.IsMatch(e.Text);
             if (e.Handled && !sbNotification.IsActive)
                 ExecuteMessage($"{(string)((TextBox)sender).Tag} can't include \"{e.Text}\"");
-        }
+        }//checks if the input is valid for a name and notifies if not
 
         //Extra Functions
         private void ClearUI()
@@ -162,7 +162,7 @@ namespace StockControl
             txtSellingPriceNoTax.Text = "";
             txtBuyingPriceNoTax.Text = "";
             cbDepartment.SelectedItem = null;
-        }
+        }//Clears the input UI
         public void ClearSelection()
         {
             selectedProductsID.Clear();
@@ -170,11 +170,11 @@ namespace StockControl
             ProductGrid.CanUserSortColumns = true;
             ProductGrid.ItemsSource = null;
             ProductGrid.ItemsSource = Data.Products;
-        }
+        }//Clears the selection and resets the grid 
         private void ExecuteMessage(string message)
         {
             sbNotification.MessageQueue = messageQueue;
             sbNotification.MessageQueue.Enqueue(message);
-        }
+        }//Notifies the user of a specified message
     }
 }

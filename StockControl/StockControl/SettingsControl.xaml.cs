@@ -34,7 +34,7 @@ namespace StockControl
             {
                 ExecuteMessage("Please fill all the textboxes.");
             }
-        }
+        }//Saves new paramters
         private bool IfTextBoxesFull()
         {
             foreach (var item in paramStack.Children)
@@ -48,7 +48,7 @@ namespace StockControl
                 }
             }
             return true;
-        }   
+        }//Checks if all the textbox aren't empty
         private void taxBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = Data.DoubleRegex.IsMatch(e.Text);
@@ -56,18 +56,18 @@ namespace StockControl
             {
                 e.Handled = true;
             }
-        }
+        }//checks if the input is valid for a double and notifies if not
         public void initializeParams()
         {
             taxBox.Text = SettingsParams.Tax.ToString();
             mhBox.Text = SettingsParams.MaterialHandlerWage.ToString();
             wwBox.Text = SettingsParams.WarehouseWorkerWage.ToString();
             wpBox.Text = SettingsParams.WarehousePackerWage.ToString();
-        }
+        }//Initializes all the textboxes with the current paramters
         private void ExecuteMessage(string message)
         {
             sbNotification.MessageQueue = messageQueue;
             sbNotification.MessageQueue.Enqueue(message);
-        }
+        }//Notifies the user of a specified message
     }
 }

@@ -26,8 +26,8 @@ namespace StockControl
 
         public EditProduct(int productId, Grid gridPrincipal)
         {
-            gridPrincipal.IsEnabled = false;
             InitializeComponent();
+            gridPrincipal.IsEnabled = false;
             cbDepartments.ItemsSource = Data.Departments;
             this.productId = productId;
             this.gridPrincipal = gridPrincipal;
@@ -58,15 +58,29 @@ namespace StockControl
             {
                 MessageBox.Show(ex.Message);
             }
-        }
+        }//Saves the new product and closes the edit window
         private void resetBtn_Click(object sender, RoutedEventArgs e)
         {
             InitializeProduct();
-        }
+        }//Resets the values of the texboxes to be the intial values
         private void exitBtn_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
-        }
+        }//Closes the window(activates the OnClosing Method below)
+        private void name_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = Data.NameRegex.IsMatch(e.Text);
+        }//Checks if the input is valid for a name
+        private void double_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = Data.DoubleRegex.IsMatch(e.Text);
+            if (e.Text.ToString() == "." && ((TextBox)sender).Text.Contains("."))
+            {
+                e.Handled = true;
+            }
+        }//Checks if the input is valid for a double
+
+        //Extra Functions
         private void InitializeProduct()
         {
             txtProductID.Text = productId.ToString();
@@ -75,19 +89,7 @@ namespace StockControl
             txtSellingPrice.Text = product.SellingPrice.ToString();
             txtBuyingPrice.Text = product.BuyingPrice.ToString();
             cbDepartments.SelectedItem = new KeyValuePair<int, Department>(product.DepartmentID, Data.Departments[product.DepartmentID]);
-        }
-        private void name_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            e.Handled = Data.NameRegex.IsMatch(e.Text);
-        }
-        private void double_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            e.Handled = Data.DoubleRegex.IsMatch(e.Text);
-            if (e.Text.ToString() == "." && ((TextBox)sender).Text.Contains("."))
-            {
-                e.Handled = true;
-            }
-        }
+        }//Sets all the elements to the values of the sent product
         protected override void OnClosing(CancelEventArgs e)
         {
             if (!isSaved)
@@ -109,6 +111,6 @@ namespace StockControl
                 gridPrincipal.IsEnabled = true;
                 base.OnClosing(e);
             }
-        }
+        }//Checks if saved and notifies the user if he is leaving without saving
     }
 }

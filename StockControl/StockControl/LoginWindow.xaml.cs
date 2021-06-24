@@ -38,6 +38,8 @@ namespace StockControl
             {
                 if (txtPassword.Password.ToLower() == "admin" && txtUsername.Text.ToLower() == "admin")
                 {
+                    txtPassword.IsEnabled = false;
+                    txtUsername.IsEnabled = false;
                     isLogged = true;
                     login_popup.IsOpen = true;
                     //tasks normaly includes a different Thread than the main thread,
@@ -60,20 +62,18 @@ namespace StockControl
                     txtPassword.Clear();
                 }
             }
-        }
-
+        }//Checks if the user entered the correct username/password if yes loads all the data form the csv and opens the main menu
         private void Clearlbl_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             txtUsername.Text = "";
             txtPassword.Clear();
-        }
-
+        }//Clears username and password
         private void enterInTxt_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
                 btnLogin_Click(sender, e);
             }
-        }
+        }//Allows the user to enter by pressing enter in the texboxes (username/password)
     }
 }

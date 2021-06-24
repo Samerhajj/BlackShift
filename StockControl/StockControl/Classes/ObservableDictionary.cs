@@ -11,14 +11,12 @@ using System.Threading.Tasks;
 
 namespace StockControl
 {
-    public class ObservableDictionary<TKey, TValue> : Dictionary<TKey, TValue>, INotifyCollectionChanged, INotifyPropertyChanged
+    public class ObservableDictionary<TKey, TValue> : Dictionary<TKey, TValue>, INotifyCollectionChanged
     {
-        //PropertyChangedEventHandler And NotifyCollectionChangedEventHandler 
-        //Are two event handlers,
-        //Each one of them is an EventHandeler that defines a delegate and an event
-        //to notify all the components that have PropertyChanged or CollectionChanged implemented.
+        //NotifyCollectionChangedEventHandler 
+        //Is An EventHandeler that defines a delegate and an event
+        //to notify all the components that have CollectionChanged implemented.
 
-        public event PropertyChangedEventHandler PropertyChanged;
         public event NotifyCollectionChangedEventHandler CollectionChanged;
 
         public ObservableDictionary()
@@ -27,39 +25,23 @@ namespace StockControl
         {
             base.Add(key, value);
             NotifyCollectionChanged();
-        }
+        }//Adds with notification
         public new bool Remove(TKey key)
         {
             bool result = base.Remove(key);
             NotifyCollectionChanged();
             return result;
-        }
+        }//Removes with notification
         public new int Count
         {
             get { return base.Count; }
-        }
-        public new TValue this[TKey key]
-        {
-            get { return base[key]; }
-            set
-            {
-                base[key] = value;
-                NotifyPropertyChanged();
-            }
         }
 
         //Extra Functions
         private void NotifyCollectionChanged()
         {
-            //Invoks the CollectionChanged event.
             CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
-            //CollectionChanged(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
-        }
-        private void NotifyPropertyChanged()
-        {
-            //Invoks the PropertyChanged event.
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(""));
-        }
+        }//Invoks the CollectionChanged event.
     }
 }
 
