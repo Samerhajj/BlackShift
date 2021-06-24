@@ -11,9 +11,9 @@ using System.Threading.Tasks;
 
 namespace StockControl
 {
-    public class ObservableDictionary<TKey, TValue> : Dictionary<TKey, TValue>, System.Collections.Specialized.INotifyCollectionChanged, System.ComponentModel.INotifyPropertyChanged
+    public class ObservableDictionary<TKey, TValue> : Dictionary<TKey, TValue>, INotifyCollectionChanged, INotifyPropertyChanged
     {
-        // PropertyChangedEventHandler And NotifyCollectionChangedEventHandler 
+        //PropertyChangedEventHandler And NotifyCollectionChangedEventHandler 
         //Are two event handlers,
         //Each one of them is an EventHandeler that defines a delegate and an event
         //to notify all the components that have PropertyChanged or CollectionChanged implemented.
@@ -38,6 +38,15 @@ namespace StockControl
         {
             get { return base.Count; }
         }
+        public new TValue this[TKey key]
+        {
+            get { return base[key]; }
+            set
+            {
+                base[key] = value;
+                NotifyPropertyChanged();
+            }
+        }
 
         //Extra Functions
         private void NotifyCollectionChanged()
@@ -49,7 +58,7 @@ namespace StockControl
         private void NotifyPropertyChanged()
         {
             //Invoks the PropertyChanged event.
-            PropertyChanged(this, new PropertyChangedEventArgs(""));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(""));
         }
     }
 }

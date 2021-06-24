@@ -21,16 +21,6 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <!--Back Arrow-->
-            <Button x:Name="backArrowBTN"
-                        Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
-                        ToolTip="Go Back"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    Click="backArrowBTN_Click">
-                <materialDesign:PackIcon
-                            Kind="ArrowBack"/>
-            </Button>
             <!--Settings Title!-->
             <!--Settings Header!-->
             <TextBlock FontSize="20"

@@ -130,7 +130,6 @@ namespace StockControl
                 DepartmentGrid.CanUserSortColumns = true;
             }
         }
-        //VVV Code Reuse VVV
         private void NumberCheckInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = Data.NumRegex.IsMatch(e.Text);
