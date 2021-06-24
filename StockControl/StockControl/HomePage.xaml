@@ -8,7 +8,17 @@
              xmlns:local="clr-namespace:StockControl"  
              mc:Ignorable="d" 
              d:DesignHeight="850" d:DesignWidth="1024">
-
+    <UserControl.Resources>
+        <!--A Style that affects all TextBlocks-->
+        <Style x:Key="TitleText" TargetType="TextBlock">
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="FontFamily" Value="Comic Sans MS"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+    </UserControl.Resources>
+    
+    
+    
     <materialDesign:TransitioningContent x:Name="TransitionSlideHome" OpeningEffect="{materialDesign:TransitionEffect SlideInfromLeft,Duration=0:0:0.2}">
         <Border>
             <Border.Background>
@@ -18,12 +28,17 @@
                 </LinearGradientBrush>
             </Border.Background>
             <Grid >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="13*"/>
+                    <RowDefinition Height="157*"/>
+                </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="110*"/>
                     <ColumnDefinition Width="277*"/>
                 </Grid.ColumnDefinitions>
-                
-                <Image Source="images/homepage.png" Margin="-365,-198,-366,1" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="2">
+
+                <Image Source="images/homepage.png" Margin="-365,-198,-366,1" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="2" Grid.RowSpan="2">
+
                     <Image.RenderTransform>
                         <TransformGroup>
                             <ScaleTransform/>
@@ -33,11 +48,22 @@
                         </TransformGroup>
                     </Image.RenderTransform>
                 </Image>
-                <TextBlock Width="370" Height="50" FontSize="30" FontFamily="Cooper black" Foreground="LightBlue" VerticalAlignment="Top" Margin="200,37,204,0" Grid.ColumnSpan="2"><Run Text="Warehouse Management"/></TextBlock>
-
-                <TextBlock Width="700" FontSize="34" FontFamily="Cooper black" Margin="45,205,29,215" Grid.ColumnSpan="2" Foreground="#f6c348" TextAlignment="Center"><Run Text="Welcome to the homepage admin"/><LineBreak/><Run Text="We hope you have a great time"/><LineBreak/><Run Text="Please Enjoy Your Stay"/></TextBlock>
+                <TextBlock Style="{StaticResource TitleText}" Width="370" Height="50" FontSize="30"  Foreground="LightBlue" VerticalAlignment="Top" Margin="34,37,329,0" Grid.Column="1" Grid.RowSpan="2">
+                    <TextBlock.ContextMenu>
+                        <ContextMenu FontFamily="Segoe UI Historic"/>
+                    </TextBlock.ContextMenu><Run Text="Warehouse Management"/></TextBlock>
+                <!--FontFamily="Cooper black"-->
+                <TextBlock  Width="700" FontSize="34" FontFamily="Cooper black" Margin="170,140,154,215" Grid.ColumnSpan="2" Foreground="#f6c348" TextAlignment="Center" Grid.Row="1"><Run Text="Welcome to the homepage admin"/><LineBreak/><Run Text="We hope you have a great time"/><LineBreak/><Run Text="Please Enjoy Your Stay"/></TextBlock>
                 <!--<Image gif:ImageBehavior.AnimationSpeedRatio="0.8" Margin="0,-35,75,535" gif:ImageBehavior.AnimatedSource="Images\oie_trans.gif" gif:ImageBehavior.RepeatBehavior="Forever"/>-->
-                <Image Height="200" Width="250" Source="/Images/leftup.png" Margin="0,-120,41,670" />
+                <Image Height="200" Source="/Images/leftup.png" Margin="479,-105,84,755" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Bottom" Grid.RowSpan="2" Grid.Column="1">
+                    <Image.RenderTransform>
+                        <ScaleTransform ScaleX="-1"/>
+                    </Image.RenderTransform>
+                </Image>
+                <Image Height="200" Width="175" Source="/Images/leftup.png" Margin="38,-70,79,720" Grid.RowSpan="2" />
+
+
+
 
             </Grid>
         </Border>
