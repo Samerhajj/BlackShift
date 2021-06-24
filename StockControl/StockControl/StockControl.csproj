@@ -253,6 +253,12 @@
   <ItemGroup>
     <Resource Include="Images\oie_trans.gif" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\98900.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\leftup.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

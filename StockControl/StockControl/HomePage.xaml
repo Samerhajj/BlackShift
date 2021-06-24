@@ -36,7 +36,8 @@
                 <TextBlock Width="370" Height="50" FontSize="30" FontFamily="Cooper black" Foreground="LightBlue" VerticalAlignment="Top" Margin="200,37,204,0" Grid.ColumnSpan="2"><Run Text="Warehouse Management"/></TextBlock>
 
                 <TextBlock Width="700" FontSize="34" FontFamily="Cooper black" Margin="45,205,29,215" Grid.ColumnSpan="2" Foreground="#f6c348" TextAlignment="Center"><Run Text="Welcome to the homepage admin"/><LineBreak/><Run Text="We hope you have a great time"/><LineBreak/><Run Text="Please Enjoy Your Stay"/></TextBlock>
-                <Image gif:ImageBehavior.AnimationSpeedRatio="0.8" Margin="0,-35,75,535" gif:ImageBehavior.AnimatedSource="Images\oie_trans.gif" gif:ImageBehavior.RepeatBehavior="Forever"/>
+                <!--<Image gif:ImageBehavior.AnimationSpeedRatio="0.8" Margin="0,-35,75,535" gif:ImageBehavior.AnimatedSource="Images\oie_trans.gif" gif:ImageBehavior.RepeatBehavior="Forever"/>-->
+                <Image Height="200" Width="250" Source="/Images/leftup.png" Margin="0,-120,41,670" />
 
             </Grid>
         </Border>
