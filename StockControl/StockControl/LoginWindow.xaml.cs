@@ -57,7 +57,7 @@ namespace StockControl
                 }
                 else
                 {
-                    MessageBox.Show("Incorrect username or password,\nPlease use admin as username and password", "Incorrecnt Input", MessageBoxButton.OKCancel, MessageBoxImage.Error);
+                    MessageBox.Show("Incorrect username or password,\nPlease use admin as username and password", "Incorrect Input", MessageBoxButton.OKCancel, MessageBoxImage.Error);
                     txtUsername.Text = "";
                     txtPassword.Clear();
                 }

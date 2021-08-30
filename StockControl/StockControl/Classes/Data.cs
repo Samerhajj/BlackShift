@@ -50,8 +50,8 @@ namespace StockControl
             var line = st.ReadLine();
             var values = line.Split(',');
             SettingsParams.Tax = Convert.ToDouble(values[0]);
-            SettingsParams.MaterialHandlerWage = Convert.ToDouble(values[2]);
-            SettingsParams.WarehouseWorkerWage = Convert.ToDouble(values[3]);
+            SettingsParams.MaterialHandlerWage = Convert.ToDouble(values[1]);
+            SettingsParams.WarehouseWorkerWage = Convert.ToDouble(values[2]);
             SettingsParams.WarehousePackerWage = Convert.ToDouble(values[3]);
         }//Reads all the settings params
 
